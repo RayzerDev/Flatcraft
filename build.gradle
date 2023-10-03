@@ -1,0 +1,30 @@
+/*
+ * La configuration de Gradle pour compiler et exécuter le projet.
+ */
+
+// Les plugins permettant à Gradle de gérer le projet en tant qu'application JavaFX.
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+// Les dépôts d'où les dépendances doivent être téléchargées.
+repositories {
+    mavenCentral()
+}
+
+// La version du langage Java utilisée dans le projet.
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+// Le nom de la classe contenant la méthode "main".
+application {
+    mainClass = 'fr.univartois.butinfo.r304.flatcraft.Flatcraft'
+}
+
+// La version de JavaFX utilisée dans le projet, et les composants requis.
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}

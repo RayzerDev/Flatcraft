@@ -1,0 +1,16 @@
+# Fichiers de compilation Java.
+*.class
+*.jar
+
+# Fichiers de compilation Gradle.
+build
+.gradle
+
+# Fichiers d'Eclipse.
+bin
+.classpath
+.project
+.settings
+
+# Divers.
+.DS_Store

@@ -1,0 +1,6 @@
+/*
+ * Les paramètres du projet Gradle.
+ * Normalement, seul le nom du projet doit apparaître ici.
+ */
+
+rootProject.name = 'flatcraft'
