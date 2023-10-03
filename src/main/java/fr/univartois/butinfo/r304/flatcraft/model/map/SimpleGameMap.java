@@ -75,7 +75,7 @@ public final class SimpleGameMap implements GameMap {
     private void init() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                cells[i][j] = new SimpleCell(i, j);
+                cells[i][j] = null;
             }
         }
     }

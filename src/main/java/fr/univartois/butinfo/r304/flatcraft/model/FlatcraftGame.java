@@ -76,7 +76,7 @@ public final class FlatcraftGame {
     /**
      * La représentation du joueur.
      */
-    private Object player;
+    private IMovable player;
 
     /**
      * La liste des objets mobiles du jeu.
