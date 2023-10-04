@@ -184,14 +184,28 @@ public final class FlatcraftGame {
      * Fait se déplacer le joueur vers la gauche.
      */
     public void moveLeft() {
-        // TODO Implémentez cette méthode.
+        double speed = player.getHorizontalSpeed();
+        if(speed>0){
+            moveRight();
+        }
+        else {
+            player.setHorizontalSpeed(-10);
+            move(player);
+        }
     }
 
     /**
      * Fait se déplacer le joueur vers la droite.
      */
     public void moveRight() {
-        // TODO Implémentez cette méthode.
+        double speed = player.getHorizontalSpeed();
+        if(speed<0){
+            moveLeft();
+        }
+        else{
+            player.setHorizontalSpeed(10);
+            move(player);
+        }
     }
 
     /**
@@ -213,7 +227,7 @@ public final class FlatcraftGame {
      * Interrompt le déplacement du joueur.
      */
     public void stopMoving() {
-        // TODO Implémentez cette méthode.
+
     }
 
     /**
