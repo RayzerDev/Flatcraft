@@ -19,6 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -76,7 +77,7 @@ public final class FlatcraftGame {
     /**
      * La représentation du joueur.
      */
-    private IMovable player;
+    private Player player = new Player(this,0,0,spriteStore.getSprite("player"));
 
     /**
      * La liste des objets mobiles du jeu.
@@ -141,9 +142,12 @@ public final class FlatcraftGame {
         controller.prepare(map);
 
         // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
-
+        movableObjects.add(player);
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
-
+        controller.bindTime(time);
+        controller.bindLevel(level);
+        controller.bindXP( player.getXpProperty());
+        controller.bindHealth( player.getHealthProperty());
         // On démarre l'animation du jeu.
         animation.start();
     }
