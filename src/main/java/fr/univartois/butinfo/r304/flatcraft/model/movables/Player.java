@@ -18,7 +18,7 @@ public class Player extends AbstractMovable{
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Player(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Player(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         inventory = FXCollections.observableHashMap();
     }
