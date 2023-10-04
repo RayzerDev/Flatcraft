@@ -21,6 +21,30 @@ public class Player extends AbstractMovable{
     protected Player(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         inventory = FXCollections.observableHashMap();
-
     }
+
+    public int getHealth() {
+        return health.get();
+    }
+
+    public int getXp() {
+        return xp.get();
+    }
+
+    public ObservableMap<Resource, Integer> getInventory() {
+        return inventory;
+    }
+
+    public void setHealth(int health) {
+        this.health.set(health);
+    }
+
+    public void setXp(int xp) {
+        this.xp.set(xp);
+    }
+
+    public void setInventory(ObservableMap<Resource, Integer> inventory) {
+        this.inventory = inventory;
+    }
+
 }
