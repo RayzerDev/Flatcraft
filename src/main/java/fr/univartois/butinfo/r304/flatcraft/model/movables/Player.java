@@ -54,7 +54,7 @@ public class Player extends AbstractMovable{
     /**
     Méthode qui ajoute une ressource.
      */
-    private void addInventory(Resource r){
+    public void addInventory(Resource r){
         if(inventory.containsKey(r)){
             inventory.replace(r,inventory.get(r)+1);
         }
@@ -65,7 +65,7 @@ public class Player extends AbstractMovable{
     /**
      Méthode qui supprime une ressource.
      */
-    private void delInventory(Resource r){
+    public void delInventory(Resource r){
         if(inventory.containsKey(r)) {
             if((inventory.get(r))==1){
                 inventory.remove(r);
