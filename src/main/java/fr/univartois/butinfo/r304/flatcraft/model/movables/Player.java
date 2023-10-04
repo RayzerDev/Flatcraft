@@ -26,9 +26,14 @@ public class Player extends AbstractMovable{
     public int getHealth() {
         return health.get();
     }
-
+    public IntegerProperty getHealthProperty() {
+        return health;
+    }
     public int getXp() {
         return xp.get();
+    }
+    public IntegerProperty getXpProperty() {
+        return xp;
     }
 
     public ObservableMap<Resource, Integer> getInventory() {
