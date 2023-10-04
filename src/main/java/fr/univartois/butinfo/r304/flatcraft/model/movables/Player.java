@@ -46,5 +46,27 @@ public class Player extends AbstractMovable{
     public void setInventory(ObservableMap<Resource, Integer> inventory) {
         this.inventory = inventory;
     }
-
+    /**
+    Méthode qui ajoute une ressource.
+     */
+    private void addInventory(Resource r){
+        if(inventory.containsKey(r)){
+            inventory.replace(r,inventory.get(r)+1);
+        }
+        else{
+            inventory.put(r,1);
+        }
+    }
+    /**
+     Méthode qui supprime une ressource.
+     */
+    private void delInventory(Resource r){
+        if(inventory.containsKey(r)) {
+            if((inventory.get(r))==1){
+                inventory.remove(r);
+            } else{
+                inventory.remove(r,1);
+            }
+        }
+    }
 }
