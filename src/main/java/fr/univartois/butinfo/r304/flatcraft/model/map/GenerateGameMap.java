@@ -7,11 +7,9 @@ import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import static java.lang.Math.round;
 
 public class GenerateGameMap{
-    int heigth;
-    int width;
-    int soilHeigth;
+
     CellFactory factory;
-    ISpriteStore spriteStore;
+
     public GenerateGameMap(int heigth, int width, int soilHeigth){
         SimpleGameMap map = new SimpleGameMap(heigth,width,soilHeigth);
         for(int i=0;i<heigth;i++){
