@@ -227,7 +227,8 @@ public final class FlatcraftGame {
      * Interrompt le déplacement du joueur.
      */
     public void stopMoving() {
-
+        player.setHorizontalSpeed(0);
+        player.setVerticalSpeed(0);
     }
 
     /**
