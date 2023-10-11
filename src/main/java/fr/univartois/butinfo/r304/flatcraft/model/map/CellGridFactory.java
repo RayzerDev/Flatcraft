@@ -4,43 +4,33 @@ import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
-import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
+import java.util.Random;
 
 public class CellGridFactory implements CellFactory {
+    private Random RANDOM = new Random();
 
-    @Override
-    public Cell createEmptyCell(int row, int column, Sprite sprite) {
-        CellGrid cellGrid = new CellGrid(row, column);
-        cellGrid = new CellGrid(sprite);
-        return cellGrid;
-    }
-
-    @Override
-    public Cell createResourceCell(int row, int column, Sprite sprite, Resource resource) {
-        CellGrid cellGrid = new CellGrid(row, column);
-        cellGrid = new CellGrid(sprite);
-        cellGrid = new CellGrid(resource);
-        return cellGrid;
-    }
-
+    ISpriteStore spriteStore;
     @Override
     public void setSpriteStore(ISpriteStore spriteStore) {
-
+        this.spriteStore = spriteStore;
     }
 
     @Override
     public Cell createSky() {
-        return null;
+        if (RANDOM.nextInt(100)<20){
+            return new CellGrid(this.spriteStore.getSprite("cloud"));
+        }
+        return new CellGrid(this.spriteStore.getSprite("ice"));
     }
 
     @Override
     public Cell createSoilSurface() {
-        return null;
+        return new CellGrid(spriteStore.getSprite("grass"));
     }
 
     @Override
     public Cell createSubSoil() {
-        return null;
+        return new CellGrid(this.spriteStore.getSprite("dirt"));
     }
 
     @Override

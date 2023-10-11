@@ -28,13 +28,7 @@ public class CellGrid extends AbstractCell{
             movable.setY((int) newY);
 
             return true;
-        } else {
-            return false;
         }
-    }
-
-    @Override
-    public boolean dig(IMovable player) {
         return false;
     }
 
