@@ -16,7 +16,9 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model;
 
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
+import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 /**
  * L'interface {@link CellFactory} permet de créer les différentes cellules composant la
@@ -28,6 +30,10 @@ import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
  * @version 0.1.0
  */
 public interface CellFactory {
+
+    Cell createEmptyCell(int row, int column, Sprite sprite);
+
+    Cell createResourceCell(int row, int column, Sprite sprite, Resource resource);
 
     /**
      * Associe à cette fabrique l'instance de {@link ISpriteStore} permettant de créer les

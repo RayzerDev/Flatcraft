@@ -5,7 +5,7 @@ import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
-public abstract class CellGrid extends AbstractCell{
+public class CellGrid extends AbstractCell{
     public CellGrid(int row, int column) {
         super(row, column);
     }
@@ -31,6 +31,11 @@ public abstract class CellGrid extends AbstractCell{
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean dig(IMovable player) {
+        return false;
     }
 
     @Override
