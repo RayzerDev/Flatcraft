@@ -284,7 +284,11 @@ public final class FlatcraftGame {
      * @param toDig La cellule sur laquelle creuser.
      */
     private void dig(Cell toDig) {
-
+        boolean ressourceEx = toDig.dig(player);
+        if (ressourceEx){
+            Cell cell = cellFactory.createSky();
+            map.setAt(cell.getRow(), cell.getColumn(), cell);
+        }
     }
 
     /**
