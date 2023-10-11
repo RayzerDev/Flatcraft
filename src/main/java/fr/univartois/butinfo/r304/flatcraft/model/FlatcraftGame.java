@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -77,7 +78,7 @@ public final class FlatcraftGame {
     /**
      * La représentation du joueur.
      */
-    private IMovable player;
+    private Player player;
 
     /**
      * La liste des objets mobiles du jeu.
@@ -142,9 +143,13 @@ public final class FlatcraftGame {
         controller.prepare(map);
 
         // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
-
+        player = new Player(this,0,0,spriteStore.getSprite("player"));
+        movableObjects.add(player);
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
-
+        controller.bindTime(time);
+        controller.bindLevel(level);
+        controller.bindXP( player.getXpProperty());
+        controller.bindHealth( player.getHealthProperty());
         // On démarre l'animation du jeu.
         animation.start();
     }
@@ -190,14 +195,28 @@ public final class FlatcraftGame {
      * Fait se déplacer le joueur vers la gauche.
      */
     public void moveLeft() {
-        // TODO Implémentez cette méthode.
+        double speed = player.getHorizontalSpeed();
+        if(speed>0){
+            moveRight();
+        }
+        else {
+            player.setHorizontalSpeed(-10);
+            move(player);
+        }
     }
 
     /**
      * Fait se déplacer le joueur vers la droite.
      */
     public void moveRight() {
-        // TODO Implémentez cette méthode.
+        double speed = player.getHorizontalSpeed();
+        if(speed<0){
+            moveLeft();
+        }
+        else{
+            player.setHorizontalSpeed(10);
+            move(player);
+        }
     }
 
     /**
@@ -219,7 +238,8 @@ public final class FlatcraftGame {
      * Interrompt le déplacement du joueur.
      */
     public void stopMoving() {
-        // TODO Implémentez cette méthode.
+        player.setHorizontalSpeed(0);
+        player.setVerticalSpeed(0);
     }
 
     /**
@@ -240,7 +260,11 @@ public final class FlatcraftGame {
      * Fait creuser le joueur vers le bas.
      */
     public void digDown() {
-        // TODO Implémentez cette méthode.
+        Cell cellNow = getCellOf(player);
+        if (cellNow.getRow()< map.getHeight()-1){
+            dig(map.getAt(cellNow.getRow()+1, cellNow.getColumn()));
+        }
+        move(player);
     }
 
     /**
