@@ -1,6 +1,7 @@
 package fr.univartois.butinfo.r304.flatcraft.model.map;
 
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
@@ -36,4 +37,19 @@ public class CellGrid extends AbstractCell{
     public boolean dig(IMovable player) {
         return false;
     }
+
+    @Override
+    public boolean dig(Player player) {
+        Resource resource = getResource();
+        if (resource != null) {
+            resource.dig();
+            if (resource.getHardness() == 0) {
+                player.addInventory(resource);
+                getResourceProperty().set(null);
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
