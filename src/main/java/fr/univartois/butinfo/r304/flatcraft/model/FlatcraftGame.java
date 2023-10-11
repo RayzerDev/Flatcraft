@@ -77,7 +77,7 @@ public final class FlatcraftGame {
     /**
      * La représentation du joueur.
      */
-    private Player player = new Player(this,0,0,spriteStore.getSprite("player"));
+    private Player player;
 
     /**
      * La liste des objets mobiles du jeu.
@@ -142,6 +142,7 @@ public final class FlatcraftGame {
         controller.prepare(map);
 
         // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
+        player = new Player(this,0,0,spriteStore.getSprite("player"));
         movableObjects.add(player);
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
