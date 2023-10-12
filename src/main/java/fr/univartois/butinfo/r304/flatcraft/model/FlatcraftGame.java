@@ -143,7 +143,7 @@ public final class FlatcraftGame {
         controller.prepare(map);
 
         // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
-        player = new Player(this,map.getWidth(), map.getHeight()/2, spriteStore.getSprite("stick"));
+        player = new Player(this,map.getWidth()*8, map.getSoilHeight()*15, spriteStore.getSprite("stick"));
         controller.addMovable(player);
         movableObjects.add(player);
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
