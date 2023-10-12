@@ -190,7 +190,7 @@ public final class FlatcraftGame {
             moveUp();
         }
         else {
-            player.setVerticalSpeed(10);
+            player.setVerticalSpeed(-10);
             move(player);
         }
     }
@@ -205,7 +205,7 @@ public final class FlatcraftGame {
             moveDown();
         }
         else {
-            player.setVerticalSpeed(-10);
+            player.setVerticalSpeed(10);
             move(player);
         }
     }
@@ -216,7 +216,7 @@ public final class FlatcraftGame {
     public void moveLeft() {
         double speed = player.getHorizontalSpeed();
         if(speed>0){
-            moveRight();
+            moveLeft();
         }
         else {
             player.setHorizontalSpeed(-10);
@@ -230,7 +230,7 @@ public final class FlatcraftGame {
     public void moveRight() {
         double speed = player.getHorizontalSpeed();
         if(speed<0){
-            moveLeft();
+            moveRight();
         }
         else{
             player.setHorizontalSpeed(10);
