@@ -143,7 +143,7 @@ public final class FlatcraftGame {
         controller.prepare(map);
 
         // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
-        player = new Player(this,0, map.getSoilHeight(), spriteStore.getSprite("stick"));
+        player = new Player(this,map.getWidth()/2, map.getSoilHeight()+1, spriteStore.getSprite("tool_bronzeaxe"));
         movableObjects.add(player);
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
@@ -183,6 +183,14 @@ public final class FlatcraftGame {
      */
     public void moveUp() {
         // TODO Implémentez cette méthode.
+        double speed = player.getVerticalSpeed();
+        if(speed>0){
+            moveUp();
+        }
+        else {
+            player.setVerticalSpeed(10);
+            move(player);
+        }
     }
 
     /**
@@ -190,6 +198,14 @@ public final class FlatcraftGame {
      */
     public void moveDown() {
         // TODO Implémentez cette méthode.
+        double speed = player.getVerticalSpeed();
+        if(speed>0){
+            moveDown();
+        }
+        else {
+            player.setVerticalSpeed(-10);
+            move(player);
+        }
     }
 
     /**
