@@ -36,11 +36,11 @@ public class CellGridFactory implements CellFactory {
 
     @Override
     public Cell createTrunk() {
-        return null;
+        return new CellGrid(new Resource("tree",this.spriteStore.getSprite("tree"), ToolType.NO_TOOL,1));
     }
 
     @Override
     public Cell createLeaves() {
-        return null;
+        return new CellGrid(new Resource("leaves",this.spriteStore.getSprite("leaves"), ToolType.MEDIUM_TOOL,1));
     }
 }
