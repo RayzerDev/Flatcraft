@@ -40,8 +40,8 @@ public class CellGrid extends AbstractCell{
             if (resource.getHardness() == 0) {
                 player.addInventory(resource);
                 getResourceProperty().set(null);
+                return true;
             }
-            return true;
         }
         return false;
     }
