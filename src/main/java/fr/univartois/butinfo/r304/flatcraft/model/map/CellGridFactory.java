@@ -18,7 +18,7 @@ public class CellGridFactory implements CellFactory {
 
     @Override
     public Cell createSky() {
-        if (RANDOM.nextInt(100)<20){
+        if (RANDOM.nextInt(100)<5){
             return new CellGrid(this.spriteStore.getSprite("cloud"));
         }
         return new CellGrid(this.spriteStore.getSprite("ice"));

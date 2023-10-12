@@ -22,7 +22,7 @@ public class Player extends AbstractMovable{
     public Player(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         inventory = FXCollections.observableHashMap();
-        health = new SimpleIntegerProperty();
+        health = new SimpleIntegerProperty(100);
         xp = new SimpleIntegerProperty();
     }
 
