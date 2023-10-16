@@ -190,7 +190,7 @@ public final class FlatcraftGame {
             moveUp();
         }
         else {
-            player.setVerticalSpeed(-10);
+            player.setVerticalSpeed(-30);
             move(player);
         }
     }
@@ -205,7 +205,7 @@ public final class FlatcraftGame {
             moveDown();
         }
         else {
-            player.setVerticalSpeed(10);
+            player.setVerticalSpeed(30);
             move(player);
         }
     }
@@ -219,7 +219,7 @@ public final class FlatcraftGame {
             moveLeft();
         }
         else {
-            player.setHorizontalSpeed(-10);
+            player.setHorizontalSpeed(-30);
             move(player);
         }
     }
@@ -233,7 +233,7 @@ public final class FlatcraftGame {
             moveRight();
         }
         else{
-            player.setHorizontalSpeed(10);
+            player.setHorizontalSpeed(30);
             move(player);
         }
     }
