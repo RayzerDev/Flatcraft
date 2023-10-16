@@ -186,9 +186,12 @@ public final class FlatcraftGame {
     public void moveUp() {
         // TODO Implémentez cette méthode.
         double speed = player.getVerticalSpeed();
-        if(speed>=0) {
-            player.setVerticalSpeed(-30);
+        if(speed<=0) {
+            player.setVerticalSpeed(-50);
             move(player);
+        }
+        else{
+            stopMoving();
         }
     }
 
@@ -198,9 +201,12 @@ public final class FlatcraftGame {
     public void moveDown() {
         // TODO Implémentez cette méthode.
         double speed = player.getVerticalSpeed();
-        if(speed<=0) {
-            player.setVerticalSpeed(30);
+        if(speed>=0) {
+            player.setVerticalSpeed(50);
             move(player);
+        }
+        else{
+            stopMoving();
         }
         digDown();
     }
@@ -210,9 +216,12 @@ public final class FlatcraftGame {
      */
     public void moveLeft() {
         double speed = player.getHorizontalSpeed();
-        if(speed>=0) {
-            player.setHorizontalSpeed(-30);
+        if(speed<=0){
+            player.setHorizontalSpeed(-100);
             move(player);
+        }
+        else{
+            stopMoving();
         }
         digLeft();
     }
@@ -222,9 +231,12 @@ public final class FlatcraftGame {
      */
     public void moveRight() {
         double speed = player.getHorizontalSpeed();
-        if(speed<=0){
-            player.setHorizontalSpeed(30);
+        if(speed>=0){
+            player.setHorizontalSpeed(100);
             move(player);
+        }
+        else{
+            stopMoving();
         }
         digRight();
     }
