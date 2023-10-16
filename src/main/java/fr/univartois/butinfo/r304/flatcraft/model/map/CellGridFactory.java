@@ -26,6 +26,9 @@ public class CellGridFactory implements CellFactory {
 
     @Override
     public Cell createSoilSurface() {
+        if (RANDOM.nextInt(100)<5){
+            return new CellGrid(this.spriteStore.getSprite("water"));
+        }
         return new CellGrid(new Resource("grass",this.spriteStore.getSprite("grass"), ToolType.NO_TOOL,1));
     }
 
