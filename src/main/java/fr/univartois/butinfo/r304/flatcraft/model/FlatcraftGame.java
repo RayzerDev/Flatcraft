@@ -202,6 +202,7 @@ public final class FlatcraftGame {
             player.setVerticalSpeed(30);
             move(player);
         }
+        digDown();
     }
 
     /**
@@ -213,6 +214,7 @@ public final class FlatcraftGame {
             player.setHorizontalSpeed(-30);
             move(player);
         }
+        digLeft();
     }
 
     /**
@@ -224,6 +226,7 @@ public final class FlatcraftGame {
             player.setHorizontalSpeed(30);
             move(player);
         }
+        digRight();
     }
 
     /**
@@ -305,7 +308,7 @@ public final class FlatcraftGame {
         boolean ressourceEx = toDig.dig(player);
         if (ressourceEx){
             Cell cell = cellFactory.createSky();
-            map.setAt(cell.getRow(), cell.getColumn(), cell);
+            toDig.replaceBy(cell);
         }
     }
 
