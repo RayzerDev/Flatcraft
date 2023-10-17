@@ -1,21 +1,132 @@
 @startuml
+class SpriteStore {
+- Map<String,Sprite> spriteCache
++ Sprite getSprite(String)
+- Image loadImage(String)
+}
+interface Cell {
+~ int getRow()
+~ int getColumn()
+~ Sprite getSprite()
+~ ObjectProperty<Sprite> getSpriteProperty()
+~ Resource getResource()
+~ ObjectProperty<Resource> getResourceProperty()
+~ void replaceBy(Cell)
+~ boolean move(IMovable)
+~ boolean dig(Player)
+}
+interface ISpriteStore {
+~ Sprite getSprite(String)
+~ int getSpriteSize()
+}
+class FlatcraftAnimation {
+- {static} long ONE_HOUR
+- FlatcraftGame game
+- List<IMovable> movableObjects
+- long previousTimestamp
+- long previousHour
++ void start()
++ void handle(long)
+- void moveObjects(long)
+- void updateHour(long)
+}
+interface IMovable {
+~ int getWidth()
+~ int getHeight()
+~ void setX(int)
+~ int getX()
+~ DoubleProperty getXProperty()
+~ void setY(int)
+~ int getY()
+~ DoubleProperty getYProperty()
+~ void setHorizontalSpeed(double)
+~ double getHorizontalSpeed()
+~ void setVerticalSpeed(double)
+~ double getVerticalSpeed()
+~ void setSprite(Sprite)
+~ Sprite getSprite()
+~ ObjectProperty<Sprite> getSpriteProperty()
+~ boolean move(long)
+~ IMovable self()
+}
+class Flatcraft {
+- {static} int GAME_WIDTH
+- {static} int GAME_HEIGHT
++ void start(Stage)
++ {static} void main(String[])
+}
+class MyGenarateMap {
+- int heigth
+- int width
+- Random RANDOM
+- CellFactory factory
++ void setSpriteStore(ISpriteStore)
++ GameMap createMap()
+}
 class CellGrid {
 + boolean move(IMovable)
 + boolean dig(Player)
 }
-abstract AbstractCell {
-- int row
-- int column
-- ObjectProperty<Sprite> spriteProperty
-- ObjectProperty<Resource> resourceProperty
-+ int getRow()
-+ int getColumn()
-+ Sprite getSprite()
-+ ObjectProperty<Sprite> getSpriteProperty()
-+ Resource getResource()
-+ ObjectProperty<Resource> getResourceProperty()
-+ void replaceBy(Cell)
-+ {abstract}boolean dig(Player)
+interface CellFactory {
+~ void setSpriteStore(ISpriteStore)
+~ Cell createSky()
+~ Cell createSoilSurface()
+~ Cell createSubSoil()
+~ Cell createTrunk()
+~ Cell createLeaves()
+}
+enum ToolType {
++  NO_TOOL
++  MEDIUM_TOOL
++  HARD_TOOL
+}
+interface GameMap {
+~ int getHeight()
+~ int getWidth()
+~ int getSoilHeight()
+~ Cell getAt(int,int)
+~ void setAt(int,int,Cell)
+}
+class FlatcraftGame {
+- int width
+- int height
+- IFlatcraftController controller
+- ISpriteStore spriteStore
+- CellFactory cellFactory
+- GameMap map
+- IntegerProperty time
+- IntegerProperty level
+- Player player
+- List<IMovable> movableObjects
+- FlatcraftAnimation animation
++ int getWidth()
++ int getHeight()
++ void setController(IFlatcraftController)
++ void prepare()
+- GameMap createMap()
+~ void oneHour()
++ void moveUp()
++ void moveDown()
++ void moveLeft()
++ void moveRight()
+- void move(IMovable)
++ void stopMoving()
++ void jump()
++ void digUp()
++ void digDown()
++ void digLeft()
++ void digRight()
+- void dig(Cell)
+- Cell getCellOf(IMovable)
+}
+interface IFlatcraftController {
+~ void setGame(FlatcraftGame)
+~ void prepare(GameMap)
+~ void bindTime(IntegerProperty)
+~ void bindXP(IntegerProperty)
+~ void bindHealth(IntegerProperty)
+~ void bindLevel(IntegerProperty)
+~ void addMovable(IMovable)
 }
 class CellGridFactory {
 - Random RANDOM
@@ -27,31 +138,9 @@ class CellGridFactory {
 + Cell createTrunk()
 + Cell createLeaves()
 }
-class MyGenarateMap {
-- int heigth
-- int width
-- Random RANDOM
-- CellFactory factory
-+ void setSpriteStore(ISpriteStore)
-+ GameMap createMap()
-}
-class SimpleGameMap {
-- Cell[][] cells
-- int height
-- int width
-- int soilHeight
-- void init()
-+ int getHeight()
-+ int getWidth()
-+ int getSoilHeight()
-+ Cell getAt(int,int)
-+ void setAt(int,int,Cell)
-}
-
 class Player {
 - IntegerProperty health
 - ObservableMap<Resource,Integer> inventory
-+ <<Create>> Player(FlatcraftGame,double,double,Sprite)
 + int getHealth()
 + IntegerProperty getHealthProperty()
 + int getXp()
@@ -70,7 +159,6 @@ abstract class AbstractMovable {
 # double horizontalSpeed
 # double verticalSpeed
 # ObjectProperty<Sprite> sprite
-# <<Create>> AbstractMovable(FlatcraftGame,double,double,Sprite)
 + int getWidth()
 + int getHeight()
 + void setX(int)
@@ -92,11 +180,17 @@ abstract class AbstractMovable {
 + int hashCode()
 + boolean equals(Object)
 }
-
-enum ToolType {
-+  NO_TOOL
-+  MEDIUM_TOOL
-+  HARD_TOOL
+class SimpleGameMap {
+- Cell[][] cells
+- int height
+- int width
+- int soilHeight
+- void init()
++ int getHeight()
++ int getWidth()
++ int getSoilHeight()
++ Cell getAt(int,int)
++ void setAt(int,int,Cell)
 }
 class Resource {
 - String name
@@ -112,12 +206,61 @@ class Resource {
 + int hashCode()
 + boolean equals(Object)
 }
+abstract class AbstractCell {
+- int row
+- int column
+- ObjectProperty<Sprite> spriteProperty
+- ObjectProperty<Resource> resourceProperty
++ int getRow()
++ int getColumn()
++ Sprite getSprite()
++ ObjectProperty<Sprite> getSpriteProperty()
++ Resource getResource()
++ ObjectProperty<Resource> getResourceProperty()
++ void replaceBy(Cell)
++ {abstract}boolean dig(Player)
+}
+class Sprite {
+- Image image
++ int getWidth()
++ int getHeight()
++ Image getImage()
+}
+class FlatcraftController {
+- FlatcraftGame game
+- Stage stage
+- Pane background
+- Pane mainPane
+- Label time
+- Label xp
+- Label health
+- Label level
+- HBox inventory
++ void setStage(Stage)
++ void setGame(FlatcraftGame)
++ void prepare(GameMap)
+- void createBackground(GameMap)
+- void addKeyListeners()
++ void bindTime(IntegerProperty)
++ void bindXP(IntegerProperty)
++ void bindHealth(IntegerProperty)
++ void bindLevel(IntegerProperty)
++ void addMovable(IMovable)
+- void move(KeyCode)
+- void dig(KeyCode)
+~ void showCraftTable()
+~ void showFurnace()
+}
 
 
+ISpriteStore <|.. SpriteStore
+javafx.animation.AnimationTimer <|-- FlatcraftAnimation
+javafx.application.Application <|-- Flatcraft
+AbstractCell <|-- CellGrid
+CellFactory <|.. CellGridFactory
 AbstractMovable <|-- Player
 IMovable <|.. AbstractMovable
-AbstractCell <|-- CellGrid
-Cell <|.. AbstractCell
-CellFactory <|.. CellGridFactory
 GameMap <|.. SimpleGameMap
+Cell <|.. AbstractCell
+IFlatcraftController <|.. FlatcraftController
 @enduml
