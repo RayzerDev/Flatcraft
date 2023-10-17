@@ -48,6 +48,56 @@ class SimpleGameMap {
 + void setAt(int,int,Cell)
 }
 
+class Player {
+- IntegerProperty health
+- ObservableMap<Resource,Integer> inventory
++ <<Create>> Player(FlatcraftGame,double,double,Sprite)
++ int getHealth()
++ IntegerProperty getHealthProperty()
++ int getXp()
++ IntegerProperty getXpProperty()
++ ObservableMap<Resource,Integer> getInventory()
++ void setHealth(int)
++ void setXp(int)
++ void setInventory(ObservableMap<Resource,Integer>)
++ void addInventory(Resource)
++ void delInventory(Resource)
+}
+abstract class AbstractMovable {
+# FlatcraftGame game
+# DoubleProperty xPosition
+# DoubleProperty yPosition
+# double horizontalSpeed
+# double verticalSpeed
+# ObjectProperty<Sprite> sprite
+# <<Create>> AbstractMovable(FlatcraftGame,double,double,Sprite)
++ int getWidth()
++ int getHeight()
++ void setX(int)
++ int getX()
++ DoubleProperty getXProperty()
++ void setY(int)
++ int getY()
++ DoubleProperty getYProperty()
++ void setHorizontalSpeed(double)
++ double getHorizontalSpeed()
++ void setVerticalSpeed(double)
++ double getVerticalSpeed()
++ void setSprite(Sprite)
++ Sprite getSprite()
++ ObjectProperty<Sprite> getSpriteProperty()
++ boolean move(long)
+- {static} double updatePosition(double,double,long,int,int)
++ IMovable self()
++ int hashCode()
++ boolean equals(Object)
+}
+
+
+AbstractMovable <|-- Player
+IMovable <|.. AbstractMovable
+
+
 
 AbstractCell <|-- CellGrid
 Cell <|.. AbstractCell
