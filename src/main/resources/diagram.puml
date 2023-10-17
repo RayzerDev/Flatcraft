@@ -1,0 +1,56 @@
+@startuml
+class CellGrid {
++ boolean move(IMovable)
++ boolean dig(Player)
+}
+abstract AbstractCell {
+- int row
+- int column
+- ObjectProperty<Sprite> spriteProperty
+- ObjectProperty<Resource> resourceProperty
++ int getRow()
++ int getColumn()
++ Sprite getSprite()
++ ObjectProperty<Sprite> getSpriteProperty()
++ Resource getResource()
++ ObjectProperty<Resource> getResourceProperty()
++ void replaceBy(Cell)
++ {abstract}boolean dig(Player)
+}
+class CellGridFactory {
+- Random RANDOM
+~ ISpriteStore spriteStore
++ void setSpriteStore(ISpriteStore)
++ Cell createSky()
++ Cell createSoilSurface()
++ Cell createSubSoil()
++ Cell createTrunk()
++ Cell createLeaves()
+}
+class MyGenarateMap {
+- int heigth
+- int width
+- Random RANDOM
+- CellFactory factory
++ void setSpriteStore(ISpriteStore)
++ GameMap createMap()
+}
+class SimpleGameMap {
+- Cell[][] cells
+- int height
+- int width
+- int soilHeight
+- void init()
++ int getHeight()
++ int getWidth()
++ int getSoilHeight()
++ Cell getAt(int,int)
++ void setAt(int,int,Cell)
+}
+
+
+AbstractCell <|-- CellGrid
+Cell <|.. AbstractCell
+CellFactory <|.. CellGridFactory
+GameMap <|.. SimpleGameMap
+@enduml
