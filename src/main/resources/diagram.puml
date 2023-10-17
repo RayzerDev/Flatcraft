@@ -93,12 +93,29 @@ abstract class AbstractMovable {
 + boolean equals(Object)
 }
 
+enum ToolType {
++  NO_TOOL
++  MEDIUM_TOOL
++  HARD_TOOL
+}
+class Resource {
+- String name
+- Sprite sprite
+- ToolType toolType
+- int hardness
++ String getName()
++ Sprite getSprite()
++ ToolType getToolType()
++ int getHardness()
++ void dig()
++ Resource digBlock()
++ int hashCode()
++ boolean equals(Object)
+}
+
 
 AbstractMovable <|-- Player
 IMovable <|.. AbstractMovable
-
-
-
 AbstractCell <|-- CellGrid
 Cell <|.. AbstractCell
 CellFactory <|.. CellGridFactory
