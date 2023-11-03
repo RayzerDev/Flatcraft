@@ -127,7 +127,7 @@ public final class FlatcraftController implements IFlatcraftController {
     }
 
     /**
-     * Crée l'arrière plan du jeu.
+     * Crée l'arrière-plan du jeu.
      *
      * @param map La carte du jeu à partir de laquelle créer l'arrière-plan.
      */

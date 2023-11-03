@@ -39,7 +39,7 @@ public final class Resource {
     /**
      * Le sprite représentant cette ressource.
      */
-    private Sprite sprite;
+    private final Sprite sprite;
 
     /**
      * Le type d'outils nécessaire pour extraire cette ressource de la carte.
@@ -116,8 +116,8 @@ public final class Resource {
      * Donne un coup sur cette ressource pour l'extraire de la carte.
      * Cela réduit sa dureté.
      *
-     * @throws IllegalStateException Si la dureté de la ressource est déjà égale à
-     *         {@code 0}.
+     * @throws IllegalStateException Si la dureté de la ressource est déjà égale
+     *         à {@code 0}.
      */
     public void dig() {
         if (hardness <= 0) {

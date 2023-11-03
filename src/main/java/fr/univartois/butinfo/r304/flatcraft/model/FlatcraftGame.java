@@ -159,8 +159,8 @@ public final class FlatcraftGame {
     }
 
     /**
-     * Indique à cette partie de Flatcraft qu'une nouvelle heure s'est écoulée (dans le
-     * jeu).
+     * Indique à cette partie de Flatcraft qu'une nouvelle heure s'est écoulée
+     * (dans le jeu).
      */
     void oneHour() {
         time.set((time.get() + 1) % 24);
