@@ -19,8 +19,10 @@ package fr.univartois.butinfo.r304.flatcraft;
 import java.io.IOException;
 
 import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
+import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
+import fr.univartois.butinfo.r304.flatcraft.model.map.EndCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.NetherCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.OverworldCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
@@ -64,6 +66,7 @@ public final class Flatcraft extends Application {
 
         CellFactory overworldCellFactory = new OverworldCellFactory();
         CellFactory netherCellFactory = new NetherCellFactory();
+        CellFactory endCellFactory = new EndCellFactory();
         
 
         CellFactory cellFactory = new OverworldCellFactory();
