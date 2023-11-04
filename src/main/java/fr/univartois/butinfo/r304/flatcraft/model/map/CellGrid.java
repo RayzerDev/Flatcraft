@@ -21,12 +21,8 @@ public class CellGrid extends AbstractCell{
     @Override
     public boolean move(IMovable movable) {
         if (getResource() == null) {
-            double newX = getColumn() * getSprite().getWidth();
-            double newY = getRow() * getSprite().getHeight();
-
-            movable.setX((int) newX);
-            movable.setY((int) newY);
-
+            movable.setX(getColumn() * getSprite().getWidth());
+            movable.setY(getRow() * getSprite().getHeight());
             return true;
         }
         return false;
@@ -39,7 +35,6 @@ public class CellGrid extends AbstractCell{
             resource.dig();
             if (resource.getHardness() == 0) {
                 player.addInventory(resource);
-                getResourceProperty().set(null);
                 return true;
             }
         }

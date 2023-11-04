@@ -5,6 +5,8 @@ import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
+import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
+
 import java.util.Random;
 
 public class CellGridFactory implements CellFactory {
@@ -16,34 +18,91 @@ public class CellGridFactory implements CellFactory {
         this.spriteStore = spriteStore;
     }
 
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createSky()
+     */
     @Override
     public Cell createSky() {
-        if (RANDOM.nextInt(100)<5){
-            return new CellGrid(this.spriteStore.getSprite("cloud"));
+        if (RANDOM.nextInt(10) < 1) {
+            return createCell("cloud");
         }
-        return new CellGrid(this.spriteStore.getSprite("ice"));
+        return createCell("ice");
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createSoilSurface()
+     */
     @Override
     public Cell createSoilSurface() {
-        if (RANDOM.nextInt(100)<5){
-            return new CellGrid(this.spriteStore.getSprite("water"));
+        if (RANDOM.nextInt(10) < 1) {
+            return createResourceCell("junglegrass");
         }
-        return new CellGrid(new Resource("grass",this.spriteStore.getSprite("grass"), ToolType.NO_TOOL,1));
+
+        if (RANDOM.nextInt(10) < 2) {
+            return createResourceCell("water");
+        }
+
+        return createResourceCell("grass");
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createSubSoil()
+     */
     @Override
     public Cell createSubSoil() {
-        return new CellGrid(new Resource("dirt",this.spriteStore.getSprite("dirt"), ToolType.NO_TOOL,1));
+        return createResourceCell("dirt");
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createTrunk()
+     */
     @Override
     public Cell createTrunk() {
-        return new CellGrid(new Resource("tree",this.spriteStore.getSprite("tree"), ToolType.NO_TOOL,1));
+        return createCell("tree");
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createLeaves()
+     */
     @Override
     public Cell createLeaves() {
-        return new CellGrid(new Resource("leaves",this.spriteStore.getSprite("leaves"), ToolType.MEDIUM_TOOL,1));
+        return createCell("leaves");
     }
+
+
+    /**
+     * Crée une cellule affichant le sprite ayant le nom donné.
+     *
+     * @param name Le nom du sprite de la cellule à créer.
+     *
+     * @return La cellule créée.
+     */
+    private Cell createCell(String name) {
+        Sprite sprite = spriteStore.getSprite(name);
+        return new CellGrid(sprite);
+    }
+
+    /**
+     * Crée une cellule contenant la ressource ayant le nom donné.
+     *
+     * @param name Le nom du sprite de la ressource contenue dans la cellule à créer.
+     *
+     * @return La cellule créée.
+     */
+    private Cell createResourceCell(String name) {
+        Sprite sprite = spriteStore.getSprite(name);
+        return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
+    }
+
 }
