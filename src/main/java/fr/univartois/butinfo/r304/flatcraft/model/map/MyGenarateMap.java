@@ -17,7 +17,7 @@ public class MyGenarateMap {
     public MyGenarateMap(int heigth, int width) {
         this.heigth = heigth;
         this.width = width;
-        factory = new CellGridFactory();
+        factory = new OverworldCellFactory();
     }
 
     public void setSpriteStore(ISpriteStore spriteStore) {
