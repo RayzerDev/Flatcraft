@@ -143,11 +143,12 @@ public final class FlatcraftGame {
         controller.prepare(map);
 
         // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
-        player = new Player(this,map.getWidth()*8, map.getSoilHeight()*15, spriteStore.getSprite("stick"));
+        player = new Player(this, 0., (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),
+                spriteStore.getSprite("tool_steelpick"));
         controller.addMovable(player);
         movableObjects.add(player);
-        // TODO On fait le lien entre les différentes propriétés et leur affichage.
 
+        // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
         controller.bindLevel(level);
         controller.bindXP( player.getXpProperty());
@@ -184,49 +185,30 @@ public final class FlatcraftGame {
      * Fait se déplacer le joueur vers le haut.
      */
     public void moveUp() {
-        // TODO Implémentez cette méthode.
-        double speed = player.getVerticalSpeed();
-        if(speed>=0) {
-            player.setVerticalSpeed(-30);
-            move(player);
-        }
+
     }
 
     /**
      * Fait se déplacer le joueur vers le bas.
      */
     public void moveDown() {
-        // TODO Implémentez cette méthode.
-        double speed = player.getVerticalSpeed();
-        if(speed<=0) {
-            player.setVerticalSpeed(30);
-            move(player);
-        }
-        digDown();
+
     }
 
     /**
      * Fait se déplacer le joueur vers la gauche.
      */
     public void moveLeft() {
-        double speed = player.getHorizontalSpeed();
-        if(speed>=0) {
-            player.setHorizontalSpeed(-30);
-            move(player);
-        }
-        digLeft();
+        player.setHorizontalSpeed(-150);
+        move(player);
     }
 
     /**
      * Fait se déplacer le joueur vers la droite.
      */
     public void moveRight() {
-        double speed = player.getHorizontalSpeed();
-        if(speed<=0){
-            player.setHorizontalSpeed(30);
-            move(player);
-        }
-        digRight();
+        player.setHorizontalSpeed(150);
+        move(player);
     }
 
     /**
@@ -273,8 +255,8 @@ public final class FlatcraftGame {
         Cell cellNow = getCellOf(player);
         if (cellNow.getRow()< map.getHeight()-1){
             dig(map.getAt(cellNow.getRow()+1, cellNow.getColumn()));
+            move(player);
         }
-        move(player);
     }
 
     /**
@@ -282,10 +264,11 @@ public final class FlatcraftGame {
      */
     public void digLeft() {
         Cell cellNow = getCellOf(player);
-        if (cellNow.getColumn()>0){
+        if (cellNow.getColumn()-1>0){
             dig(map.getAt(cellNow.getRow(), cellNow.getColumn()-1));
+            move(player);
         }
-        move(player);
+
     }
 
     /**
@@ -295,8 +278,8 @@ public final class FlatcraftGame {
         Cell cellNow = getCellOf(player);
         if (cellNow.getColumn()< map.getHeight()-1){
             dig(map.getAt(cellNow.getRow(), cellNow.getColumn()+1));
+            move(player);
         }
-        move(player);
     }
 
     /**
@@ -305,10 +288,8 @@ public final class FlatcraftGame {
      * @param toDig La cellule sur laquelle creuser.
      */
     private void dig(Cell toDig) {
-        boolean ressourceEx = toDig.dig(player);
-        if (ressourceEx){
-            Cell cell = cellFactory.createSky();
-            toDig.replaceBy(cell);
+        if (toDig.dig(player)) {
+            toDig.replaceBy(cellFactory.createSky());
         }
     }
 
