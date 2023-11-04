@@ -19,7 +19,6 @@ package fr.univartois.butinfo.r304.flatcraft;
 import java.io.IOException;
 
 import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
-import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.map.EndCellFactory;
