@@ -9,7 +9,7 @@ import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 import java.util.Random;
 
-public class CellGridFactory implements CellFactory {
+public class OverworldGridFactory implements CellFactory {
     private Random RANDOM = new Random();
 
     ISpriteStore spriteStore;

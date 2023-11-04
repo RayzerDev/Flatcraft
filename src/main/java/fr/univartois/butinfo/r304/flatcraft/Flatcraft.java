@@ -21,7 +21,8 @@ import java.io.IOException;
 import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
-import fr.univartois.butinfo.r304.flatcraft.model.map.CellGridFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.NetherCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.OverworldCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -61,8 +62,12 @@ public final class Flatcraft extends Application {
         FlatcraftController controller = fxmlLoader.getController();
         controller.setStage(stage);
 
-        // On crée ensuite le jeu, que l'on lie au contrôleur.
-        CellFactory cellFactory = new CellGridFactory();
+        CellFactory overworldCellFactory = new OverworldCellFactory();
+        CellFactory netherCellFactory = new NetherCellFactory();
+        
+
+        CellFactory cellFactory = new OverworldCellFactory();
+
         FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), cellFactory);
         controller.setGame(game);
         game.setController(controller);
