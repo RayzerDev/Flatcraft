@@ -22,6 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.LinearMobMovement;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -151,7 +152,8 @@ public final class FlatcraftGame {
 
         // On créé un mob passif
         PassiveMob mob = new PassiveMob(this, map.getWidth()/2 * spriteStore.getSpriteSize(),
-                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"));
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+                new LinearMobMovement());
         controller.addMovable(mob);
         movableObjects.add(mob);
 
@@ -207,7 +209,6 @@ public final class FlatcraftGame {
      */
     public void moveLeft() {
         player.setHorizontalSpeed(-150);
-        move(player);
     }
 
     /**
@@ -215,7 +216,6 @@ public final class FlatcraftGame {
      */
     public void moveRight() {
         player.setHorizontalSpeed(150);
-        move(player);
     }
 
     /**
