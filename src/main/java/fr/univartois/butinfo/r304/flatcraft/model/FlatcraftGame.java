@@ -21,6 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -147,6 +148,12 @@ public final class FlatcraftGame {
                 spriteStore.getSprite("tool_steelpick"));
         controller.addMovable(player);
         movableObjects.add(player);
+
+        // On créé un mob passif
+        PassiveMob mob = new PassiveMob(this, map.getWidth()/2 * spriteStore.getSpriteSize(),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"));
+        controller.addMovable(mob);
+        movableObjects.add(mob);
 
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
