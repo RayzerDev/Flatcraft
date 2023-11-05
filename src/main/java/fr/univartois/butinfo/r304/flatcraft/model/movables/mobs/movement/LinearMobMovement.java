@@ -6,6 +6,6 @@ public final class LinearMobMovement implements IMobMovementStrategy {
 
     @Override
     public void move(AbstractMob mob) {
-
+        mob.setHorizontalSpeed(150);
     }
 }
