@@ -2,9 +2,10 @@ package fr.univartois.butinfo.r304.flatcraft.model.movables.mobs;
 
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.AbstractMovable;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IMobMovementStrategy;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
-public class PassiveMob extends AbstractMovable {
+public class PassiveMob extends AbstractMob {
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -13,7 +14,7 @@ public class PassiveMob extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public PassiveMob(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite) {
-        super(game, xPosition, yPosition, sprite);
+    public PassiveMob(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite, IMobMovementStrategy movementStrategy) {
+        super(game, xPosition, yPosition, sprite, movementStrategy);
     }
 }
