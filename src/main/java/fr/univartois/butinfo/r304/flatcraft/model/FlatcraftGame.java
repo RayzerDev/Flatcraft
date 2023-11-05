@@ -159,13 +159,13 @@ public final class FlatcraftGame {
         controller.addMovable(mobLin);
         movableObjects.add(mobLin);
 
-        PassiveMob mobRan = new PassiveMob(this, map.getWidth()/2 * spriteStore.getSpriteSize(),
+        PassiveMob mobRan = new PassiveMob(this, map.getWidth()/3 * spriteStore.getSpriteSize(),
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
                 new RandomMobMovement());
         controller.addMovable(mobRan);
         movableObjects.add(mobLin);
 
-        PassiveMob mobInt = new PassiveMob(this, map.getWidth()/2 * spriteStore.getSpriteSize(),
+        PassiveMob mobInt = new PassiveMob(this, map.getWidth()/4 * spriteStore.getSpriteSize(),
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
                 new IntelligentMobMovement(player));
         controller.addMovable(mobInt);
