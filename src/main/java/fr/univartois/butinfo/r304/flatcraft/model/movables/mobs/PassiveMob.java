@@ -1,9 +1,10 @@
-package fr.univartois.butinfo.r304.flatcraft.model.movables;
+package fr.univartois.butinfo.r304.flatcraft.model.movables.mobs;
 
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
-public class PassiveMob extends AbstractMovable{
+public class PassiveMob extends AbstractMovable {
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
