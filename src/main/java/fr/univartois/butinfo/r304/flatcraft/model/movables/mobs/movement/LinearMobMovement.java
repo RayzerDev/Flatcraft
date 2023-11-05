@@ -1,8 +1,11 @@
 package fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement;
 
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.AbstractMob;
+
 public final class LinearMobMovement implements IMobMovementStrategy {
+
     @Override
-    public void movement() {
+    public void move(AbstractMob mob) {
 
     }
 }

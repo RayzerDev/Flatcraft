@@ -20,7 +20,7 @@ public abstract class AbstractMob extends AbstractMovable {
         super(game, xPosition, yPosition, sprite);
         this.movementStrategy = movement;
     }
-    private void movement(){
-        movementStrategy.movement();
+    private void move(){
+        movementStrategy.move(this);
     }
 }
