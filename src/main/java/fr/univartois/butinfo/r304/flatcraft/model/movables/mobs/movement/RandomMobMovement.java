@@ -7,6 +7,14 @@ public final class RandomMobMovement implements IMobMovementStrategy {
     private static final Random random = new Random();
     @Override
     public void move(AbstractMob mob) {
-        mob.setHorizontalSpeed(random.nextDouble(-150,150));
+        if(mob.getHorizontalSpeed()>=0) {
+            mob.setHorizontalSpeed(random.nextDouble(80));
+        }
+        else {
+            mob.setHorizontalSpeed(random.nextDouble(-80,0));
+        }
+        if(random.nextInt(100)>98){
+            mob.setHorizontalSpeed(mob.getHorizontalSpeed()*-1);
+        }
     }
 }
