@@ -64,7 +64,7 @@ public final class Flatcraft extends Application {
         controller.setStage(stage);
 
 
-        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), new EndCellFactory());
+        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), new OverworldCellFactory());
         controller.setGame(game);
         game.setController(controller);
         game.prepare();
