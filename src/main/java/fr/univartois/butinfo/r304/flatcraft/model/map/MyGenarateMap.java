@@ -40,6 +40,10 @@ public class MyGenarateMap {
                 }
             }
         }
+
+        TerrilGenerator terrilGenerator = new TerrilGenerator(factory);
+        terrilGenerator.generateTerril(map, 5);
+        
         return map;
     }
 
