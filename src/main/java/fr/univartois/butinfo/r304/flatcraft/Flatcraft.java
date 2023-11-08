@@ -22,6 +22,8 @@ import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.map.CellGridFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap1;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -58,15 +60,19 @@ public final class Flatcraft extends Application {
         // On commence par charger la vue et son contrôleur.
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/flatcraft.fxml"));
         Parent viewContent = fxmlLoader.load();
+        SpriteStore spriteStore = new SpriteStore();
         FlatcraftController controller = fxmlLoader.getController();
+        IFabricMap fabricMap = new MyGenarateMap1(GAME_HEIGHT/ spriteStore.getSpriteSize(),GAME_WIDTH/ spriteStore.getSpriteSize());
         controller.setStage(stage);
 
         // On crée ensuite le jeu, que l'on lie au contrôleur.
         CellFactory cellFactory = new CellGridFactory();
-        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), cellFactory);
+        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, spriteStore, cellFactory);
         controller.setGame(game);
         game.setController(controller);
+        game.setFabricMap(fabricMap);
         game.prepare();
+
 
         // On peut maintenant afficher la scène et la fenêtre.
         Scene scene = new Scene(viewContent, GAME_WIDTH, GAME_HEIGHT);
