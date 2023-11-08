@@ -19,7 +19,8 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap1;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IntelligentMobMovement;
@@ -68,6 +69,8 @@ public final class FlatcraftGame {
      * La carte du jeu, sur laquelle le joueur évolue.
      */
     private GameMap map;
+
+    private IFabricMap fabricMap;
 
     /**
      * Le temps écoulé depuis le début de la partie.
@@ -187,12 +190,8 @@ public final class FlatcraftGame {
      */
     private GameMap createMap() {
         // TODO Implémentez cette méthode.
-        int spriteSize = spriteStore.getSpriteSize();
-        int cellHeigth = height/spriteSize;
-        int cellWidth = width/spriteSize;
-        MyGenarateMap myMap = new MyGenarateMap(cellHeigth, cellWidth, cellFactory);
-        myMap.setSpriteStore(spriteStore);
-        map = myMap.createMap();
+        fabricMap.setSpriteStore(spriteStore);
+        map = fabricMap.createMapB();
         return map;
     }
 
@@ -335,4 +334,7 @@ public final class FlatcraftGame {
         return map.getAt(row, column);
     }
 
+    public void setFabricMap(IFabricMap fabricMap) {
+        this.fabricMap = fabricMap;
+    }
 }
