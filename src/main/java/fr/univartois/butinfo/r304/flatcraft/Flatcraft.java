@@ -45,7 +45,7 @@ public final class Flatcraft extends Application {
      */
     private static final int GAME_WIDTH = 1280;
 
-    /**
+     /**
      * La hauteur (en pixels) de la fenêtre affichant le jeu.
      */
     private static final int GAME_HEIGHT = 720;
@@ -63,11 +63,8 @@ public final class Flatcraft extends Application {
         FlatcraftController controller = fxmlLoader.getController();
         controller.setStage(stage);
 
-        CellFactory overworldCellFactory = new OverworldCellFactory();
-        CellFactory netherCellFactory = new NetherCellFactory();
-        CellFactory endCellFactory = new EndCellFactory();
 
-        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), overworldCellFactory);
+        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), new EndCellFactory());
         controller.setGame(game);
         game.setController(controller);
         game.prepare();
