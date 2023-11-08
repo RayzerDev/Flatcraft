@@ -14,13 +14,14 @@ public abstract class AbstractMob extends AbstractMovable {
      * @param xPosition La position en x initiale de l'objet.
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
-     * @param movement
      */
     protected AbstractMob(FlatcraftGame game, double xPosition, double yPosition, Sprite sprite, IMobMovementStrategy movement) {
         super(game, xPosition, yPosition, sprite);
         this.movementStrategy = movement;
     }
-    private void move(){
+    @Override
+    public boolean move(long delta){
         movementStrategy.move(this);
+        return super.move(delta);
     }
 }

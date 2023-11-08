@@ -16,18 +16,26 @@ public class IntelligentMobMovement implements IMobMovementStrategy{
 
     @Override
     public void move(AbstractMob mob) {
-        int distancePlayer = Math.abs(player.getWidth()-mob.getWidth());
-        if(distancePlayer > 3) {
-            if (distancePlayer <= 20) {
-                if (player.getWidth() > mob.getWidth()) {
-                    mob.setHorizontalSpeed(100);
+        int distancePlayer = Math.abs(player.getX()-mob.getX());
+        if(distancePlayer > 10) {
+            if (distancePlayer <= 110) {
+                if (player.getX() > mob.getX()) {
+                    mob.setHorizontalSpeed(80);
                 }
                 else{
-                    mob.setHorizontalSpeed(-100);
+                    mob.setHorizontalSpeed(-80);
                 }
             }
             else {
-                mob.setHorizontalSpeed(random.nextDouble(-100,100));
+                if(mob.getHorizontalSpeed()>=0) {
+                    mob.setHorizontalSpeed(random.nextDouble(80));
+                }
+                else {
+                    mob.setHorizontalSpeed(random.nextDouble(-80,0));
+                }
+                if(random.nextInt(1000)>998){
+                    mob.setHorizontalSpeed(mob.getHorizontalSpeed()*-1);
+                }
             }
         }
     }
