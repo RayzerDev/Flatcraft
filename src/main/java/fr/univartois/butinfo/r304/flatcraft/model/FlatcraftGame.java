@@ -21,6 +21,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IntelligentMobMovement;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.LinearMobMovement;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.RandomMobMovement;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -148,6 +152,25 @@ public final class FlatcraftGame {
         controller.addMovable(player);
         movableObjects.add(player);
 
+        // On créé 3 mobs passifs
+        PassiveMob mobLin = new PassiveMob(this, map.getWidth()/2 * spriteStore.getSpriteSize(),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+                new LinearMobMovement());
+        controller.addMovable(mobLin);
+        movableObjects.add(mobLin);
+
+        PassiveMob mobRan = new PassiveMob(this, map.getWidth()/3 * spriteStore.getSpriteSize(),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+                new RandomMobMovement());
+        controller.addMovable(mobRan);
+        movableObjects.add(mobLin);
+
+        PassiveMob mobInt = new PassiveMob(this, map.getWidth()/4 * spriteStore.getSpriteSize(),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+                new IntelligentMobMovement(player));
+        controller.addMovable(mobInt);
+        movableObjects.add(mobLin);
+
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
         controller.bindLevel(level);
@@ -200,7 +223,6 @@ public final class FlatcraftGame {
      */
     public void moveLeft() {
         player.setHorizontalSpeed(-150);
-        move(player);
     }
 
     /**
@@ -208,7 +230,6 @@ public final class FlatcraftGame {
      */
     public void moveRight() {
         player.setHorizontalSpeed(150);
-        move(player);
     }
 
     /**
