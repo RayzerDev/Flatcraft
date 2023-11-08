@@ -14,10 +14,10 @@ public class MyGenarateMap {
     private final Random RANDOM = new Random();
     private CellFactory factory;
 
-    public MyGenarateMap(int heigth, int width) {
+    public MyGenarateMap(int heigth, int width, CellFactory factory) {
         this.heigth = heigth;
         this.width = width;
-        factory = new CellGridFactory();
+        this.factory=factory;
     }
 
     public void setSpriteStore(ISpriteStore spriteStore) {

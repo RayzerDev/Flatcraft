@@ -163,13 +163,13 @@ public final class FlatcraftGame {
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
                 new RandomMobMovement());
         controller.addMovable(mobRan);
-        movableObjects.add(mobLin);
+        movableObjects.add(mobRan);
 
         PassiveMob mobInt = new PassiveMob(this, map.getWidth()/4 * spriteStore.getSpriteSize(),
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
                 new IntelligentMobMovement(player));
         controller.addMovable(mobInt);
-        movableObjects.add(mobLin);
+        movableObjects.add(mobInt);
 
         // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
@@ -190,7 +190,7 @@ public final class FlatcraftGame {
         int spriteSize = spriteStore.getSpriteSize();
         int cellHeigth = height/spriteSize;
         int cellWidth = width/spriteSize;
-        MyGenarateMap myMap = new MyGenarateMap(cellHeigth, cellWidth);
+        MyGenarateMap myMap = new MyGenarateMap(cellHeigth, cellWidth, cellFactory);
         myMap.setSpriteStore(spriteStore);
         map = myMap.createMap();
         return map;
