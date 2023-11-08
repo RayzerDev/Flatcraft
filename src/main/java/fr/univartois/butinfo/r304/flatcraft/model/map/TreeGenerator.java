@@ -21,11 +21,10 @@ public class TreeGenerator {
     	for (int i = 0; i < numberOfTrees; i++) {
     	    int trunkHeight = random.nextInt(maxTrunkHeight) + 1;
     	    int trunkStartX = random.nextInt(maxTrunkStartX);
-    	    int baseHeight = soilHeight - trunkHeight; // La base du tronc commence au sol
+    	    int baseHeight = soilHeight - trunkHeight;
 
-    	    // Génération des branches horizontales
     	    for (int h = 0; h < 3; h++) {
-    	        for (int w = -2; w <= 2; w++) {
+    	        for (int w = -1; w <= 1; w++) {
     	            Cell cell = factory.createLeaves();
     	            int x = trunkStartX + w;
     	            int y = baseHeight + trunkHeight + h;
@@ -33,12 +32,11 @@ public class TreeGenerator {
     	        }
     	    }
 
-    	    // Génération du tronc
     	    for (int h = 0; h < trunkHeight; h++) {
     	        Cell cell = factory.createTrunk();
     	        int x = trunkStartX;
     	        int y = baseHeight + h;
-    	        map.setAt(y, x, cell);
+    	        map.setAt(x, y, cell);
     	    }
     	}
     }
