@@ -8,7 +8,8 @@ import java.util.Random;
 
 public class TerrilGenerator {
 
-    private final Random random = new Random();
+    private Random random = new Random();
+    
     private CellFactory factory;
 
     public TerrilGenerator(CellFactory factory) {
@@ -16,20 +17,16 @@ public class TerrilGenerator {
     }
 
     public void generateTerril(GameMap map, int maxTerrilSize) {
-        int terrilSize = random.nextInt(maxTerrilSize) + 1; // Taille du terril aléatoire
-        int soilHeight = map.getSoilHeight();
+    	int soilHeight = map.getSoilHeight();
+        int terrilStartX = random.nextInt(map.getWidth() - 1);
 
-        // Vérification des limites de la carte
-        if (terrilSize + soilHeight >= map.getHeight()) {
-            terrilSize = map.getHeight() - soilHeight - 1;
-        }
-
-        for (int i = 0; i < terrilSize; i++) {
-            for (int j = 0; j < i * 2 + 1; j++) {
+        for (int i = maxTerrilSize; i > 0; i--) {
+            for (int j = 0; j < i * 2 - 1; j++) {
                 Cell cell = factory.createSubSoil();
-                map.setAt(soilHeight - i, j, cell);
+                int x = terrilStartX + j - i + 1;
+                int y = soilHeight - maxTerrilSize + i - 1;
+                map.setAt(y, x, cell);
             }
         }
-
     }
 }
