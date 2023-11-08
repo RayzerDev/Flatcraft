@@ -19,13 +19,13 @@ public class MyGenarateMap1 implements IFabricMap{
     public MyGenarateMap1(int heigth, int width) {
         this.heigth = heigth;
         this.width = width;
-        factory = new OverworldCellFactory();
     }
 
     public void setSpriteStore(ISpriteStore spriteStore) {
         factory.setSpriteStore(spriteStore);
     }
     public GameMap createMapA() {
+        factory = new EndCellFactory();
         int soilHeigth = heigth/2;
         SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
         for (int i = 0; i < heigth; i++) {
@@ -47,6 +47,7 @@ public class MyGenarateMap1 implements IFabricMap{
 
     @Override
     public GameMap createMapB() {
+        factory = new OverworldCellFactory();
         int MAXTAILLEARBRE = 5;
         int soilHeigth = round(heigth/2);
         SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
@@ -75,6 +76,27 @@ public class MyGenarateMap1 implements IFabricMap{
 
                 }
                 else {
+                    Cell cell = factory.createSubSoil();
+                    map.setAt(i, j, cell);
+                }
+            }
+        }
+        return map;
+    }
+
+    public GameMap createMapC() {
+        factory = new NetherCellFactory();
+        int soilHeigth = heigth/2;
+        SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
+        for (int i = 0; i < heigth; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i < soilHeigth) {
+                    Cell cell = factory.createSky();
+                    map.setAt(i, j, cell);
+                } else if (i == soilHeigth) {
+                    Cell cell = factory.createSoilSurface();
+                    map.setAt(i, j, cell);
+                } else {
                     Cell cell = factory.createSubSoil();
                     map.setAt(i, j, cell);
                 }
