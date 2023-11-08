@@ -24,7 +24,6 @@ import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.map.EndCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.NetherCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.OverworldCellFactory;
-import fr.univartois.butinfo.r304.flatcraft.model.map.CellGridFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap1;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;

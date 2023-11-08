@@ -19,7 +19,7 @@ public class MyGenarateMap1 implements IFabricMap{
     public MyGenarateMap1(int heigth, int width) {
         this.heigth = heigth;
         this.width = width;
-        factory = new CellGridFactory();
+        factory = new OverworldCellFactory();
     }
 
     public void setSpriteStore(ISpriteStore spriteStore) {
