@@ -67,7 +67,7 @@ public class CellGridFactory implements CellFactory {
      */
     @Override
     public Cell createTrunk() {
-        return createCell("tree");
+        return createResourceCell("tree");
     }
 
     /*
@@ -77,7 +77,7 @@ public class CellGridFactory implements CellFactory {
      */
     @Override
     public Cell createLeaves() {
-        return createCell("leaves");
+        return createResourceCell("leaves");
     }
 
 

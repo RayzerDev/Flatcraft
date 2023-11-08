@@ -19,7 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap1;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IntelligentMobMovement;
@@ -190,9 +190,9 @@ public final class FlatcraftGame {
         int spriteSize = spriteStore.getSpriteSize();
         int cellHeigth = height/spriteSize;
         int cellWidth = width/spriteSize;
-        MyGenarateMap myMap = new MyGenarateMap(cellHeigth, cellWidth);
+        MyGenarateMap1 myMap = new MyGenarateMap1(cellHeigth, cellWidth);
         myMap.setSpriteStore(spriteStore);
-        map = myMap.createMap();
+        map = myMap.createMapB();
         return map;
     }
 
