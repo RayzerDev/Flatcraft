@@ -18,12 +18,12 @@ public class EndCellFactory implements CellFactory {
 
     @Override
     public Cell createSky() {
-        return createCell("black_sky");
+        return createCell("coal_block");
     }
 
     @Override
     public Cell createSoilSurface() {
-        return createResourceCell("end_stone");
+        return createResourceCell("sandstone");
     }
 
     @Override

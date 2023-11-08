@@ -21,13 +21,13 @@ public class NetherCellFactory implements CellFactory {
 
     @Override
     public Cell createSky() {
-        return createCell("netherrack");
+        return createCell("sky");
     }
 
     @Override
     public Cell createSoilSurface() {
         if (RANDOM.nextInt(10) < 4) {
-            return createResourceCell("netherrack");
+            return createResourceCell("desert_stone");
         }
 
         return createResourceCell("lava");
