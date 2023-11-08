@@ -14,30 +14,36 @@ public class MyGenarateMap1 implements IFabricMap{
     private int width;
 
     private final Random RANDOM = new Random();
-    private CellFactory factory;
+    private CellFactory cellFactory;
 
-    public MyGenarateMap1(int heigth, int width) {
+
+    public MyGenarateMap1(int heigth, int width, CellFactory factory) {
         this.heigth = heigth;
         this.width = width;
+        this.cellFactory = factory;
     }
 
     public void setSpriteStore(ISpriteStore spriteStore) {
-        factory.setSpriteStore(spriteStore);
+        cellFactory.setSpriteStore(spriteStore);
     }
+
+    public void setCellFactory(CellFactory cellFactory) {
+        this.cellFactory = cellFactory;
+    }
+
     public GameMap createMapA() {
-        factory = new EndCellFactory();
         int soilHeigth = heigth/2;
         SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
         for (int i = 0; i < heigth; i++) {
             for (int j = 0; j < width; j++) {
                 if (i < soilHeigth) {
-                    Cell cell = factory.createSky();
+                    Cell cell = cellFactory.createSky();
                     map.setAt(i, j, cell);
                 } else if (i == soilHeigth) {
-                    Cell cell = factory.createSoilSurface();
+                    Cell cell = cellFactory.createSoilSurface();
                     map.setAt(i, j, cell);
                 } else {
-                    Cell cell = factory.createSubSoil();
+                    Cell cell = cellFactory.createSubSoil();
                     map.setAt(i, j, cell);
                 }
             }
@@ -47,28 +53,27 @@ public class MyGenarateMap1 implements IFabricMap{
 
     @Override
     public GameMap createMapB() {
-        factory = new OverworldCellFactory();
         int MAXTAILLEARBRE = 5;
         int soilHeigth = round(heigth/2);
         SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
         for (int i = 0; i < heigth; i++) {
             for (int j = 0; j < width; j++) {
                 if (i < soilHeigth) {
-                    Cell cell = factory.createSky();
+                    Cell cell = cellFactory.createSky();
                     map.setAt(i, j, cell);
                 } else if (i == soilHeigth) {
-                    Cell cell = factory.createSoilSurface();
+                    Cell cell = cellFactory.createSoilSurface();
                     map.setAt(i, j, cell);
                     if(RANDOM.nextInt(100)<30 && j > 2 && j < width-3
                             && cell.getResource().getName().equals("grass")
                             && map.getAt(i-1,j-1).getResource()==null
                             ){
-                        cell = factory.createTrunk();
+                        cell = cellFactory.createTrunk();
                         int tailleArbre = RANDOM.nextInt(2,MAXTAILLEARBRE);
                         for(int h = 0;h<=tailleArbre;h++) {
                             map.setAt(i-1-h, j, cell);
                         }
-                        cell = factory.createLeaves();
+                        cell = cellFactory.createLeaves();
                         map.setAt(i-tailleArbre,j-1,cell);
                         map.setAt(i-tailleArbre-1,j,cell);
                         map.setAt(i-tailleArbre,j+1,cell);
@@ -76,7 +81,7 @@ public class MyGenarateMap1 implements IFabricMap{
 
                 }
                 else {
-                    Cell cell = factory.createSubSoil();
+                    Cell cell = cellFactory.createSubSoil();
                     map.setAt(i, j, cell);
                 }
             }
@@ -85,24 +90,25 @@ public class MyGenarateMap1 implements IFabricMap{
     }
 
     public GameMap createMapC() {
-        factory = new NetherCellFactory();
         int soilHeigth = heigth/2;
         SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
         for (int i = 0; i < heigth; i++) {
             for (int j = 0; j < width; j++) {
                 if (i < soilHeigth) {
-                    Cell cell = factory.createSky();
+                    Cell cell = cellFactory.createSky();
                     map.setAt(i, j, cell);
                 } else if (i == soilHeigth) {
-                    Cell cell = factory.createSoilSurface();
+                    Cell cell = cellFactory.createSoilSurface();
                     map.setAt(i, j, cell);
                 } else {
-                    Cell cell = factory.createSubSoil();
+                    Cell cell = cellFactory.createSubSoil();
                     map.setAt(i, j, cell);
                 }
             }
         }
         return map;
     }
+
+
 
 }
