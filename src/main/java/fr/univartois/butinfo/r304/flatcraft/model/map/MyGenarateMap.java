@@ -40,6 +40,15 @@ public class MyGenarateMap {
                 }
             }
         }
+
+        TerrilGenerator terrilGenerator = new TerrilGenerator(factory);
+        terrilGenerator.generateTerril(map, 5);
+        
+        TreeGenerator treeGenerator = new TreeGenerator(factory);
+	    int numberOfTrees = 2;
+	    int maxTrunkHeight = 3;
+	    treeGenerator.generateTrees(map, numberOfTrees, maxTrunkHeight);
+
         return map;
     }
 
