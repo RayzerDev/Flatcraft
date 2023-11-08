@@ -66,11 +66,8 @@ public final class Flatcraft extends Application {
         CellFactory overworldCellFactory = new OverworldCellFactory();
         CellFactory netherCellFactory = new NetherCellFactory();
         CellFactory endCellFactory = new EndCellFactory();
-        
 
-        CellFactory cellFactory = new OverworldCellFactory();
-
-        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), cellFactory);
+        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), overworldCellFactory);
         controller.setGame(game);
         game.setController(controller);
         game.prepare();
