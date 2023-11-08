@@ -36,7 +36,7 @@ public class TreeGenerator {
     	        Cell cell = factory.createTrunk();
     	        int x = trunkStartX;
     	        int y = baseHeight + h;
-    	        map.setAt(x, y, cell);
+    	        map.setAt(y, x, cell);
     	    }
     	}
     }
