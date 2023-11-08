@@ -21,7 +21,7 @@ public class NetherCellFactory implements CellFactory {
 
     @Override
     public Cell createSky() {
-        return createCell("sky");
+        return createCell("coal_block");
     }
 
     @Override
@@ -29,13 +29,12 @@ public class NetherCellFactory implements CellFactory {
         if (RANDOM.nextInt(10) < 4) {
             return createResourceCell("desert_stone");
         }
-
         return createResourceCell("lava");
     }
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("dirt");
+        return createResourceCell("desert_stone");
     }
 
     @Override

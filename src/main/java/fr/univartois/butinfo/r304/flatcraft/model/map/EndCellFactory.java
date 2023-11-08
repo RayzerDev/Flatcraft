@@ -28,7 +28,7 @@ public class EndCellFactory implements CellFactory {
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("dirt");
+        return createResourceCell("sandstone");
     }
 
     @Override
