@@ -19,6 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;

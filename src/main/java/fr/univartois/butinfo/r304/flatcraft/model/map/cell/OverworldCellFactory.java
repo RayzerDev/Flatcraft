@@ -1,7 +1,6 @@
-package fr.univartois.butinfo.r304.flatcraft.model.map;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
-import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
@@ -22,7 +21,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createSky()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createSky()
      */
     @Override
     public Cell createSky() {
@@ -35,7 +34,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createSoilSurface()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createSoilSurface()
      */
     @Override
     public Cell createSoilSurface() {
@@ -53,7 +52,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createSubSoil()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createSubSoil()
      */
     @Override
     public Cell createSubSoil() {
@@ -63,7 +62,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createTrunk()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createTrunk()
      */
     @Override
     public Cell createTrunk() {
@@ -73,7 +72,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.CellFactory#createLeaves()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createLeaves()
      */
     @Override
     public Cell createLeaves() {
