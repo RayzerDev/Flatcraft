@@ -1,11 +1,12 @@
-package fr.univartois.butinfo.r304.flatcraft.model.map;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.AbstractCell;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
-public class CellGrid extends AbstractCell{
+public class CellGrid extends AbstractCell {
     public CellGrid(int row, int column) {
         super(row, column);
     }
