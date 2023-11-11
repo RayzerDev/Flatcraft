@@ -193,7 +193,7 @@ public final class FlatcraftGame {
         int cellWidth = width/spriteSize;
         MyGenarateMap myMap = new MyGenarateMap(cellHeigth, cellWidth, cellFactory);
         myMap.setSpriteStore(spriteStore);
-        map = myMap.createMap();
+        map = myMap.createMapA();
         return map;
     }
 
