@@ -11,6 +11,10 @@ import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 public class EndCellFactory implements CellFactory {
     ISpriteStore spriteStore;
 
+    private static EndCellFactory instance = new EndCellFactory();
+
+    private EndCellFactory(){}
+
     @Override
     public void setSpriteStore(ISpriteStore spriteStore) {
         this.spriteStore = spriteStore;
@@ -49,5 +53,9 @@ public class EndCellFactory implements CellFactory {
     private Cell createResourceCell(String name) {
         Sprite sprite = spriteStore.getSprite(name);
         return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
+    }
+
+    public static EndCellFactory getInstance() {
+        return instance;
     }
 }

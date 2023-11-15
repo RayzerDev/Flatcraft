@@ -14,6 +14,10 @@ public class NetherCellFactory implements CellFactory {
     private final Random RANDOM = new Random();
     ISpriteStore spriteStore;
 
+    private static NetherCellFactory instance = new NetherCellFactory();
+
+    private NetherCellFactory(){}
+
     @Override
     public void setSpriteStore(ISpriteStore spriteStore) {
         this.spriteStore = spriteStore;
@@ -55,5 +59,9 @@ public class NetherCellFactory implements CellFactory {
     private Cell createResourceCell(String name) {
         Sprite sprite = spriteStore.getSprite(name);
         return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
+    }
+
+    public static NetherCellFactory getInstance() {
+        return instance;
     }
 }

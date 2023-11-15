@@ -64,7 +64,7 @@ public final class Flatcraft extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/flatcraft.fxml"));
         Parent viewContent = fxmlLoader.load();
         ISpriteStore spriteStore = new SpriteStore();
-        CellFactory cellFactory = new OverworldCellFactory();
+        CellFactory cellFactory = OverworldCellFactory.getInstance();
         cellFactory.setSpriteStore(spriteStore);
         FlatcraftController controller = fxmlLoader.getController();
         IFabricMap fabricMap = new MyGenarateMap1(GAME_HEIGHT/ spriteStore.getSpriteSize(),GAME_WIDTH/ spriteStore.getSpriteSize(),cellFactory);
