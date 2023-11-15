@@ -14,7 +14,7 @@
  * Tous droits réservés.
  */
 
-package fr.univartois.butinfo.r304.flatcraft.model.map;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;

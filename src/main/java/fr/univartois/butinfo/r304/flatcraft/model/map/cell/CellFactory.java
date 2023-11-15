@@ -14,8 +14,9 @@
  * Tous droits réservés.
  */
 
-package fr.univartois.butinfo.r304.flatcraft.model;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
+import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 
 /**

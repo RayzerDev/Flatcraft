@@ -9,5 +9,7 @@ public interface IFabricMap {
 
     GameMap createMapB();
 
+    GameMap createMapC();
+
     void setSpriteStore(ISpriteStore spriteStore);
 }
