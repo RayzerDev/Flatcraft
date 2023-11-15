@@ -1,5 +1,6 @@
 package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
+import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
 import fr.univartois.butinfo.r304.flatcraft.model.map.cell.AbstractCell;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
@@ -40,5 +41,13 @@ public class CellGrid extends AbstractCell {
             }
         }
         return false;
+    }
+
+    @Override
+    public void replaceBy(Cell cell) {
+        if(getResource().getHardness()==0){
+            super.replaceBy(cell);
+        }
+        super.replaceBy(cell);
     }
 }
