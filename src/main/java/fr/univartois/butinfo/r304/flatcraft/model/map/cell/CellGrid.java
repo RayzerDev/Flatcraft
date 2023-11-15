@@ -41,5 +41,4 @@ public class CellGrid extends AbstractCell {
         }
         return false;
     }
-
 }
