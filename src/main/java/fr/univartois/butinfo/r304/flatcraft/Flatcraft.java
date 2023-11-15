@@ -19,8 +19,14 @@ package fr.univartois.butinfo.r304.flatcraft;
 import java.io.IOException;
 
 import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.*;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.EndCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.NetherCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.OverworldCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
+import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -57,14 +63,19 @@ public final class Flatcraft extends Application {
         // On commence par charger la vue et son contrôleur.
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/flatcraft.fxml"));
         Parent viewContent = fxmlLoader.load();
+        ISpriteStore spriteStore = new SpriteStore();
+        CellFactory cellFactory = OverworldCellFactory.getInstance();
+        cellFactory.setSpriteStore(spriteStore);
         FlatcraftController controller = fxmlLoader.getController();
         controller.setStage(stage);
 
+        // On crée ensuite le jeu, que l'on lie au contrôleur.
 
-        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), new OverworldCellFactory());
+        FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, spriteStore, cellFactory);
         controller.setGame(game);
         game.setController(controller);
         game.prepare();
+
 
         // On peut maintenant afficher la scène et la fenêtre.
         Scene scene = new Scene(viewContent, GAME_WIDTH, GAME_HEIGHT);
