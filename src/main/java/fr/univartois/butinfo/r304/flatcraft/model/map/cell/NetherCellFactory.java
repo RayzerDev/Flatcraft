@@ -3,6 +3,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.state.OnMapState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
@@ -26,14 +27,14 @@ public class NetherCellFactory implements CellFactory {
     @Override
     public Cell createSoilSurface() {
         if (RANDOM.nextInt(10) < 4) {
-            return createResourceCell("desert_stone");
+            return createResourceCell("desert_stone", ToolType.NO_TOOL);
         }
-        return createResourceCell("lava");
+        return createCell("lava");
     }
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("desert_stone");
+        return createResourceCell("desert_stone", ToolType.NO_TOOL);
     }
 
     @Override
@@ -51,8 +52,8 @@ public class NetherCellFactory implements CellFactory {
         return new CellGrid(sprite);
     }
 
-    private Cell createResourceCell(String name) {
+    private Cell createResourceCell(String name, ToolType tool) {
         Sprite sprite = spriteStore.getSprite(name);
-        return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
+        return new CellGrid(new Resource(name, sprite, tool, 1, new OnMapState()));
     }
 }

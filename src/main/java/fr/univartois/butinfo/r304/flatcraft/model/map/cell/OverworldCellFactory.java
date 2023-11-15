@@ -3,6 +3,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.state.OnMapState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
@@ -39,14 +40,14 @@ public class OverworldCellFactory implements CellFactory {
     @Override
     public Cell createSoilSurface() {
         if (RANDOM.nextInt(10) < 1) {
-            return createResourceCell("junglegrass");
+            return createResourceCell("junglegrass", ToolType.NO_TOOL);
         }
 
         if (RANDOM.nextInt(10) < 2) {
-            return createResourceCell("water");
+            return createCell("water");
         }
 
-        return createResourceCell("grass");
+        return createResourceCell("grass", ToolType.NO_TOOL);
     }
 
     /*
@@ -56,7 +57,7 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("dirt");
+        return createResourceCell("dirt", ToolType.NO_TOOL);
     }
 
     /*
@@ -66,7 +67,7 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createTrunk() {
-        return createResourceCell("tree");
+        return createResourceCell("tree", ToolType.NO_TOOL);
     }
 
     /*
@@ -76,7 +77,7 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createLeaves() {
-        return createResourceCell("leaves");
+        return createCell("leaves");
     }
 
 
@@ -99,9 +100,9 @@ public class OverworldCellFactory implements CellFactory {
      *
      * @return La cellule créée.
      */
-    private Cell createResourceCell(String name) {
+    private Cell createResourceCell(String name, ToolType tool) {
         Sprite sprite = spriteStore.getSprite(name);
-        return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
+        return new CellGrid(new Resource(name, sprite, tool, 1, new OnMapState()));
     }
 
 }
