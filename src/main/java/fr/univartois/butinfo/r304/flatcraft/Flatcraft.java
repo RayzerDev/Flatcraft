@@ -68,7 +68,7 @@ public final class Flatcraft extends Application {
         controller.setStage(stage);
 
         // On crée ensuite le jeu, que l'on lie au contrôleur.
-        CellFactory cellFactory = new OverworldCellFactory();
+        CellFactory cellFactory = new NetherCellFactory();
         FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, spriteStore, cellFactory);
         controller.setGame(game);
         game.setController(controller);
