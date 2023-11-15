@@ -18,6 +18,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.resources;
 
 import java.util.Objects;
 
+import fr.univartois.butinfo.r304.flatcraft.model.resources.state.ResourceState;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 /**
@@ -54,6 +55,11 @@ public final class Resource {
     private int hardness;
 
     /**
+     * L'état de cette ressource.
+     */
+    private ResourceState state;
+
+    /**
      * Crée une nouvelle instance de Resource.
      *
      * @param name Le nom unique identifiant le type de la ressource.
@@ -63,7 +69,7 @@ public final class Resource {
      *
      * @throws IllegalArgumentException Si la valeur de {@code hardness} est négative.
      */
-    public Resource(String name, Sprite sprite, ToolType toolType, int hardness) {
+    public Resource(String name, Sprite sprite, ToolType toolType, int hardness, ResourceState state) {
         if (hardness < 0) {
             throw new IllegalArgumentException("Resource hardness should be non-negative!");
         }
@@ -72,6 +78,7 @@ public final class Resource {
         this.sprite = sprite;
         this.toolType = toolType;
         this.hardness = hardness;
+        this.state = state;
     }
 
     /**
@@ -133,6 +140,8 @@ public final class Resource {
      * @return La ressource obtenue après son extraction.
      */
     public Resource digBlock() {
+        state = state.nextState();
+        state.handle(this);
         return this;
     }
 
@@ -158,5 +167,4 @@ public final class Resource {
         }
         return false;
     }
-
 }
