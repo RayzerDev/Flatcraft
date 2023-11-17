@@ -19,13 +19,14 @@ package fr.univartois.butinfo.r304.flatcraft;
 import java.io.IOException;
 
 import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
-import fr.univartois.butinfo.r304.flatcraft.model.CellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
-import fr.univartois.butinfo.r304.flatcraft.model.map.EndCellFactory;
-import fr.univartois.butinfo.r304.flatcraft.model.map.NetherCellFactory;
-import fr.univartois.butinfo.r304.flatcraft.model.map.OverworldCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.EndCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.NetherCellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.OverworldCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
-import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap1;
+import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
+import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -62,17 +63,17 @@ public final class Flatcraft extends Application {
         // On commence par charger la vue et son contrôleur.
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/flatcraft.fxml"));
         Parent viewContent = fxmlLoader.load();
-        SpriteStore spriteStore = new SpriteStore();
+        ISpriteStore spriteStore = new SpriteStore();
+        CellFactory cellFactory = OverworldCellFactory.getInstance();
+        cellFactory.setSpriteStore(spriteStore);
         FlatcraftController controller = fxmlLoader.getController();
-        IFabricMap fabricMap = new MyGenarateMap1(GAME_HEIGHT/ spriteStore.getSpriteSize(),GAME_WIDTH/ spriteStore.getSpriteSize());
         controller.setStage(stage);
 
         // On crée ensuite le jeu, que l'on lie au contrôleur.
-        CellFactory cellFactory = new NetherCellFactory();
+
         FlatcraftGame game = new FlatcraftGame(GAME_WIDTH, GAME_HEIGHT, spriteStore, cellFactory);
         controller.setGame(game);
         game.setController(controller);
-        game.setFabricMap(fabricMap);
         game.prepare();
 
 

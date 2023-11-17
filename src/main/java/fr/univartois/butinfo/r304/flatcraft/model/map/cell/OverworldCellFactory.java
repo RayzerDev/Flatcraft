@@ -12,6 +12,10 @@ public class OverworldCellFactory implements CellFactory {
     private Random RANDOM = new Random();
 
     ISpriteStore spriteStore;
+
+    private static OverworldCellFactory instance = new OverworldCellFactory();
+
+    private OverworldCellFactory(){};
     @Override
     public void setSpriteStore(ISpriteStore spriteStore) {
         this.spriteStore = spriteStore;
@@ -104,4 +108,7 @@ public class OverworldCellFactory implements CellFactory {
         return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
     }
 
+    public static OverworldCellFactory getInstance() {
+        return instance;
+    }
 }
