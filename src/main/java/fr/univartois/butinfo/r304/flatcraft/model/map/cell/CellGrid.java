@@ -33,6 +33,7 @@ public class CellGrid extends AbstractCell {
     public void setState(Cell cell){
         if(cell.getResource()==null){
             state = new CellNoResources();
+            cell.replaceBy((Cell) state);
         }
         else {
             state = new CellResources();
@@ -49,18 +50,13 @@ public class CellGrid extends AbstractCell {
         Resource resource = getResource();
         if (resource != null) {
             resource.dig();
+            setState(this);
+            handleResources(player);
             if (resource.getHardness() == 0) {
                 player.addInventory(resource);
                 return true;
             }
         }
         return false;
-    }
-
-    @Override
-    public void replaceBy(Cell cell) {
-        if(getResource().getHardness()==0){
-            super.replaceBy(cell);
-        }
     }
 }
