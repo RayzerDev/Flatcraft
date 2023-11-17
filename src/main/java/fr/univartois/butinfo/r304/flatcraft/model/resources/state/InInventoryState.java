@@ -1,15 +1,22 @@
 package fr.univartois.butinfo.r304.flatcraft.model.resources.state;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 public class InInventoryState implements ResourceState{
+
+    private Sprite sprite;
+
+    public InInventoryState(Sprite sprite){
+        this.sprite = sprite;
+    }
+
     @Override
-    public void handle(Resource resource) {
-        System.out.println(resource.getName());
+    public Sprite getSprite() {
+        return sprite;
     }
 
     @Override
     public ResourceState nextState() {
-        return new OnMapState();
+        return this;
     }
 }
