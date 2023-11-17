@@ -54,6 +54,11 @@ public class NetherCellFactory implements CellFactory {
 
     private Cell createResourceCell(String name, ToolType tool) {
         Sprite sprite = spriteStore.getSprite(name);
-        return new CellGrid(new Resource(name, sprite, tool, 1, new OnMapState()));
+        return new CellGrid(new Resource(name, tool, 1, new OnMapState(sprite)));
+    }
+    private Cell createResourceCell(String name, ToolType tool, String nextName) {
+        Sprite sprite = spriteStore.getSprite(name);
+        Sprite nextSprite = spriteStore.getSprite(nextName);
+        return new CellGrid(new Resource(name, tool, 1, new OnMapState(sprite, nextSprite)));
     }
 }
