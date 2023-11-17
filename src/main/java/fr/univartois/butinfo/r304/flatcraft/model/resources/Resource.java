@@ -18,6 +18,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.resources;
 
 import java.util.Objects;
 
+import fr.univartois.butinfo.r304.flatcraft.model.resources.state.ResourceState;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 /**
@@ -37,11 +38,6 @@ public final class Resource {
     private final String name;
 
     /**
-     * Le sprite représentant cette ressource.
-     */
-    private Sprite sprite;
-
-    /**
      * Le type d'outils nécessaire pour extraire cette ressource de la carte.
      */
     private final ToolType toolType;
@@ -54,24 +50,28 @@ public final class Resource {
     private int hardness;
 
     /**
+     * L'état de cette ressource.
+     */
+    private ResourceState state;
+
+    /**
      * Crée une nouvelle instance de Resource.
      *
      * @param name Le nom unique identifiant le type de la ressource.
-     * @param sprite Le sprite représentant la ressource.
      * @param toolType Le type d'outils nécessaire pour extraire la ressource de la carte.
      * @param hardness La dureté initiale de la ressource.
      *
      * @throws IllegalArgumentException Si la valeur de {@code hardness} est négative.
      */
-    public Resource(String name, Sprite sprite, ToolType toolType, int hardness) {
+    public Resource(String name, ToolType toolType, int hardness, ResourceState state) {
         if (hardness < 0) {
             throw new IllegalArgumentException("Resource hardness should be non-negative!");
         }
 
         this.name = name;
-        this.sprite = sprite;
         this.toolType = toolType;
         this.hardness = hardness;
+        this.state = state;
     }
 
     /**
@@ -89,7 +89,7 @@ public final class Resource {
      * @return Le sprite représentant cette ressource.
      */
     public Sprite getSprite() {
-        return sprite;
+        return state.getSprite();
     }
 
     /**
@@ -133,6 +133,7 @@ public final class Resource {
      * @return La ressource obtenue après son extraction.
      */
     public Resource digBlock() {
+        state = state.nextState();
         return this;
     }
 
@@ -158,5 +159,4 @@ public final class Resource {
         }
         return false;
     }
-
 }
