@@ -21,7 +21,9 @@ import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
 import fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import javafx.beans.property.IntegerProperty;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -231,6 +233,17 @@ public final class FlatcraftController implements IFlatcraftController {
     @Override
     public void bindLevel(IntegerProperty levelProperty) {
         level.textProperty().bind(levelProperty.asString());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController#bindInventory(
+     * javafx.collections.ObservableMap)
+     */
+    @Override
+    public void bindInventory(ObservableMap<Resource, Integer> playerInventory) {
+        // TODO Cette méthode vous sera fournie ultérieurement.
     }
 
     /*
