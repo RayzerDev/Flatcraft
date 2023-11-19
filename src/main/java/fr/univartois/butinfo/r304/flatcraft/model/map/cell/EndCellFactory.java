@@ -3,6 +3,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.state.OnMapState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
@@ -26,12 +27,12 @@ public class EndCellFactory implements CellFactory {
 
     @Override
     public Cell createSoilSurface() {
-        return createResourceCell("sandstone");
+        return createResourceCell("sandstone", ToolType.NO_TOOL);
     }
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("sandstone");
+        return createResourceCell("sandstone", ToolType.NO_TOOL);
     }
 
     @Override
@@ -49,9 +50,14 @@ public class EndCellFactory implements CellFactory {
         return new CellGrid(sprite);
     }
 
-    private Cell createResourceCell(String name) {
+    private Cell createResourceCell(String name, ToolType tool) {
         Sprite sprite = spriteStore.getSprite(name);
-        return new CellGrid(new Resource(name, sprite, ToolType.NO_TOOL, 1));
+        return new CellGrid(new Resource(name, tool, 1, new OnMapState(sprite)));
+    }
+    private Cell createResourceCell(String name, ToolType tool, String nextName) {
+        Sprite sprite = spriteStore.getSprite(name);
+        Sprite nextSprite = spriteStore.getSprite(nextName);
+        return new CellGrid(new Resource(name, tool, 1, new OnMapState(sprite, nextSprite)));
     }
 
     public static EndCellFactory getInstance() {
