@@ -23,6 +23,8 @@ import fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -293,6 +295,22 @@ public final class FlatcraftController implements IFlatcraftController {
     @FXML
     void showFurnace() {
         // TODO Cette méthode vous sera fournie ultérieurement.
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController#displayError(java.
+     * lang.String)
+     */
+    @Override
+    public void displayError(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

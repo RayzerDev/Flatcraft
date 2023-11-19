@@ -77,4 +77,11 @@ public interface IFlatcraftController {
      */
     void addMovable(IMovable movable);
 
+    /**
+     * Affiche un message d'erreur sur l'interface utilisateur.
+     *
+     * @param message Le message d'erreur à afficher.
+     */
+    void displayError(String message);
+
 }
