@@ -16,6 +16,8 @@
 
 package fr.univartois.butinfo.r304.flatcraft.controller;
 
+import java.io.IOException;
+
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
@@ -25,6 +27,9 @@ import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
@@ -296,18 +301,46 @@ public final class FlatcraftController implements IFlatcraftController {
 
     /**
      * Affiche la table de craft.
+     *
+     * @throws IOException Si une erreur se produit lors du chargement de la vue.
      */
     @FXML
-    void showCraftTable() {
-        // TODO Cette méthode vous sera fournie ultérieurement.
+    private void showCraftTable() throws IOException {
+        // On charge la vue et son contrôleur.
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/crafttable.fxml"));
+        Parent viewContent = fxmlLoader.load();
+        CraftTableController controller = fxmlLoader.getController();
+
+        // On initialise le contrôleur.
+        controller.setGame(game);
+
+        // On affche la fenêtre.
+        Stage crafttableStage = new Stage();
+        crafttableStage.initOwner(stage);
+        crafttableStage.setScene(new Scene(viewContent));
+        crafttableStage.show();
     }
 
     /**
-     * Affiche le four.
+     * Affiche le fourneau.
+     *
+     * @throws IOException Si une erreur se produit lors du chargement de la vue.
      */
     @FXML
-    void showFurnace() {
-        // TODO Cette méthode vous sera fournie ultérieurement.
+    private void showFurnace() throws IOException {
+        // On charge la vue et son contrôleur.
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/furnace.fxml"));
+        Parent viewContent = fxmlLoader.load();
+        FurnaceController controller = fxmlLoader.getController();
+
+        // On initialise le contrôleur.
+        controller.setGame(game);
+
+        // On affche la fenêtre.
+        Stage furnaceStage = new Stage();
+        furnaceStage.initOwner(stage);
+        furnaceStage.setScene(new Scene(viewContent));
+        furnaceStage.show();
     }
 
     /*
