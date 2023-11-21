@@ -17,6 +17,8 @@
 package fr.univartois.butinfo.r304.flatcraft.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
@@ -24,7 +26,10 @@ import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
 import fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.view.ResourceInInventory;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -102,6 +107,11 @@ public final class FlatcraftController implements IFlatcraftController {
      */
     @FXML
     private HBox inventory;
+
+    /**
+     * Les composants affichant les ressources actuellement dans l'inventaire du joueur.
+     */
+    private Map<Resource, ResourceInInventory> resourcesInInventory = new HashMap<>();
 
     /**
      * Associe à ce contrôleur la fenêtre dans laquelle se déroule le jeu.
@@ -248,7 +258,20 @@ public final class FlatcraftController implements IFlatcraftController {
      */
     @Override
     public void bindInventory(ObservableMap<Resource, Integer> playerInventory) {
-        // TODO Cette méthode vous sera fournie ultérieurement.
+        playerInventory.addListener((MapChangeListener<Resource, Integer>) change -> {
+            if (change.wasAdded() && !resourcesInInventory.containsKey(change.getKey())) {
+                // Il faut ajouter la ressource à l'affichage.
+                ResourceInInventory resource = new ResourceInInventory(change.getKey());
+                resource.bind(Bindings.valueAt(playerInventory, change.getKey()));
+                resourcesInInventory.put(change.getKey(), resource);
+                inventory.getChildren().add(resource.getNode());
+
+            } else if (change.wasRemoved() && (change.getValueRemoved() == 0)) {
+                // La ressource doit être retirée de l'affichage.
+                ResourceInInventory resource = resourcesInInventory.remove(change.getKey());
+                inventory.getChildren().remove(resource.getNode());
+            }
+        });
     }
 
     /*
