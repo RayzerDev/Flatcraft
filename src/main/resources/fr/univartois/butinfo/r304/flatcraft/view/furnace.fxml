@@ -55,7 +55,7 @@
     <bottom>
         <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER" spacing="25.0">
             <children>
-                <Button text="COOK" onAction="#cook" mnemonicParsing="false" disable="true">
+                <Button fx:id="cookButton" text="COOK" onAction="#cook" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
@@ -65,7 +65,7 @@
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="clearButton" text="CLEAR" onAction="#clear" mnemonicParsing="false">
+                <Button fx:id="clearButton" text="CLEAR" onAction="#clear" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>

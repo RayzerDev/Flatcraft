@@ -16,11 +16,15 @@
 
 package fr.univartois.butinfo.r304.flatcraft.controller;
 
+import java.util.Optional;
+
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -40,14 +44,9 @@ public final class FurnaceController {
     private FlatcraftGame game;
 
     /**
-     * Le combustible déposé dans le fourneau.
+     * Le combustible et la ressource déposée dans le fourneau.
      */
-    private Resource fuel;
-
-    /**
-     * La ressource déposée dans le fourneau.
-     */
-    private Resource resource;
+    private Resource[] resources;
 
     /**
      * La grille représentant le fourneau dans lequel les ressources sont déposées.
@@ -82,7 +81,7 @@ public final class FurnaceController {
      * Le bouton permettant d'effacer les ressources déposées dans le fourneau.
      */
     @FXML
-    private Button clearButton;
+    private Button cookButton;
 
     /**
      * Le bouton permettant d'ajouter la ressource produite à l'inventaire du joueur.
@@ -91,11 +90,84 @@ public final class FurnaceController {
     private Button addButton;
 
     /**
+     * Le bouton permettant d'effacer les ressources ajoutées à la table de craft.
+     */
+    @FXML
+    private Button clearButton;
+
+    /**
      * Initialise ce contrôleur.
      */
     @FXML
     private void initialize() {
-        // TODO
+        fuelView.setPickOnBounds(true);
+        dropResource(fuelView, 0);
+        resourceView.setPickOnBounds(true);
+        dropResource(resourceView, 1);
+    }
+
+    /**
+     * Dépose (ou pas) une ressource dans un emplacement du fourneau.
+     *
+     * @param imageView La vue affichant l'image de la ressource.
+     * @param index L'index où la ressource a été déposée.
+     */
+    private void dropResource(ImageView imageView, int index) {
+        // On accepte tous les modes de transfert.
+        imageView.setOnDragOver(event -> {
+            if ((event.getGestureSource() != imageView) &&
+                    event.getDragboard().hasString() && event.getDragboard().hasImage()) {
+                event.acceptTransferModes(TransferMode.ANY);
+            }
+            event.consume();
+        });
+
+        // On affiche une prévisualisation du dépôt lorsque l'on survole la case.
+        imageView.setOnDragEntered(event -> {
+            if ((event.getGestureSource() != imageView) &&
+                    event.getDragboard().hasString() && event.getDragboard().hasImage()) {
+                imageView.setImage(event.getDragboard().getImage());
+                imageView.setOpacity(0.2);
+            }
+            event.consume();
+        });
+
+        // On dépose la ressource au moment voulu.
+        imageView.setOnDragDropped(event -> {
+            Dragboard dragboard = event.getDragboard();
+            boolean success = false;
+
+            if (dragboard.hasString() && dragboard.hasImage()) {
+                // TODO Remplacez cette affectation par la récupération de la ressource dans l'inventaire du joueur.
+                Optional<Resource> resource = Optional.empty();
+                if (resource.isPresent()) {
+                    resources[index] = resource.get();
+                    cookButton.setDisable(false);
+                    clearButton.setDisable(false);
+                    success = true;
+                }
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+        // On remet la vue dans son état d'origine après le survol.
+        imageView.setOnDragExited(event -> {
+            if (resources[index] == null) {
+                imageView.setImage(null);
+            } else {
+                imageView.setImage(resources[index].getSprite().getImage());
+            }
+            imageView.setOpacity(1);
+            event.consume();
+        });
+
+        // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
+        imageView.setOnDragDone(event -> {
+            // TODO Retirez de l'inventaire du joueur la ressource ayant été déposée.
+            event.consume();
+        });
     }
 
     /**
@@ -113,12 +185,13 @@ public final class FurnaceController {
     @FXML
     private void cook() {
         // On crée la nouvelle ressource.
-        product = game.cook(fuel, resource);
+        product = game.cook(resources[0], resources[1]);
         productView.setImage(product.getSprite().getImage());
 
         // On met à jour les actions disponibles.
         addButton.setDisable(false);
         furnaceGrid.setDisable(true);
+        cookButton.setDisable(true);
         clearButton.setDisable(true);
     }
 
@@ -136,12 +209,13 @@ public final class FurnaceController {
     @FXML
     private void clear() {
         // TODO Remettre les ressources non utilisée dans l'inventaire.
-        fuel = null;
+        resources[0] = null;
         fuelView.setImage(null);
-        resource = null;
+        resources[1] = null;
         resourceView.setImage(null);
 
         // On met à jour les actions disponibles.
+        cookButton.setDisable(true);
         clearButton.setDisable(true);
     }
 
