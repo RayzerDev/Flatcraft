@@ -93,13 +93,12 @@ public final class ResourceInInventory {
     }
 
     /**
-     * Lie le nombre d'occurences de cette ressource avec la propriété donnée en paramètre.
+     * Donne la ressource stockée dans l'inventaire.
      *
-     * @param countProperty La propriété comptant le nombre d'occurences de la ressource
-     *        actuellement dans l'inventaire.
+     * @return La ressource stockée dans l'inventaire.
      */
-    public void bind(ObjectBinding<Integer> countProperty) {
-        this.count.bind(countProperty);
+    public Resource getResource() {
+        return resource;
     }
 
     /**
@@ -109,6 +108,17 @@ public final class ResourceInInventory {
      */
     public Node getNode() {
         return pane;
+    }
+
+    /**
+     * Lie le nombre d'occurences de cette ressource avec la propriété donnée en
+     * paramètre.
+     *
+     * @param countProperty La propriété comptant le nombre d'occurences de la ressource
+     *        actuellement dans l'inventaire.
+     */
+    public void bind(ObjectBinding<Integer> countProperty) {
+        this.count.bind(countProperty);
     }
 
 }
