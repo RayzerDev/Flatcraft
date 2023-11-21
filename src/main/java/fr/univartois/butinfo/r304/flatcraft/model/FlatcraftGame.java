@@ -19,6 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -279,6 +280,33 @@ public final class FlatcraftGame {
 
         // On récupère enfin la cellule à cette position dans la carte.
         return map.getAt(row, column);
+    }
+
+    /**
+     * Crée une nouvelle ressource à l'aide d'un ensemble de ressources, en suivant les
+     * règles de la table de craft.
+     *
+     * @param inputResources Les ressources déposées sur la table de craft.
+     *
+     * @return La ressource produite.
+     */
+    public Resource craft(Resource[][] inputResources) {
+        // TODO Vous devez compléter cette méthode.
+        throw new UnsupportedOperationException("Pas encore implémentée !");
+    }
+
+    /**
+     * Crée une nouvelle ressource à l'aide d'un combustible et d'une ressource, en suivant les
+     * règles du fourneau.
+     *
+     * @param fuel Le matériau combustible utilisé dans le fourneau.
+     * @param resource La ressource à transformer.
+     *
+     * @return La ressource produite.
+     */
+    public Resource cook(Resource fuel, Resource resource) {
+        // TODO Vous devez compléter cette méthode.
+        throw new UnsupportedOperationException("Pas encore implémentée !");
     }
 
 }
