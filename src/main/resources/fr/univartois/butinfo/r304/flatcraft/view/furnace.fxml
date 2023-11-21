@@ -11,33 +11,39 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univartois.butinfo.r304.flatcraft.controller.FurnaceController">
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="fr.univartois.butinfo.r304.flatcraft.controller.FurnaceController">
     <center>
-        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="25.0">
+        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+            spacing="25.0">
             <children>
-                <GridPane fx:id="furnaceGrid" alignment="CENTER" gridLinesVisible="true">
+                <GridPane fx:id="furnaceGrid" alignment="CENTER"
+                    gridLinesVisible="true">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="50.0" maxWidth="50.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                        <RowConstraints fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-               <children>
-                  <ImageView fx:id="resourceView" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="fuelView" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-               </children>
-                </GridPane>
-                <Polygon fill="#a1a1a1" points="-50.0, 36.0, -20.0, 24.0, -50.0, 12.0" stroke="BLACK" strokeType="INSIDE" />
-                <GridPane alignment="CENTER" gridLinesVisible="true">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
+                        <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
                     </rowConstraints>
                     <children>
-                        <ImageView fx:id="productView" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="resourceView" GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                            fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true"  />
+                        <ImageView fx:id="fuelView" GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                            fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true"  />
+                    </children>
+                </GridPane>
+                <Polygon points="-50.0, 36.0, -20.0, 24.0, -50.0, 12.0" fill="#a1a1a1" stroke="BLACK" strokeType="INSIDE" />
+                <GridPane alignment="CENTER" gridLinesVisible="true">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="25.0" prefWidth="25.0" maxWidth="25.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
+                    </rowConstraints>
+                    <children>
+                        <ImageView fx:id="productView" GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                            fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true"  />
                     </children>
                 </GridPane>
             </children>
@@ -47,19 +53,19 @@
         </HBox>
     </center>
     <bottom>
-        <HBox alignment="TOP_CENTER" spacing="25.0" BorderPane.alignment="CENTER">
+        <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER" spacing="25.0">
             <children>
-                <Button disable="true" mnemonicParsing="false" onAction="#cook" text="COOK">
+                <Button text="COOK" onAction="#cook" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="addButton" disable="true" mnemonicParsing="false" onAction="#addToInventory" text="ADD">
+                <Button fx:id="addButton" text="ADD" onAction="#addToInventory" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clear" text="CLEAR">
+                <Button fx:id="clearButton" text="CLEAR" onAction="#clear" mnemonicParsing="false">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>

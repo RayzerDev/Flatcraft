@@ -91,9 +91,9 @@
                         </Button>
                     </left>
                     <center>
-                        <HBox fx:id="inventory" BorderPane.alignment="CENTER"
+                        <HBox fx:id="inventory" BorderPane.alignment="CENTER" spacing="16.0"
                             maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                            style="-fx-background-color: white;" opacity="0.2" />
+                            style="-fx-background-color: white;" opacity="0.5" />
                     </center>
                     <right>
                         <Button text="FURNACE" onAction="#showFurnace" BorderPane.alignment="CENTER">
