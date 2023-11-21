@@ -40,8 +40,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -264,6 +267,7 @@ public final class FlatcraftController implements IFlatcraftController {
                 ResourceInInventory resource = new ResourceInInventory(change.getKey());
                 resource.bind(Bindings.valueAt(playerInventory, change.getKey()));
                 resourcesInInventory.put(change.getKey(), resource);
+                dragResource(resource);
                 inventory.getChildren().add(resource.getNode());
 
             } else if (change.wasRemoved() && (change.getValueRemoved() == 0)) {
@@ -361,9 +365,24 @@ public final class FlatcraftController implements IFlatcraftController {
 
         // On affche la fenêtre.
         Stage furnaceStage = new Stage();
-        furnaceStage.initOwner(stage);
         furnaceStage.setScene(new Scene(viewContent));
         furnaceStage.show();
+    }
+
+    /**
+     * Gère le déplacement d'une ressource en utilisant un glisser-déposer.
+     *
+     * @param resource La ressource sur laquelle le glisser-déposer a été initié.
+     */
+    private void dragResource(ResourceInInventory resource) {
+        resource.getNode().setOnDragDetected(event -> {
+            Dragboard dragboard = resource.getNode().startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(resource.getResource().getName());
+            content.putImage(resource.getResource().getSprite().getImage());
+            dragboard.setContent(content);
+            event.consume();
+        });
     }
 
     /*
