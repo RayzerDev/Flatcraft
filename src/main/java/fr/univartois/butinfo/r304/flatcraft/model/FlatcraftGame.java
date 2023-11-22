@@ -179,6 +179,7 @@ public final class FlatcraftGame {
         controller.bindLevel(level);
         controller.bindXP( player.getXpProperty());
         controller.bindHealth( player.getHealthProperty());
+        controller.bindInventory(player.getInventory());
         // On démarre l'animation du jeu.
         animation.start();
     }
