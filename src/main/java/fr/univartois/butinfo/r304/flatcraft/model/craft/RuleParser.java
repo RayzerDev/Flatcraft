@@ -65,7 +65,7 @@ public final class RuleParser {
      * @param product Le résultat de l'application de la règle.
      */
     private void addRule(String rule, String product) {
-        // TODO Ajoutez ici le code propre à votre application pour gérer les règles.
+
     }
 
 }
