@@ -210,14 +210,14 @@ public final class FlatcraftGame {
      * Fait se déplacer le joueur vers le haut.
      */
     public void moveUp() {
-
+        player.setVerticalSpeed(-100);
     }
 
     /**
      * Fait se déplacer le joueur vers le bas.
      */
     public void moveDown() {
-
+        player.setVerticalSpeed(100);
     }
 
     /**
@@ -278,7 +278,6 @@ public final class FlatcraftGame {
         Cell cellNow = getCellOf(player);
         if (cellNow.getRow()< map.getHeight()-1){
             dig(map.getAt(cellNow.getRow()+1, cellNow.getColumn()));
-            move(player);
         }
     }
 
@@ -289,9 +288,7 @@ public final class FlatcraftGame {
         Cell cellNow = getCellOf(player);
         if (cellNow.getColumn()-1>0){
             dig(map.getAt(cellNow.getRow(), cellNow.getColumn()-1));
-            move(player);
         }
-
     }
 
     /**
@@ -299,9 +296,8 @@ public final class FlatcraftGame {
      */
     public void digRight() {
         Cell cellNow = getCellOf(player);
-        if (cellNow.getColumn()< map.getHeight()-1){
+        if (cellNow.getColumn()< map.getWidth()-1){
             dig(map.getAt(cellNow.getRow(), cellNow.getColumn()+1));
-            move(player);
         }
     }
 
@@ -313,7 +309,6 @@ public final class FlatcraftGame {
     private void dig(Cell toDig) {
         if (toDig.dig(player)) {
             toDig.replaceBy(cellFactory.createSky());
-
         }
     }
 

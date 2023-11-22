@@ -36,10 +36,10 @@ public class CellGrid extends AbstractCell {
         Resource resource = getResource();
         if (resource != null) {
             resource.dig();
-            setState(this);
-            handleResources(player);
-            if (resource.getHardness() == 0) {
-                player.addInventory(resource);
+            //setState(this);
+            //handleResources(player);
+            if (resource.getHardness() == 1) {
+                player.addInventory(resource.digBlock());
                 return true;
             }
         }

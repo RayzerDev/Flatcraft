@@ -44,14 +44,14 @@ public class OverworldCellFactory implements CellFactory {
     @Override
     public Cell createSoilSurface() {
         if (RANDOM.nextInt(10) < 1) {
-            return createResourceCell("junglegrass", ToolType.NO_TOOL);
+            return createResourceCell("junglegrass", ToolType.NO_TOOL,2);
         }
 
         if (RANDOM.nextInt(10) < 2) {
             return createCell("water");
         }
 
-        return createResourceCell("grass", ToolType.NO_TOOL);
+        return createResourceCell("grass", ToolType.NO_TOOL,5);
     }
 
     /*
@@ -61,7 +61,10 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("dirt", ToolType.NO_TOOL);
+        if(RANDOM.nextInt(100)<1){
+            return createResourceCell("mineral_gold", ToolType.NO_TOOL, "gold_lump",5);
+        }
+        return createResourceCell("dirt", ToolType.NO_TOOL,5);
     }
 
     /*
@@ -71,7 +74,7 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createTrunk() {
-        return createResourceCell("tree", ToolType.NO_TOOL);
+        return createResourceCell("tree", ToolType.NO_TOOL,10);
     }
 
     /*
@@ -104,14 +107,14 @@ public class OverworldCellFactory implements CellFactory {
      *
      * @return La cellule créée.
      */
-    private Cell createResourceCell(String name, ToolType tool) {
+    private Cell createResourceCell(String name, ToolType tool, int hardness) {
         Sprite sprite = spriteStore.getSprite(name);
-        return new CellGrid(new Resource(name, sprite, tool, 1, new OnMapState(sprite)));
+        return new CellGrid(new Resource(name, sprite, tool, hardness, new OnMapState(sprite)));
     }
-    private Cell createResourceCell(String name, ToolType tool, String nextName) {
+    private Cell createResourceCell(String name, ToolType tool, String nextName, int hardness) {
         Sprite sprite = spriteStore.getSprite(name);
         Sprite nextSprite = spriteStore.getSprite(nextName);
-        return new CellGrid(new Resource(name, sprite, tool, 1, new OnMapState(sprite, nextSprite)));
+        return new CellGrid(new Resource(name, sprite, tool, hardness, new OnMapState(sprite, nextSprite)));
     }
 
     public static OverworldCellFactory getInstance() {
