@@ -17,6 +17,7 @@
 package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
+import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.ObjectProperty;
@@ -156,4 +157,6 @@ public abstract class AbstractCell implements Cell {
         spriteProperty.set(cell.getSprite());
         resourceProperty.set(cell.getResource());
     }
+
+    public abstract boolean dig(Player player);
 }

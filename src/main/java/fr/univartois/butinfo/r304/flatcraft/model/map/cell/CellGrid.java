@@ -30,20 +30,6 @@ public class CellGrid extends AbstractCell {
         return false;
     }
 
-    public void setState(Cell cell){
-        if(cell.getResource()==null){
-            state = new CellNoResources();
-            cell.replaceBy((Cell) state);
-        }
-        else {
-            state = new CellResources();
-        }
-    }
-
-
-    public void handleResources(Player player){
-        state.handleResources(player, this);
-    }
 
     @Override
     public boolean dig(Player player) {
@@ -59,4 +45,20 @@ public class CellGrid extends AbstractCell {
         }
         return false;
     }
+
+    public void setState(Cell cell){
+        if(cell.getResource()==null){
+            state = new CellNoResources();
+            cell.replaceBy((Cell) state);
+        }
+        else {
+            state = new CellResources();
+        }
+    }
+
+
+    public void handleResources(Player player){
+        state.handleResources(player, this);
+    }
+
 }
