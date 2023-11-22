@@ -38,7 +38,7 @@ public class CellGrid extends AbstractCell {
             resource.dig();
             //setState(this);
             //handleResources(player);
-            if (resource.getHardness() == 1) {
+            if (resource.getHardness() == 0) {
                 player.addInventory(resource.digBlock());
                 return true;
             }
