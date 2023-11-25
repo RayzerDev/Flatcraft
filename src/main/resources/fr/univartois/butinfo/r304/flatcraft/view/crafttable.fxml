@@ -26,7 +26,6 @@
                         <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
                         <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
                         <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
-                        <RowConstraints vgrow="SOMETIMES" fillHeight="false" minHeight="25.0" prefHeight="25.0" maxHeight="25.0" />
                     </rowConstraints>
                 </GridPane>
                 <Polygon points="-50.0, 36.0, -20.0, 24.0, -50.0, 12.0" fill="#a1a1a1" stroke="BLACK" strokeType="INSIDE" />
@@ -51,17 +50,17 @@
     <bottom>
         <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER" spacing="25.0">
             <children>
-                <Button fx:id="craftButton" text="CRAFT" onAction="#craft" mnemonicParsing="false" disable="true">
+                <Button fx:id="craftButton" text="CRAFT" onMouseClicked="#craft" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="addButton" text="ADD" onAction="#addToInventory" mnemonicParsing="false" disable="true">
+                <Button fx:id="addButton" text="ADD" onMouseClicked="#addToInventory" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="clearButton" text="CLEAR" onAction="#clear" mnemonicParsing="false" disable="true">
+                <Button fx:id="clearButton" text="CLEAR" onMouseClicked="#clear" mnemonicParsing="false" disable="true">
                     <font>
                         <Font name="Monospaced Regular" size="10.0" />
                     </font>
