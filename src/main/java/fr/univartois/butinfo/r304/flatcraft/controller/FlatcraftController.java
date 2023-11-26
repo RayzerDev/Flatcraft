@@ -270,7 +270,7 @@ public final class FlatcraftController implements IFlatcraftController {
                 dragResource(resource);
                 inventory.getChildren().add(resource.getNode());
 
-            } else if (change.wasRemoved() && (change.getValueRemoved() == 0)) {
+            } else if (change.wasRemoved() && (change.getValueRemoved() == 1)) {
                 // La ressource doit être retirée de l'affichage.
                 ResourceInInventory resource = resourcesInInventory.remove(change.getKey());
                 inventory.getChildren().remove(resource.getNode());
