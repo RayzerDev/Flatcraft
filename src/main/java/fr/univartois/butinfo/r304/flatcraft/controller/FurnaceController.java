@@ -162,12 +162,6 @@ public final class FurnaceController {
             imageView.setOpacity(1);
             event.consume();
         });
-
-        // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
-        imageView.setOnDragDone(event -> {
-            // TODO Retirez de l'inventaire du joueur la ressource ayant été déposée.
-            event.consume();
-        });
     }
 
     /**

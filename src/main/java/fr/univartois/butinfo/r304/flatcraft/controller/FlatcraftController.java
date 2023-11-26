@@ -384,6 +384,12 @@ public final class FlatcraftController implements IFlatcraftController {
             dragboard.setContent(content);
             event.consume();
         });
+
+        // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
+        resource.getNode().setOnDragDone(event -> {
+            // TODO Retirer de l'inventaire du joueur la ressource qui a été déposée.
+            event.consume();
+        });
     }
 
     /*
