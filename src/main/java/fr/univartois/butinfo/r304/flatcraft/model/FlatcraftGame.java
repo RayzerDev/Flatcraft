@@ -361,4 +361,7 @@ public final class FlatcraftGame {
         throw new UnsupportedOperationException("Pas encore implémentée !");
     }
 
+    public Player getPlayer() {
+        return player;
+    }
 }
