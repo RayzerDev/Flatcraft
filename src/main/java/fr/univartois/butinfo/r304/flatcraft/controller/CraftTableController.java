@@ -153,10 +153,11 @@ public final class CraftTableController {
         imageView.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
+            Optional<Resource> resource = null;
 
             if (dragboard.hasString() && dragboard.hasImage()) {
                 // TODO Remplacez cette affectation par la récupération de la ressource dans l'inventaire du joueur.
-                Optional<Resource> resource = Optional.empty();
+                resource = game.getPlayer().getResourceInventory(dragboard.getString());
                 if (resource.isPresent()) {
                     resources[row][column] = resource.get();
                     craftButton.setDisable(false);
@@ -166,6 +167,7 @@ public final class CraftTableController {
             }
 
             event.setDropCompleted(success);
+            game.getPlayer().delInventory(resource.get());
             event.consume();
         });
 
@@ -212,6 +214,7 @@ public final class CraftTableController {
     @FXML
     private void addToInventory() {
         // TODO Ajoutez un l'inventaire du joueur la ressource "product" ayant été produite.
+        game.getPlayer().addInventory(product);
     }
 
     /**
@@ -223,6 +226,8 @@ public final class CraftTableController {
         for (int i = 0; i < resources.length; i++) {
             for (int j = 0; j < resources[i].length; j++) {
                 // TODO Remettez les ressources non null dans l'inventaire du joueur.
+                if(resources[i][j] != null)
+                    game.getPlayer().addInventory(resources[i][j]);
                 resources[i][j] = null;
                 resourceViews[i][j].setImage(null);
             }
