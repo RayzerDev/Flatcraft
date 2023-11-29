@@ -37,6 +37,8 @@ public final class RuleParser {
 
     private final String fileName;
 
+    private static RuleBuilder builder;
+
     private List<Rule> rules = new ArrayList<>();
 
     /**
@@ -94,7 +96,7 @@ public final class RuleParser {
      */
 
     private void addRule(String rule, String product, int quantity) {
-        Rule rule1 = new RuleBuilder().getRule();
+        Rule rule1 = builder.getRule();
         rule1.setRule(rule);
         rule1.setProduct(product);
         rule1.setQuantity(quantity);
