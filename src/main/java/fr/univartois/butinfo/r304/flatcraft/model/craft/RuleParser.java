@@ -37,7 +37,7 @@ public final class RuleParser {
 
     private final String fileName;
 
-    private static RuleBuilder builder;
+    private static RuleBuilder builder = new RuleBuilder();
 
     private List<Rule> rules = new ArrayList<>();
 
