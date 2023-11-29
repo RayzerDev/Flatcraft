@@ -16,9 +16,11 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
@@ -180,6 +182,14 @@ public final class FlatcraftGame {
         controller.bindXP( player.getXpProperty());
         controller.bindHealth( player.getHealthProperty());
         controller.bindInventory(player.getInventory());
+
+        RuleParser ruleParser = new RuleParser("craftrules.txt");
+        try {
+            ruleParser.parse();
+        }
+        catch (IOException e){
+            System.err.println("Erreur lors du parsse du craft");
+        }
         // On démarre l'animation du jeu.
         animation.start();
     }
