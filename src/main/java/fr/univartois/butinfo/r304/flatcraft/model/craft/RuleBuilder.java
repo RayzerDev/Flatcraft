@@ -1,23 +1,33 @@
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
-public class RuleBuilder {
-    private String rule;
-    private String product;
-    private int quantity;
+public class RuleBuilder implements IBuilder{
 
-    public void setRule(String rule) {
-        this.rule = rule;
+    protected Rule rule;
+
+    public RuleBuilder() {
+        this.createRule();
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void createRule() {
+        rule = new Rule();
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public Rule getRule() {
+        return rule;
     }
 
-    public Rule build() {
-        return new Rule(rule, product, quantity);
+    @Override
+    public void buildRule(String rules) {
+        rule.setRule(rules);
+    }
+
+    @Override
+    public void buildProduct(String product) {
+        rule.setProduct(product);
+    }
+
+    @Override
+    public void buildQuantite(int quantite) {
+        rule.setQuantity(quantite);
     }
 }
