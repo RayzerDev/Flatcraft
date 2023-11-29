@@ -270,7 +270,7 @@ public final class FlatcraftController implements IFlatcraftController {
                 dragResource(resource);
                 inventory.getChildren().add(resource.getNode());
 
-            } else if (change.wasRemoved() && (change.getValueRemoved() == 0)) {
+            } else if (change.wasRemoved() && (change.getValueRemoved() == 1)) {
                 // La ressource doit être retirée de l'affichage.
                 ResourceInInventory resource = resourcesInInventory.remove(change.getKey());
                 inventory.getChildren().remove(resource.getNode());
@@ -365,6 +365,7 @@ public final class FlatcraftController implements IFlatcraftController {
 
         // On affche la fenêtre.
         Stage furnaceStage = new Stage();
+        furnaceStage.initOwner(stage);
         furnaceStage.setScene(new Scene(viewContent));
         furnaceStage.show();
     }
@@ -381,6 +382,12 @@ public final class FlatcraftController implements IFlatcraftController {
             content.putString(resource.getResource().getName());
             content.putImage(resource.getResource().getSprite().getImage());
             dragboard.setContent(content);
+            event.consume();
+        });
+
+        // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
+        resource.getNode().setOnDragDone(event -> {
+            // TODO Retirer de l'inventaire du joueur la ressource qui a été déposée.
             event.consume();
         });
     }
