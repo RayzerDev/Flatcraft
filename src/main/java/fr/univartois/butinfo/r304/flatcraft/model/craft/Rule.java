@@ -1,6 +1,6 @@
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
-public class RuleBuilder {
+public class Rule {
     private String rule;
     private String product;
     private int quantity;
@@ -16,8 +16,5 @@ public class RuleBuilder {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public Rule build() {
-        return new Rule(rule, product, quantity);
-    }
 }
+
