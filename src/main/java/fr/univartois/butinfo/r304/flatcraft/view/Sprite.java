@@ -16,7 +16,14 @@
 
 package fr.univartois.butinfo.r304.flatcraft.view;
 
+import com.sun.javafx.fxml.builder.JavaFXImageBuilder;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 
 /**
  * La classe {@link Sprite} représente un élément graphique du jeu.
@@ -34,7 +41,7 @@ public final class Sprite {
     /**
      * L'image associée à cette instance de {@link Sprite}.
      */
-    private final Image image;
+    private Image image;
 
     /**
      * Crée une nouvelle instance de {@link Sprite}.
@@ -72,4 +79,23 @@ public final class Sprite {
         return image;
     }
 
+    public Sprite changeDurety(int lvl){
+        if(lvl<1 || lvl>6){
+            return this;
+        }
+        URL urlImage = getClass().getResource("images/crack_anylength.png");
+        Image imageDurety = new Image(urlImage.toExternalForm(), 16, 80, true, true);
+        WritableImage img = new WritableImage(getWidth(), getHeight());
+        for (int i=0;i < getWidth();i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if(imageDurety.getPixelReader().getArgb(i,j + 16 * (5-lvl)) != 0){
+                    img.getPixelWriter().setArgb(i, j,imageDurety.getPixelReader().getArgb(i,j + 16 * (5-lvl)));
+                }
+                else{
+                    img.getPixelWriter().setArgb(i, j,image.getPixelReader().getArgb(i,j));
+                }
+            }
+        }
+        return new Sprite(new ImageView(img).getImage());
+    }
 }
