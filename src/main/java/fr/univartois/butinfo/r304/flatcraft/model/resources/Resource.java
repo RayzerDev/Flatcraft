@@ -18,7 +18,9 @@ package fr.univartois.butinfo.r304.flatcraft.model.resources;
 
 import java.util.Objects;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.state.ResourceState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.damage.DamageState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.damage.UndamagedState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.location.LocationState;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 /**
@@ -48,16 +50,16 @@ public final class Resource {
     private final ToolType toolType;
 
     /**
-     * La dureté de cette ressource.
+     * L'état de la duretée de cette ressource.
      * Il s'agit du nombre de coups devant être appliqués avec un outil pour extraire
      * cette ressource depuis la map.
      */
-    private int hardness;
+    private DamageState damageState;
 
     /**
      * L'état de cette ressource.
      */
-    private ResourceState state;
+    private LocationState state;
 
     /**
      * Crée une nouvelle instance de Resource.
@@ -68,7 +70,7 @@ public final class Resource {
      * @param hardness La dureté initiale de la ressource.
      * @throws IllegalArgumentException Si la valeur de {@code hardness} est négative.
      */
-    public Resource(String name, Sprite sprite, ToolType toolType, int hardness, ResourceState state) {
+    public Resource(String name, Sprite sprite, ToolType toolType, int hardness, LocationState state) {
         this.sprite = sprite;
         if (hardness < 0) {
             throw new IllegalArgumentException("Resource hardness should be non-negative!");
@@ -76,8 +78,8 @@ public final class Resource {
 
         this.name = name;
         this.toolType = toolType;
-        this.hardness = hardness;
         this.state = state;
+        this.damageState = new UndamagedState(hardness);
     }
 
     /**
@@ -98,6 +100,10 @@ public final class Resource {
         return state.getSprite();
     }
 
+    private void setSprite(Sprite sprite){
+        state.setSprite(sprite);
+    }
+
     /**
      * Donne le type d'outils nécessaire pour extraire cette ressource de la carte.
      *
@@ -115,7 +121,7 @@ public final class Resource {
      * @return La dureté de cette ressource.
      */
     public int getHardness() {
-        return hardness;
+        return damageState.getHardness();
     }
 
     /**
@@ -125,11 +131,12 @@ public final class Resource {
      * @throws IllegalStateException Si la dureté de la ressource est déjà égale
      *         à {@code 0}.
      */
-    public void dig() {
-        if (hardness <= 0) {
+    public Sprite dig() {
+        if (getHardness() <= 0) {
             throw new IllegalStateException("Cannot dig resource with 0 hardness!");
         }
-        hardness--;
+        damageState = damageState.nextState();
+        return sprite.changeDurety(getHardness());
     }
 
     /**
