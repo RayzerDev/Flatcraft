@@ -8,6 +8,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.util.Map;
+import java.util.Optional;
+
 public class Player extends AbstractMovable{
     private IntegerProperty health, xp;
     private ObservableMap<Resource,Integer> inventory;
@@ -73,8 +76,18 @@ public class Player extends AbstractMovable{
             if((inventory.get(r))==1){
                 inventory.remove(r);
             } else{
-                inventory.remove(r,1);
+                inventory.replace(r, inventory.get(r).intValue()-1);
             }
         }
+    }
+
+    public Optional getResourceInventory(String nameResource){
+
+        for (Map.Entry mapentry : inventory.entrySet()){
+            if(((Resource) mapentry.getKey()).getName().equals(nameResource)){
+                return Optional.of((Resource) mapentry.getKey());
+            }
+        }
+        return Optional.empty();
     }
 }
