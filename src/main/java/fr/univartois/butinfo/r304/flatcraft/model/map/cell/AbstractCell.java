@@ -125,6 +125,10 @@ public abstract class AbstractCell implements Cell {
         return spriteProperty;
     }
 
+    public void setSprite(Sprite sprite){
+        spriteProperty.set(sprite);
+    }
+
     /*
      * (non-Javadoc)
      *

@@ -32,25 +32,23 @@ public class TreeGenerator {
 			while(map.getAt(trunkStartR-1,trunkStartC).getResource()!=null){
 				trunkStartR--;
 			}
-			Cell cell = cellFactory.createTrunk();
+
 			for(int h = 0;h<=trunkHeight;h++) {
-				map.setAt(trunkStartR-h-1, trunkStartC, cell);
+				map.setAt(trunkStartR-h-1, trunkStartC, cellFactory.createTrunk());
 			}
-			cell = cellFactory.createLeaves();
 
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-1,"leaves", map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-1,"leaves", map, cell);
+			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+1,"leaves", map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC,"leaves", map, cell);
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+1,"leaves", map, cell);
+			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC-1,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC+1,"leaves", map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC-1,"leaves", map, cell);
-			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC+1,"leaves", map, cell);
+			setAtNoContent(trunkStartR-trunkHeight-2,trunkStartC,"leaves", map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight-2,trunkStartC,"leaves", map, cell);
-
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-2,"leaves", map, cell);
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+2,"leaves", map, cell);
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-2,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+2,"leaves", map, cellFactory.createLeaves());
     	}
     }
 	private boolean cellContentThis(int r, int c, String nameR, GameMap map){

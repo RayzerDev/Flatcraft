@@ -3,7 +3,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.state.OnMapState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.location.OnMapState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 

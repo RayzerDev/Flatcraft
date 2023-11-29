@@ -3,7 +3,7 @@ package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.state.OnMapState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.location.OnMapState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
@@ -44,7 +44,7 @@ public class OverworldCellFactory implements CellFactory {
     @Override
     public Cell createSoilSurface() {
         if (RANDOM.nextInt(10) < 1) {
-            return createResourceCell("junglegrass", ToolType.NO_TOOL,2);
+            return createResourceCell("junglegrass", ToolType.NO_TOOL,5);
         }
 
         if (RANDOM.nextInt(10) < 2) {
@@ -74,7 +74,7 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createTrunk() {
-        return createResourceCell("tree", ToolType.NO_TOOL,10);
+        return createResourceCell("tree", ToolType.NO_TOOL,4);
     }
 
     /*
