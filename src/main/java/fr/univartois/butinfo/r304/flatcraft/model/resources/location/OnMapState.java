@@ -1,8 +1,8 @@
-package fr.univartois.butinfo.r304.flatcraft.model.resources.state;
+package fr.univartois.butinfo.r304.flatcraft.model.resources.location;
 
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
-public class OnMapState implements ResourceState {
+public class OnMapState implements LocationState {
     private Sprite sprite, nextSprite;
 
     public OnMapState(Sprite sprite, Sprite nextSprite){
@@ -20,10 +20,15 @@ public class OnMapState implements ResourceState {
     }
 
     @Override
-    public ResourceState nextState() {
+    public LocationState nextState() {
         if(nextSprite != null){
             return new InInventoryState(nextSprite);
         }
         return new InInventoryState(sprite);
+    }
+
+    @Override
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
     }
 }
