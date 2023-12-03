@@ -79,6 +79,7 @@ public final class Sprite {
         return image;
     }
 
+
     public Sprite changeDurety(int lvl){
         if(lvl<1 || lvl>6){
             return this;
@@ -87,9 +88,28 @@ public final class Sprite {
         Image imageDurety = new Image(urlImage.toExternalForm(), 16, 80, true, true);
         WritableImage img = new WritableImage(getWidth(), getHeight());
         for (int i=0;i < getWidth();i++) {
-            for (int j = 0; j < getHeight(); j++) {
+            for (int j=0; j < getHeight(); j++) {
                 if(imageDurety.getPixelReader().getArgb(i,j + 16 * (5-lvl)) != 0){
                     img.getPixelWriter().setArgb(i, j,imageDurety.getPixelReader().getArgb(i,j + 16 * (5-lvl)));
+                }
+                else{
+                    img.getPixelWriter().setArgb(i, j,image.getPixelReader().getArgb(i,j));
+                }
+            }
+        }
+        return new Sprite(new ImageView(img).getImage());
+    }
+    /**
+     * Fusionne 2 sprites, considérant que other possède vient compléter le fond vide du sprite en instance.
+     *
+     * @return Un nouveau Sprite avec 2 images fusionnées
+     */
+    public Sprite mergeSprite(Sprite other){
+        WritableImage img = new WritableImage(getWidth(), getHeight());
+        for (int i=0;i < getWidth();i++) {
+            for (int j=0; j < getHeight(); j++) {
+                if(image.getPixelReader().getArgb(i,j) == 0){
+                    img.getPixelWriter().setArgb(i, j,other.getImage().getPixelReader().getArgb(i,j));
                 }
                 else{
                     img.getPixelWriter().setArgb(i, j,image.getPixelReader().getArgb(i,j));
