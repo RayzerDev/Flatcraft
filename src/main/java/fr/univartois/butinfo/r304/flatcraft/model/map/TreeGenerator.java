@@ -20,7 +20,7 @@ public class TreeGenerator {
     	for (int i = 0; i < numberOfTrees; i++) {
     	    int trunkHeight = random.nextInt(2,maxTrunkHeight);
     	    int trunkStartC = random.nextInt(map.getWidth() - 1);
-			while(trunkStartC<3 || !(cellContentThis(soilHeight,trunkStartC,"grass",map)
+			while(trunkStartC<3 || trunkStartC > map.getWidth()-3 || !(cellContentThis(soilHeight,trunkStartC,"grass",map)
 					|| cellContentThis(soilHeight,trunkStartC,"dirt",map))
 					|| cellContentThis(soilHeight-1,trunkStartC,"tree",map)
 					|| cellContentThis(soilHeight-1,trunkStartC+1,"tree",map)
