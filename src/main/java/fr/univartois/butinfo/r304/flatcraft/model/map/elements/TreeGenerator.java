@@ -1,8 +1,8 @@
-package fr.univartois.butinfo.r304.flatcraft.model.map;
+package fr.univartois.butinfo.r304.flatcraft.model.map.elements;
 
 import java.util.Random;
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
 
 public class TreeGenerator {
