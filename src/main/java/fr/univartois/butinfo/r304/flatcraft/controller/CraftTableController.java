@@ -197,13 +197,17 @@ public final class CraftTableController {
     private void craft() {
         // On crée la nouvelle ressource.
         product = game.craft(resources);
-        productView.setImage(product.getSprite().getImage());
 
-        // On met à jour les actions disponibles.
-        addButton.setDisable(false);
-        craftGrid.setDisable(true);
-        craftButton.setDisable(true);
-        clearButton.setDisable(true);
+        if (product != null) {
+            // On affiche le produit obtenu.
+            productView.setImage(product.getSprite().getImage());
+
+            // On met à jour les actions disponibles.
+            addButton.setDisable(false);
+            craftGrid.setDisable(true);
+            craftButton.setDisable(true);
+            clearButton.setDisable(true);
+        }
     }
 
     /**
