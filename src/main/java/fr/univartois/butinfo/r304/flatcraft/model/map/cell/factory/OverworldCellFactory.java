@@ -72,7 +72,7 @@ public class OverworldCellFactory implements CellFactory {
             return createResourceCell("mineral_iron", ToolType.MEDIUM_TOOL, "iron_lump",5);
         }
         if(RANDOM.nextInt(100)<1){
-            return createResourceCell("mineral_diamond", ToolType.HARD_TOOL, "diamond",254);
+            return createResourceCell("mineral_diamond", ToolType.HARD_TOOL, "diamond",5);
         }
         return createResourceCell("stone", ToolType.LOW_TYPE,5);
     }
