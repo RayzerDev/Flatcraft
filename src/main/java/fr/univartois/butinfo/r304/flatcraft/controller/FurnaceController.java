@@ -199,6 +199,18 @@ public final class FurnaceController {
     @FXML
     private void addToInventory() {
         // TODO Récupérer le joueur ou définir une méthode pour pouvoir effectuer l'ajout.
+
+        // Une fois la ressource ajoutée, il faut vider le fourneau.
+        resources[0] = null;
+        fuelView.setImage(null);
+        resources[1] = null;
+        resourceView.setImage(null);
+        productView.setImage(product.getSprite().getImage());
+        product = null;
+
+        // On met à jour les actions disponibles.
+        cookButton.setDisable(true);
+        clearButton.setDisable(true);
     }
 
     /**
