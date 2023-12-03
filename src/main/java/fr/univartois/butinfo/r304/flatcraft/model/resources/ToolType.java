@@ -35,6 +35,12 @@ public enum ToolType {
 
     /**
      * Le type d'outils nécessaire pour récupérer un élément qui requiert un outil de
+     * force faible pour être récupéré.
+     */
+    LOW_TYPE,
+
+    /**
+     * Le type d'outils nécessaire pour récupérer un élément qui requiert un outil de
      * force moyenne pour être récupéré.
      */
     MEDIUM_TOOL,
