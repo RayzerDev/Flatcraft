@@ -43,11 +43,11 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createSoilSurface() {
-        if (RANDOM.nextInt(10) < 1) {
+        if (RANDOM.nextInt(100) < 2) {
             return createResourceCell("junglegrass", ToolType.NO_TOOL,5);
         }
 
-        if (RANDOM.nextInt(10) < 2) {
+        if (RANDOM.nextInt(100) < 2) {
             return createCell("water");
         }
 
