@@ -209,6 +209,8 @@ public final class FurnaceController {
         productView.setImage(null);
 
         // On met à jour les actions disponibles.
+        furnaceGrid.setDisable(false);
+        addButton.setDisable(true);
         cookButton.setDisable(true);
         clearButton.setDisable(true);
     }

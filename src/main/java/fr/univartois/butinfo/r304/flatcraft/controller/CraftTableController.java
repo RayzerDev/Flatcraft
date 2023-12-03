@@ -228,6 +228,8 @@ public final class CraftTableController {
         productView.setImage(null);
 
         // On met à jour les actions disponibles.
+        craftGrid.setDisable(false);
+        addButton.setDisable(true);
         craftButton.setDisable(true);
         clearButton.setDisable(true);
     }
