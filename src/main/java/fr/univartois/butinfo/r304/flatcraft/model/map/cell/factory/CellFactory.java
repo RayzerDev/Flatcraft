@@ -14,7 +14,7 @@
  * Tous droits réservés.
  */
 
-package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
@@ -61,6 +61,13 @@ public interface CellFactory {
      * @return La cellule créée.
      */
     Cell createSubSoil();
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createFirstSubSoil()
+     */
+    Cell createFirstSubSoil();
 
     /**
      * Crée une cellule représentant le tronc d'un arbre.

@@ -1,22 +1,20 @@
-package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellGrid;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.location.OnMapState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
-import java.util.Random;
 
-public class NetherCellFactory implements CellFactory {
-
-    private final Random RANDOM = new Random();
+public class EndCellFactory implements CellFactory {
     ISpriteStore spriteStore;
 
-    private static NetherCellFactory instance = new NetherCellFactory();
+    private static EndCellFactory instance = new EndCellFactory();
 
-    private NetherCellFactory(){}
+    private EndCellFactory(){}
 
     @Override
     public void setSpriteStore(ISpriteStore spriteStore) {
@@ -30,15 +28,17 @@ public class NetherCellFactory implements CellFactory {
 
     @Override
     public Cell createSoilSurface() {
-        if (RANDOM.nextInt(10) < 4) {
-            return createResourceCell("desert_stone", ToolType.NO_TOOL);
-        }
-        return createCell("lava");
+        return createResourceCell("sandstone", ToolType.NO_TOOL);
     }
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("desert_stone", ToolType.NO_TOOL);
+        return createResourceCell("sandstone", ToolType.NO_TOOL);
+    }
+
+    @Override
+    public Cell createFirstSubSoil() {
+        return createResourceCell("sandstone", ToolType.NO_TOOL);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class NetherCellFactory implements CellFactory {
         return new CellGrid(new Resource(name, sprite, tool, 1, new OnMapState(sprite, nextSprite)));
     }
 
-    public static NetherCellFactory getInstance() {
+    public static EndCellFactory getInstance() {
         return instance;
     }
 }

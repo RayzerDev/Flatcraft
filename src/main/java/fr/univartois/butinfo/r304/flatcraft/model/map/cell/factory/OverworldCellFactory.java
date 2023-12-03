@@ -1,6 +1,7 @@
-package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
+package fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellGrid;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.location.OnMapState;
@@ -26,7 +27,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createSky()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createSky()
      */
     @Override
     public Cell createSky() {
@@ -39,7 +40,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createSoilSurface()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createSoilSurface()
      */
     @Override
     public Cell createSoilSurface() {
@@ -57,20 +58,41 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createSubSoil()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createSubSoil()
      */
     @Override
     public Cell createSubSoil() {
-        if(RANDOM.nextInt(100)<1){
-            return createResourceCell("mineral_gold", ToolType.NO_TOOL, "gold_lump",5);
+        if(RANDOM.nextInt(100)<2){
+            return createResourceCell("mineral_gold", ToolType.MEDIUM_TOOL, "gold_lump",5);
         }
-        return createResourceCell("dirt", ToolType.NO_TOOL,5);
+        if(RANDOM.nextInt(100)<5){
+            return createResourceCell("mineral_coal", ToolType.LOW_TYPE, "coal_lump",5);
+        }
+        if(RANDOM.nextInt(100)<3){
+            return createResourceCell("mineral_iron", ToolType.MEDIUM_TOOL, "iron_lump",5);
+        }
+        if(RANDOM.nextInt(100)<1){
+            return createResourceCell("mineral_diamond", ToolType.HARD_TOOL, "diamond",254);
+        }
+        return createResourceCell("stone", ToolType.LOW_TYPE,5);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createTrunk()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createFirstSubSoil()
+     */
+    @Override
+    public Cell createFirstSubSoil() {
+        if(RANDOM.nextInt(100)<5){
+            return createResourceCell("stone", ToolType.LOW_TYPE,5);
+        }
+        return createResourceCell("dirt", ToolType.NO_TOOL,5);
+    }
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createTrunk()
      */
     @Override
     public Cell createTrunk() {
@@ -80,7 +102,7 @@ public class OverworldCellFactory implements CellFactory {
     /*
      * (non-Javadoc)
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory#createLeaves()
+     * @see fr.univartois.butinfo.r304.flatcraft.model.map.cell.factories.CellFactory#createLeaves()
      */
     @Override
     public Cell createLeaves() {
@@ -109,10 +131,16 @@ public class OverworldCellFactory implements CellFactory {
      */
     private Cell createResourceCell(String name, ToolType tool, int hardness) {
         Sprite sprite = spriteStore.getSprite(name);
+        if (name.startsWith("mineral")){
+            sprite = sprite.mergeSprite(spriteStore.getSprite("stone"));
+        }
         return new CellGrid(new Resource(name, sprite, tool, hardness, new OnMapState(sprite)));
     }
     private Cell createResourceCell(String name, ToolType tool, String nextName, int hardness) {
         Sprite sprite = spriteStore.getSprite(name);
+        if (name.startsWith("mineral")){
+            sprite = sprite.mergeSprite(spriteStore.getSprite("stone"));
+        }
         Sprite nextSprite = spriteStore.getSprite(nextName);
         return new CellGrid(new Resource(name, sprite, tool, hardness, new OnMapState(sprite, nextSprite)));
     }
