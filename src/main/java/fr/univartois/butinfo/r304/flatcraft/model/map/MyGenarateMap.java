@@ -1,8 +1,10 @@
 package fr.univartois.butinfo.r304.flatcraft.model.map;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.elements.TerrilGenerator;
+import fr.univartois.butinfo.r304.flatcraft.model.map.elements.TreeGenerator;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 
 import java.util.Random;
@@ -42,7 +44,11 @@ public class MyGenarateMap implements IFabricMap{
                 } else if (i == soilHeigth) {
                     Cell cell = cellFactory.createSoilSurface();
                     map.setAt(i, j, cell);
-                } else {
+                } else if (i < soilHeigth + 7) {
+                    Cell cell = cellFactory.createFirstSubSoil();
+                    map.setAt(i, j, cell);
+                }
+                else {
                     Cell cell = cellFactory.createSubSoil();
                     map.setAt(i, j, cell);
                 }

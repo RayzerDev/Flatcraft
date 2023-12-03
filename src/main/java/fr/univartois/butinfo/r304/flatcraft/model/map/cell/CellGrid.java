@@ -2,6 +2,9 @@ package fr.univartois.butinfo.r304.flatcraft.model.map.cell;
 
 import fr.univartois.butinfo.r304.flatcraft.model.Cell;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.state.CellNoResources;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.state.CellResources;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.state.CellState;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;

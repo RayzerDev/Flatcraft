@@ -19,13 +19,9 @@ package fr.univartois.butinfo.r304.flatcraft;
 import java.io.IOException;
 
 import fr.univartois.butinfo.r304.flatcraft.controller.FlatcraftController;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.EndCellFactory;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.NetherCellFactory;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.OverworldCellFactory;
-import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
-import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory.OverworldCellFactory;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 import javafx.application.Application;

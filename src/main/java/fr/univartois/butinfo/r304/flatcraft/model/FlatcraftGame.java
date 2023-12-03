@@ -24,7 +24,7 @@ import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
-import fr.univartois.butinfo.r304.flatcraft.model.map.cell.CellFactory;
+import fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IntelligentMobMovement;
