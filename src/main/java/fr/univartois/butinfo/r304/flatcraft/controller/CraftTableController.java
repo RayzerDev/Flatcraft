@@ -224,8 +224,8 @@ public final class CraftTableController {
                 resourceViews[i][j].setImage(null);
             }
         }
-        productView.setImage(product.getSprite().getImage());
         product = null;
+        productView.setImage(product.getSprite().getImage());
 
         // On met à jour les actions disponibles.
         craftButton.setDisable(true);

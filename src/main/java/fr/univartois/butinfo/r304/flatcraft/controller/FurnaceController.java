@@ -205,8 +205,8 @@ public final class FurnaceController {
         fuelView.setImage(null);
         resources[1] = null;
         resourceView.setImage(null);
-        productView.setImage(product.getSprite().getImage());
         product = null;
+        productView.setImage(product.getSprite().getImage());
 
         // On met à jour les actions disponibles.
         cookButton.setDisable(true);
