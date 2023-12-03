@@ -368,8 +368,19 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource craft(Resource[][] inputResources) {
-        // TODO Vous devez compléter cette méthode.
-        throw new UnsupportedOperationException("Pas encore implémentée !");
+        try {
+            RuleParser ruleParser = new RuleParser("craftrules.txt");
+            ruleParser.parse();
+            int i = 0;
+            for (Resource[] resources : inputResources){
+                player.getInventory().remove(resources[i]);
+                i++;
+            }
+        }
+        catch (IOException e){
+            controller.displayError("Pas de règles");
+        }
+        return inputResources[0][0];
     }
 
     /**
@@ -382,8 +393,17 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource cook(Resource fuel, Resource resource) {
-        // TODO Vous devez compléter cette méthode.
-        throw new UnsupportedOperationException("Pas encore implémentée !");
+        try {
+            RuleParser ruleParser = new RuleParser("furnacerules.txt");
+            ruleParser.parse();
+            player.getInventory().remove(fuel);
+            player.getInventory().remove(resource);
+        }
+        catch (IOException e){
+            controller.displayError("Pas de règles");
+
+        }
+    return resource;
     }
 
     public Player getPlayer() {
