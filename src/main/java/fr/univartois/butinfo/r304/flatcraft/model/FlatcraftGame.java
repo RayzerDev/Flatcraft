@@ -222,27 +222,37 @@ public final class FlatcraftGame {
      */
     public void moveUp() {
         player.setVerticalSpeed(-100);
+        move(player);
     }
 
     /**
      * Fait se déplacer le joueur vers le bas.
      */
     public void moveDown() {
-        player.setVerticalSpeed(100);
+        Cell currentCell = getCellOf(player);
+        if(currentCell.getRow() < map.getHeight()-1 && map.getAt(currentCell.getRow()+1, currentCell.getColumn()).move(player)) {
+            move(player);
+        }
     }
 
     /**
      * Fait se déplacer le joueur vers la gauche.
      */
     public void moveLeft() {
-        player.setHorizontalSpeed(-150);
+        Cell currentCell = getCellOf(player);
+        if(currentCell.getColumn()!=0 && map.getAt(currentCell.getRow(), currentCell.getColumn()-1).move(player)) {
+            move(player);
+        }
     }
 
     /**
      * Fait se déplacer le joueur vers la droite.
      */
     public void moveRight() {
-        player.setHorizontalSpeed(150);
+        Cell currentCell = getCellOf(player);
+        if(currentCell.getColumn() < map.getWidth()-1 && map.getAt(currentCell.getRow(), currentCell.getColumn()+1).move(player)){
+            move(player);
+        }
     }
 
     /**
@@ -279,7 +289,11 @@ public final class FlatcraftGame {
      * Fait creuser le joueur vers le haut.
      */
     public void digUp() {
-        // TODO Nous reviendrons plus tard sur cette méthode.
+        Cell cellNow = getCellOf(player);
+        if (cellNow.getRow()>1){
+            dig(map.getAt(cellNow.getRow()-1, cellNow.getColumn()));
+            move(player);
+        }
     }
 
     /**
@@ -289,6 +303,7 @@ public final class FlatcraftGame {
         Cell cellNow = getCellOf(player);
         if (cellNow.getRow()< map.getHeight()-1){
             dig(map.getAt(cellNow.getRow()+1, cellNow.getColumn()));
+            move(player);
         }
     }
 
@@ -297,7 +312,7 @@ public final class FlatcraftGame {
      */
     public void digLeft() {
         Cell cellNow = getCellOf(player);
-        if (cellNow.getColumn()-1>0){
+        if (cellNow.getColumn()>1){
             dig(map.getAt(cellNow.getRow(), cellNow.getColumn()-1));
         }
     }
