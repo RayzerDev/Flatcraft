@@ -44,7 +44,6 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public final class FlatcraftGame {
 
-    RuleParser ruleParserCraft = new RuleParser("craftrules.txt");
 
     /**
      * La largeur de la carte du jeu affichée (en pixels).
@@ -101,6 +100,9 @@ public final class FlatcraftGame {
      */
     private FlatcraftAnimation animation = new FlatcraftAnimation(this, movableObjects);
 
+    private RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
+
+    private RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
     /**
      * Crée une nouvelle instance de FlatcraftGame.
      *
@@ -185,9 +187,8 @@ public final class FlatcraftGame {
         controller.bindHealth( player.getHealthProperty());
         controller.bindInventory(player.getInventory());
 
-        RuleParser ruleParser = new RuleParser("craftrules.txt");
         try {
-            ruleParser.parse();
+            ruleParserCraft.parse();
         }
         catch (IOException e){
             System.err.println("Erreur lors du parsse du craft");
@@ -372,13 +373,13 @@ public final class FlatcraftGame {
     public Resource craft(Resource[][] inputResources) {
         try {
             ruleParserCraft.parse();
+            int i = 0;
             for (Resource[] resources : inputResources){
-                for (Resource resource: resources) {
-                    player.getInventory().remove(resource);
-                }
+                player.getInventory().remove(resources[i]);
+                i++;
             }
         }
-        catch (Exception e){
+        catch (IOException e){
             controller.displayError("Pas de règles");
         }
         return inputResources[0][0];
@@ -395,13 +396,13 @@ public final class FlatcraftGame {
      */
     public Resource cook(Resource fuel, Resource resource) {
         try {
-            RuleParser ruleParser = new RuleParser("furnacerules.txt");
-            ruleParser.parse();
+            ruleParserFurnace.parse();
             player.getInventory().remove(fuel);
             player.getInventory().remove(resource);
         }
-        catch (Exception e){
+        catch (IOException e){
             controller.displayError("Pas de règles");
+
         }
     return resource;
     }
