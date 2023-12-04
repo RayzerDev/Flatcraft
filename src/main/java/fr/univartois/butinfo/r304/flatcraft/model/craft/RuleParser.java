@@ -37,6 +37,10 @@ public final class RuleParser {
 
     private final String fileName;
 
+    private static RuleParser instanceCraft = new RuleParser("craftrules.txt");
+
+    private static RuleParser instanceFurnace = new RuleParser("furnacerules.txt");
+
     private static RuleBuilder builder = new RuleBuilder();
 
     private List<Rule> rules = new ArrayList<>();
@@ -47,7 +51,7 @@ public final class RuleParser {
      * @param fileName Le nom du fichier depuis lequel les règles doivent être lues.
      */
 
-    public RuleParser(String fileName) {
+    private RuleParser(String fileName) {
 
         this.fileName = fileName;
 
@@ -101,6 +105,14 @@ public final class RuleParser {
         rule1.setProduct(product);
         rule1.setQuantity(quantity);
         rules.add(rule1);
+    }
+
+    public static RuleParser getInstanceCraft() {
+        return instanceCraft;
+    }
+
+    public static RuleParser getInstanceFurnace() {
+        return instanceFurnace;
     }
 }
 

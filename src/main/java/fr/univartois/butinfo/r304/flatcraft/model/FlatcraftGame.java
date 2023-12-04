@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleBuilder;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
@@ -99,6 +100,9 @@ public final class FlatcraftGame {
      */
     private FlatcraftAnimation animation = new FlatcraftAnimation(this, movableObjects);
 
+    private RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
+
+    private RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
     /**
      * Crée une nouvelle instance de FlatcraftGame.
      *
@@ -183,9 +187,8 @@ public final class FlatcraftGame {
         controller.bindHealth( player.getHealthProperty());
         controller.bindInventory(player.getInventory());
 
-        RuleParser ruleParser = new RuleParser("craftrules.txt");
         try {
-            ruleParser.parse();
+            ruleParserCraft.parse();
         }
         catch (IOException e){
             System.err.println("Erreur lors du parsse du craft");
@@ -369,8 +372,7 @@ public final class FlatcraftGame {
      */
     public Resource craft(Resource[][] inputResources) {
         try {
-            RuleParser ruleParser = new RuleParser("craftrules.txt");
-            ruleParser.parse();
+            ruleParserCraft.parse();
             int i = 0;
             for (Resource[] resources : inputResources){
                 player.getInventory().remove(resources[i]);
@@ -394,8 +396,7 @@ public final class FlatcraftGame {
      */
     public Resource cook(Resource fuel, Resource resource) {
         try {
-            RuleParser ruleParser = new RuleParser("furnacerules.txt");
-            ruleParser.parse();
+            ruleParserFurnace.parse();
             player.getInventory().remove(fuel);
             player.getInventory().remove(resource);
         }
