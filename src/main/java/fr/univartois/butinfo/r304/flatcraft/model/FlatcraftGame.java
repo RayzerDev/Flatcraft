@@ -44,6 +44,8 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public final class FlatcraftGame {
 
+    RuleParser ruleParserCraft = new RuleParser("craftrules.txt");
+
     /**
      * La largeur de la carte du jeu affichée (en pixels).
      */
@@ -369,15 +371,14 @@ public final class FlatcraftGame {
      */
     public Resource craft(Resource[][] inputResources) {
         try {
-            RuleParser ruleParser = new RuleParser("craftrules.txt");
-            ruleParser.parse();
-            int i = 0;
+            ruleParserCraft.parse();
             for (Resource[] resources : inputResources){
-                player.getInventory().remove(resources[i]);
-                i++;
+                for (Resource resource: resources) {
+                    player.getInventory().remove(resource);
+                }
             }
         }
-        catch (IOException e){
+        catch (Exception e){
             controller.displayError("Pas de règles");
         }
         return inputResources[0][0];
@@ -399,9 +400,8 @@ public final class FlatcraftGame {
             player.getInventory().remove(fuel);
             player.getInventory().remove(resource);
         }
-        catch (IOException e){
+        catch (Exception e){
             controller.displayError("Pas de règles");
-
         }
     return resource;
     }
