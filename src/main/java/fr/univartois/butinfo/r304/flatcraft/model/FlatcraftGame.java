@@ -123,9 +123,8 @@ public final class FlatcraftGame {
             ruleParserCraft.parse();
         }catch(IOException e){
             e.printStackTrace();
-            System.out.println("Pas réussi a lire les règles");
+            controller.displayError("Pas réussi à lire les règles");
         }
-
 
     }
 
