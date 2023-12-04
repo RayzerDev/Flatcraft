@@ -118,6 +118,15 @@ public final class FlatcraftGame {
         this.spriteStore = spriteStore;
         this.cellFactory = factory;
         this.cellFactory.setSpriteStore(spriteStore);
+        try{
+            ruleParserFurnace.parse();
+            ruleParserCraft.parse();
+        }catch(IOException e){
+            e.printStackTrace();
+            System.out.println("Pas réussi a lire les règles");
+        }
+
+
     }
 
     /**
@@ -371,16 +380,11 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource craft(Resource[][] inputResources) {
-        try {
-            ruleParserCraft.parse();
-            int i = 0;
-            for (Resource[] resources : inputResources){
-                player.getInventory().remove(resources[i]);
-                i++;
-            }
-        }
-        catch (IOException e){
-            controller.displayError("Pas de règles");
+
+        int i = 0;
+        for (Resource[] resources : inputResources){
+            player.getInventory().remove(resources[i]);
+            i++;
         }
         return inputResources[0][0];
     }
@@ -395,16 +399,10 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource cook(Resource fuel, Resource resource) {
-        try {
-            ruleParserFurnace.parse();
-            player.getInventory().remove(fuel);
-            player.getInventory().remove(resource);
-        }
-        catch (IOException e){
-            controller.displayError("Pas de règles");
 
-        }
-    return resource;
+        player.getInventory().remove(fuel);
+        player.getInventory().remove(resource);
+        return resource;
     }
 
     public Player getPlayer() {
