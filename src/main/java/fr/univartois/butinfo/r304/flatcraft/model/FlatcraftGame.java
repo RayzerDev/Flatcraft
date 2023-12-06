@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +9,7 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2023 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -17,12 +17,10 @@
 package fr.univartois.butinfo.r304.flatcraft.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.flatcraft.model.craft.Rule;
-import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleBuilder;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
@@ -67,12 +65,12 @@ public final class FlatcraftGame {
     /**
      * L'instance e {@link ISpriteStore} utilisée pour créer les sprites du jeu.
      */
-    private ISpriteStore spriteStore;
+    private final ISpriteStore spriteStore;
 
     /**
      * L'instance de {@link CellFactory} utilisée pour créer les cellules du jeu.
      */
-    private CellFactory cellFactory;
+    private final CellFactory cellFactory;
 
     /**
      * La carte du jeu, sur laquelle le joueur évolue.
@@ -82,12 +80,12 @@ public final class FlatcraftGame {
     /**
      * Le temps écoulé depuis le début de la partie.
      */
-    private IntegerProperty time = new SimpleIntegerProperty(12);
+    private final IntegerProperty time = new SimpleIntegerProperty(12);
 
     /**
      * Le niveau actuel de la partie.
      */
-    private IntegerProperty level = new SimpleIntegerProperty(1);
+    private final IntegerProperty level = new SimpleIntegerProperty(1);
 
     /**
      * La représentation du joueur.
@@ -99,18 +97,18 @@ public final class FlatcraftGame {
     /**
      * La liste des objets mobiles du jeu.
      */
-    private List<IMovable> movableObjects = new CopyOnWriteArrayList<>();
+    private final List<IMovable> movableObjects = new CopyOnWriteArrayList<>();
 
     /**
      * L'animation simulant le temps qui passe dans le jeu.
      */
-    private FlatcraftAnimation animation = new FlatcraftAnimation(this, movableObjects);
+    private final FlatcraftAnimation animation = new FlatcraftAnimation(this, movableObjects);
 
-    private RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
+    private final RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
 
     private RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
 
-    private List<Rule> rules = RuleParser.getRules();
+    private final List<Rule> rules = RuleParser.getRules();
     /**
      * Crée une nouvelle instance de FlatcraftGame.
      *
@@ -127,6 +125,7 @@ public final class FlatcraftGame {
         this.cellFactory = factory;
         this.cellFactory.setSpriteStore(spriteStore);
         try{
+            RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
             ruleParserFurnace.parse();
             ruleParserCraft.parse();
         }catch(IOException e){
@@ -178,13 +177,13 @@ public final class FlatcraftGame {
         movableObjects.add(player);
 
         // On créé 3 mobs passifs
-        PassiveMob mobLin = new PassiveMob(this, map.getWidth()/2 * spriteStore.getSpriteSize(),
+        PassiveMob mobLin = new PassiveMob(this, (double) map.getWidth() /2 * spriteStore.getSpriteSize(),
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
                 new LinearMobMovement());
         controller.addMovable(mobLin);
         movableObjects.add(mobLin);
 
-        PassiveMob mobRan = new PassiveMob(this, map.getWidth()/3 * spriteStore.getSpriteSize(),
+        PassiveMob mobRan = new PassiveMob(this, (double) map.getWidth() /3 * spriteStore.getSpriteSize(),
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
                 new RandomMobMovement());
         controller.addMovable(mobRan);
@@ -196,7 +195,6 @@ public final class FlatcraftGame {
         controller.addMovable(mobInt);
         movableObjects.add(mobInt);
 
-        // TODO On fait le lien entre les différentes propriétés et leur affichage.
         controller.bindTime(time);
         controller.bindLevel(level);
         controller.bindXP( player.getXpProperty());
@@ -402,7 +400,7 @@ public final class FlatcraftGame {
             }
         }
         for (Rule rule: rules) {
-            if(inputRule.toString().equals(rule.getRule())){
+            if(inputRule.toString().equals(rule.getStringRule())){
                 quantityCraft = rule.getQuantity();
                 String nameResource = rule.getProduct();
                 return new Resource(nameResource, ToolType.LOW_TYPE, 5,
@@ -422,8 +420,18 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource cook(Resource fuel, Resource resource) {
-
-        return resource;
+        String inputRule = resource.getName();
+        String nameFuel = fuel.getName();
+        if("tree".equals(nameFuel) || "coal_lump".equals(nameFuel)){
+            for (Rule rule: rules) {
+                if(inputRule.equals(rule.getStringRule())){
+                    String nameResource = rule.getProduct();
+                    return new Resource(nameResource, ToolType.LOW_TYPE, 5,
+                            new InInventoryState(spriteStore.getSprite(nameResource)));
+                }
+            }
+        }
+        return null;
     }
 
     public Player getPlayer() {

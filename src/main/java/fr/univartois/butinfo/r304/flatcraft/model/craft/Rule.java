@@ -1,14 +1,13 @@
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 
 public class Rule {
-    private String rule;
+    private String stringRule;
     private String product;
     private int quantity;
 
-    public void setRule(String rule) {
-        this.rule = rule;
+    public void setStringRule(String stringRule) {
+        this.stringRule = stringRule;
     }
 
     public void setProduct(String product) {
@@ -19,8 +18,8 @@ public class Rule {
         this.quantity = quantity;
     }
 
-    public String getRule() {
-        return rule;
+    public String getStringRule() {
+        return stringRule;
     }
 
     public int getQuantity() {

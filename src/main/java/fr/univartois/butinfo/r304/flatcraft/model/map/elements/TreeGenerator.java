@@ -7,8 +7,9 @@ import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
 
 public class TreeGenerator {
 
-    private static Random random = new Random();
-    private CellFactory cellFactory;
+	private static final Random random = new Random();
+	public static final String LEAVES = "leaves";
+	private final CellFactory cellFactory;
 
     public TreeGenerator(CellFactory cellFactory) {
         this.cellFactory = cellFactory;
@@ -37,18 +38,18 @@ public class TreeGenerator {
 				map.setAt(trunkStartR-h-1, trunkStartC, cellFactory.createTrunk());
 			}
 
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-1,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-1, LEAVES, map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC,"leaves", map, cellFactory.createLeaves());
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+1,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC,LEAVES, map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+1,LEAVES, map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC-1,"leaves", map, cellFactory.createLeaves());
-			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC+1,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC-1,LEAVES, map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight-1,trunkStartC+1,LEAVES, map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight-2,trunkStartC,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight-2,trunkStartC,LEAVES, map, cellFactory.createLeaves());
 
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-2,"leaves", map, cellFactory.createLeaves());
-			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+2,"leaves", map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC-2,LEAVES, map, cellFactory.createLeaves());
+			setAtNoContent(trunkStartR-trunkHeight,trunkStartC+2,LEAVES, map, cellFactory.createLeaves());
     	}
     }
 	private boolean cellContentThis(int r, int c, String nameR, GameMap map){

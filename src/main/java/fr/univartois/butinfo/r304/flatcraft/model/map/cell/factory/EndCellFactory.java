@@ -12,7 +12,9 @@ import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 public class EndCellFactory implements CellFactory {
     ISpriteStore spriteStore;
 
-    private static EndCellFactory instance = new EndCellFactory();
+    private static final String SANDSTONE = "sandstone";
+
+    private static final EndCellFactory instance = new EndCellFactory();
 
     private EndCellFactory(){}
 
@@ -28,17 +30,17 @@ public class EndCellFactory implements CellFactory {
 
     @Override
     public Cell createSoilSurface() {
-        return createResourceCell("sandstone", ToolType.NO_TOOL);
+        return createResourceCell(SANDSTONE, ToolType.NO_TOOL);
     }
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("sandstone", ToolType.NO_TOOL);
+        return createResourceCell(SANDSTONE, ToolType.NO_TOOL);
     }
 
     @Override
     public Cell createFirstSubSoil() {
-        return createResourceCell("sandstone", ToolType.NO_TOOL);
+        return createResourceCell(SANDSTONE, ToolType.NO_TOOL);
     }
 
     @Override

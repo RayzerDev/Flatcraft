@@ -11,13 +11,14 @@ import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import java.util.Random;
 
 public class OverworldCellFactory implements CellFactory {
-    private Random RANDOM = new Random();
+    public static final String STONE = "stone";
+    private final Random random = new Random();
 
     ISpriteStore spriteStore;
 
-    private static OverworldCellFactory instance = new OverworldCellFactory();
+    private static final OverworldCellFactory instance = new OverworldCellFactory();
 
-    private OverworldCellFactory(){};
+    private OverworldCellFactory(){}
     @Override
     public void setSpriteStore(ISpriteStore spriteStore) {
         this.spriteStore = spriteStore;
@@ -31,7 +32,7 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createSky() {
-        if (RANDOM.nextInt(10) < 1) {
+        if (random.nextInt(10) < 1) {
             return createCell("cloud");
         }
         return createCell("ice");
@@ -44,11 +45,11 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createSoilSurface() {
-        if (RANDOM.nextInt(100) < 2) {
+        if (random.nextInt(100) < 2) {
             return createResourceCell("junglegrass", ToolType.NO_TOOL,5);
         }
 
-        if (RANDOM.nextInt(100) < 2) {
+        if (random.nextInt(100) < 2) {
             return createCell("water");
         }
 
@@ -62,19 +63,19 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createSubSoil() {
-        if(RANDOM.nextInt(100)<2){
-            return createResourceCell("mineral_gold", ToolType.MEDIUM_TOOL, "gold_lump",5);
+        if(random.nextInt(100)<2){
+            return createResourceCell("mineral_gold", ToolType.MEDIUM_TOOL, "gold_lump");
         }
-        if(RANDOM.nextInt(100)<5){
-            return createResourceCell("mineral_coal", ToolType.LOW_TYPE, "coal_lump",5);
+        if(random.nextInt(100)<5){
+            return createResourceCell("mineral_coal", ToolType.LOW_TYPE, "coal_lump");
         }
-        if(RANDOM.nextInt(100)<3){
-            return createResourceCell("mineral_iron", ToolType.MEDIUM_TOOL, "iron_lump",5);
+        if(random.nextInt(100)<3){
+            return createResourceCell("mineral_iron", ToolType.MEDIUM_TOOL, "iron_lump");
         }
-        if(RANDOM.nextInt(100)<1){
-            return createResourceCell("mineral_diamond", ToolType.HARD_TOOL, "diamond",5);
+        if(random.nextInt(100)<1){
+            return createResourceCell("mineral_diamond", ToolType.HARD_TOOL, "diamond");
         }
-        return createResourceCell("stone", ToolType.LOW_TYPE,5);
+        return createResourceCell(STONE, ToolType.LOW_TYPE,5);
     }
 
     /*
@@ -84,8 +85,8 @@ public class OverworldCellFactory implements CellFactory {
      */
     @Override
     public Cell createFirstSubSoil() {
-        if(RANDOM.nextInt(100)<5){
-            return createResourceCell("stone", ToolType.LOW_TYPE,5);
+        if(random.nextInt(100)<5){
+            return createResourceCell(STONE, ToolType.LOW_TYPE,5);
         }
         return createResourceCell("dirt", ToolType.NO_TOOL,5);
     }
@@ -132,17 +133,17 @@ public class OverworldCellFactory implements CellFactory {
     private Cell createResourceCell(String name, ToolType tool, int hardness) {
         Sprite sprite = spriteStore.getSprite(name);
         if (name.startsWith("mineral")){
-            sprite = sprite.mergeSprite(spriteStore.getSprite("stone"));
+            sprite = sprite.mergeSprite(spriteStore.getSprite(STONE));
         }
         return new CellGrid(new Resource(name, tool, hardness, new OnMapState(sprite)));
     }
-    private Cell createResourceCell(String name, ToolType tool, String nextName, int hardness) {
+    private Cell createResourceCell(String name, ToolType tool, String nextName) {
         Sprite sprite = spriteStore.getSprite(name);
         if (name.startsWith("mineral")){
-            sprite = sprite.mergeSprite(spriteStore.getSprite("stone"));
+            sprite = sprite.mergeSprite(spriteStore.getSprite(STONE));
         }
         Sprite nextSprite = spriteStore.getSprite(nextName);
-        return new CellGrid(new Resource(name, tool, hardness, new OnMapState(sprite, nextSprite)));
+        return new CellGrid(new Resource(name, tool, 5, new OnMapState(sprite, nextSprite)));
     }
 
     public static OverworldCellFactory getInstance() {
