@@ -7,15 +7,11 @@ import fr.univartois.butinfo.r304.flatcraft.model.map.elements.TerrilGenerator;
 import fr.univartois.butinfo.r304.flatcraft.model.map.elements.TreeGenerator;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 
-import java.util.Random;
-
-import static java.lang.Math.round;
 
 public class MyGenarateMap implements IFabricMap{
     private int heigth;
     private int width;
 
-    private final Random RANDOM = new Random();
     private CellFactory cellFactory;
 
 

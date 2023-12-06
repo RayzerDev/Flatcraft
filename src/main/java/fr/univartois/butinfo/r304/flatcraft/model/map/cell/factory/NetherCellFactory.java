@@ -12,10 +12,11 @@ import java.util.Random;
 
 public class NetherCellFactory implements CellFactory {
 
-    private final Random RANDOM = new Random();
+    public static final String DESERT_STONE = "desert_stone";
+    private final Random random = new Random();
     ISpriteStore spriteStore;
 
-    private static NetherCellFactory instance = new NetherCellFactory();
+    private static final NetherCellFactory instance = new NetherCellFactory();
 
     private NetherCellFactory(){}
 
@@ -31,20 +32,20 @@ public class NetherCellFactory implements CellFactory {
 
     @Override
     public Cell createSoilSurface() {
-        if (RANDOM.nextInt(10) < 4) {
-            return createResourceCell("desert_stone", ToolType.NO_TOOL);
+        if (random.nextInt(10) < 4) {
+            return createResourceCell(DESERT_STONE);
         }
         return createCell("lava");
     }
 
     @Override
     public Cell createSubSoil() {
-        return createResourceCell("desert_stone", ToolType.NO_TOOL);
+        return createResourceCell(DESERT_STONE);
     }
 
     @Override
     public Cell createFirstSubSoil() {
-        return createResourceCell("desert_stone", ToolType.NO_TOOL);
+        return createResourceCell(DESERT_STONE);
     }
 
     @Override
@@ -62,14 +63,14 @@ public class NetherCellFactory implements CellFactory {
         return new CellGrid(sprite);
     }
 
-    private Cell createResourceCell(String name, ToolType tool) {
+    private Cell createResourceCell(String name) {
         Sprite sprite = spriteStore.getSprite(name);
-        return new CellGrid(new Resource(name, tool, 1, new OnMapState(sprite)));
+        return new CellGrid(new Resource(name, ToolType.NO_TOOL, 1, new OnMapState(sprite)));
     }
-    private Cell createResourceCell(String name, ToolType tool, String nextName) {
+    private Cell createResourceCell(String name, String nextName) {
         Sprite sprite = spriteStore.getSprite(name);
         Sprite nextSprite = spriteStore.getSprite(nextName);
-        return new CellGrid(new Resource(name, tool, 1, new OnMapState(sprite, nextSprite)));
+        return new CellGrid(new Resource(name, ToolType.NO_TOOL, 1, new OnMapState(sprite, nextSprite)));
     }
 
     public static NetherCellFactory getInstance() {

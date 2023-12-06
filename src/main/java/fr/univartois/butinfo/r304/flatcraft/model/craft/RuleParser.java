@@ -16,17 +16,12 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
-import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
-import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * La classe {@link RuleParser} permet de lire un fichier de règles de craft.
@@ -43,15 +38,13 @@ public final class RuleParser {
 
     private final String fileName;
 
-    ISpriteStore spriteStore = new SpriteStore();
+    private static final RuleParser instanceCraft = new RuleParser("craftrules.txt");
 
-    private static RuleParser instanceCraft = new RuleParser("craftrules.txt");
+    private static final RuleParser instanceFurnace = new RuleParser("furnacerules.txt");
 
-    private static RuleParser instanceFurnace = new RuleParser("furnacerules.txt");
+    private static final RuleBuilder builder = new RuleBuilder();
 
-    private static RuleBuilder builder = new RuleBuilder();
-
-    private static List<Rule> rules = new ArrayList<>();
+    private static final List<Rule> rules = new ArrayList<>();
 
     /**
      * Crée une nouvelle instance de RuleParser.
@@ -75,7 +68,7 @@ public final class RuleParser {
 
         try (BufferedReader reader = new BufferedReader(
 
-                new InputStreamReader(getClass().getResourceAsStream(fileName)))) {
+                new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(fileName))))) {
 
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
 
@@ -110,7 +103,7 @@ public final class RuleParser {
     private void addRule(String rule, String product, int quantity) {
         builder.createRule();
         Rule rule1 = builder.getRule();
-        rule1.setRule(rule);
+        rule1.setStringRule(rule);
         rule1.setProduct(product);
         rule1.setQuantity(quantity);
         rules.add(rule1);
