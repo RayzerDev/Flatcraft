@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +9,7 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2023 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -31,6 +31,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -114,7 +115,7 @@ public final class FlatcraftController implements IFlatcraftController {
     /**
      * Les composants affichant les ressources actuellement dans l'inventaire du joueur.
      */
-    private Map<Resource, ResourceInInventory> resourcesInInventory = new HashMap<>();
+    private final Map<Resource, ResourceInInventory> resourcesInInventory = new HashMap<>();
 
     /**
      * Associe à ce contrôleur la fenêtre dans laquelle se déroule le jeu.
@@ -308,6 +309,7 @@ public final class FlatcraftController implements IFlatcraftController {
             case DOWN -> game.moveDown();
             case LEFT -> game.moveLeft();
             case RIGHT -> game.moveRight();
+            default -> throw new UnsupportedOperationException();
         }
     }
 
@@ -316,13 +318,13 @@ public final class FlatcraftController implements IFlatcraftController {
      *
      * @param code Le code de la touche sur laquelle le joueur a appuyé.
      */
-    @SuppressWarnings("incomplete-switch")
     private void dig(KeyCode code) {
         switch (code) {
             case UP -> game.digUp();
             case DOWN -> game.digDown();
             case LEFT -> game.digLeft();
             case RIGHT -> game.digRight();
+            default -> throw new UnsupportedOperationException();
         }
     }
 
@@ -386,10 +388,7 @@ public final class FlatcraftController implements IFlatcraftController {
         });
 
         // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
-        resource.getNode().setOnDragDone(event -> {
-            // TODO Retirer de l'inventaire du joueur la ressource qui a été déposée.
-            event.consume();
-        });
+        resource.getNode().setOnDragDone(Event::consume);
     }
 
     /*
