@@ -3,7 +3,8 @@ package fr.univartois.butinfo.r304.flatcraft.model.resources.location;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 public class OnMapState implements LocationState {
-    private Sprite sprite, nextSprite;
+    private Sprite sprite;
+    private final Sprite nextSprite;
 
     public OnMapState(Sprite sprite, Sprite nextSprite){
         this.sprite = sprite;
