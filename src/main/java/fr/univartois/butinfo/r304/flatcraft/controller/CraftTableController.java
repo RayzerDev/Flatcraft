@@ -203,12 +203,13 @@ public final class CraftTableController {
         productView.setImage(product.getSprite().getImage());
         quantity = game.getQuantityCraft();
 
-        // On met à jour les actions disponibles.
-        addButton.setDisable(false);
-        craftGrid.setDisable(true);
-        craftButton.setDisable(true);
-        clearButton.setDisable(true);
-    }
+            // On met à jour les actions disponibles.
+            addButton.setDisable(false);
+            craftGrid.setDisable(true);
+            craftButton.setDisable(true);
+            clearButton.setDisable(true);
+        }
+
 
     /**
      * Ajoute la ressource nouvellement créée à l'inventaire du joueur.
@@ -218,6 +219,10 @@ public final class CraftTableController {
         // TODO Ajoutez un l'inventaire du joueur la ressource "product" ayant été produite.
         game.getPlayer().addInventory(product, quantity);
         clear();
+        addButton.setDisable(true);
+        craftGrid.setDisable(false);
+        craftButton.setDisable(false);
+        clearButton.setDisable(false);
     }
 
     /**

@@ -183,13 +183,17 @@ public final class FurnaceController {
     private void cook() {
         // On crée la nouvelle ressource.
         product = game.cook(resources[0], resources[1]);
-        productView.setImage(product.getSprite().getImage());
 
-        // On met à jour les actions disponibles.
-        addButton.setDisable(false);
-        furnaceGrid.setDisable(true);
-        cookButton.setDisable(true);
-        clearButton.setDisable(true);
+        if (product != null) {
+            // On affiche le produit obtenu.
+            productView.setImage(product.getSprite().getImage());
+
+            // On met à jour les actions disponibles.
+            addButton.setDisable(false);
+            furnaceGrid.setDisable(true);
+            cookButton.setDisable(true);
+            clearButton.setDisable(true);
+        }
     }
 
     /**
