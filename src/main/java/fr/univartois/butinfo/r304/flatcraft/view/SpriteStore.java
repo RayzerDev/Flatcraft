@@ -55,7 +55,7 @@ public final class SpriteStore implements ISpriteStore {
 
         // On crée maintenant l'instance de Sprite, et on la met en cache.
         Image image = loadImage(identifier);
-        Sprite sprite = new Sprite(image);
+        Sprite sprite = new Sprite(identifier, image);
         spriteCache.put(identifier, sprite);
         return sprite;
     }

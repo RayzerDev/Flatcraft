@@ -422,8 +422,18 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource cook(Resource fuel, Resource resource) {
-
-        return resource;
+        String inputRule = resource.getName();
+        String nameFuel = fuel.getName();
+        if("tree".equals(nameFuel) || "coal_lump".equals(nameFuel)){
+            for (Rule rule: rules) {
+                if(inputRule.equals(rule.getRule())){
+                    String nameResource = rule.getProduct();
+                    return new Resource(nameResource, ToolType.LOW_TYPE, 5,
+                            new InInventoryState(spriteStore.getSprite(nameResource)));
+                }
+            }
+        }
+        return null;
     }
 
     public Player getPlayer() {
