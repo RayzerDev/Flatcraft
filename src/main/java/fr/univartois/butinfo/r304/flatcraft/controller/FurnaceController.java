@@ -182,13 +182,17 @@ public final class FurnaceController {
     private void cook() {
         // On crée la nouvelle ressource.
         product = game.cook(resources[0], resources[1]);
-        productView.setImage(product.getSprite().getImage());
 
-        // On met à jour les actions disponibles.
-        addButton.setDisable(false);
-        furnaceGrid.setDisable(true);
-        cookButton.setDisable(true);
-        clearButton.setDisable(true);
+        if (product != null) {
+            // On affiche le produit obtenu.
+            productView.setImage(product.getSprite().getImage());
+
+            // On met à jour les actions disponibles.
+            addButton.setDisable(false);
+            furnaceGrid.setDisable(true);
+            cookButton.setDisable(true);
+            clearButton.setDisable(true);
+        }
     }
 
     /**
@@ -204,10 +208,11 @@ public final class FurnaceController {
      */
     @FXML
     private void clear() {
+        // TODO Remettre les ressources non utilisée dans l'inventaire.
         if(resources[0]!=null)
-            game.getPlayer().addInventory(resources[0]);
+            game.getPlayer().addInventory(resources[0],1);
         if(resources[1]!=null)
-            game.getPlayer().addInventory(resources[1]);
+            game.getPlayer().addInventory(resources[1], 1);
         resources[0] = null;
         fuelView.setImage(null);
         resources[1] = null;

@@ -67,6 +67,7 @@ public final class CraftTableController {
      */
     private Resource product;
 
+    private int quantity;
     /**
      * La vue représentant la ressource produite à l'issue du craft.
      */
@@ -201,13 +202,15 @@ public final class CraftTableController {
         // On crée la nouvelle ressource.
         product = game.craft(resources);
         productView.setImage(product.getSprite().getImage());
+        quantity = game.getQuantityCraft();
 
-        // On met à jour les actions disponibles.
-        addButton.setDisable(false);
-        craftGrid.setDisable(true);
-        craftButton.setDisable(true);
-        clearButton.setDisable(true);
-    }
+            // On met à jour les actions disponibles.
+            addButton.setDisable(false);
+            craftGrid.setDisable(true);
+            craftButton.setDisable(true);
+            clearButton.setDisable(true);
+        }
+
 
     /**
      * Ajoute la ressource nouvellement créée à l'inventaire du joueur.
@@ -215,6 +218,12 @@ public final class CraftTableController {
     @FXML
     private void addToInventory() {
         game.getPlayer().addInventory(product);
+        game.getPlayer().addInventory(product, quantity);
+        clear();
+        addButton.setDisable(true);
+        craftGrid.setDisable(false);
+        craftButton.setDisable(false);
+        clearButton.setDisable(false);
     }
 
     /**
@@ -231,10 +240,11 @@ public final class CraftTableController {
                 resourceViews[i][j].setImage(null);
             }
         }
+        productView.setImage(null);
 
         // On met à jour les actions disponibles.
-        craftButton.setDisable(true);
-        clearButton.setDisable(true);
+        craftButton.setDisable(false);
+        clearButton.setDisable(false);
     }
 
 }
