@@ -76,7 +76,7 @@ public class Player extends AbstractMovable{
             if((inventory.get(r))==1){
                 inventory.remove(r);
             } else{
-                inventory.replace(r, inventory.get(r).intValue()-1);
+                inventory.replace(r, inventory.get(r) -1);
             }
         }
     }
@@ -89,5 +89,15 @@ public class Player extends AbstractMovable{
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

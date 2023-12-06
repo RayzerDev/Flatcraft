@@ -1,7 +1,6 @@
 package fr.univartois.butinfo.r304.flatcraft.model.movables.mobs;
 
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
-import fr.univartois.butinfo.r304.flatcraft.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IMobMovementStrategy;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
