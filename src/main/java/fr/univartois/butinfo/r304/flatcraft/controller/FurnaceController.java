@@ -198,7 +198,7 @@ public final class FurnaceController {
     @FXML
     private void addToInventory() {
         // TODO Récupérer le joueur ou définir une méthode pour pouvoir effectuer l'ajout.
-        game.getPlayer().addInventory(product);
+        game.getPlayer().addInventory(product, 1);
     }
 
     /**
@@ -208,9 +208,9 @@ public final class FurnaceController {
     private void clear() {
         // TODO Remettre les ressources non utilisée dans l'inventaire.
         if(resources[0]!=null)
-            game.getPlayer().addInventory(resources[0]);
+            game.getPlayer().addInventory(resources[0],1);
         if(resources[1]!=null)
-            game.getPlayer().addInventory(resources[1]);
+            game.getPlayer().addInventory(resources[1], 1);
         resources[0] = null;
         fuelView.setImage(null);
         resources[1] = null;

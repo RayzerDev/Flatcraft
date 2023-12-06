@@ -40,11 +40,6 @@ public final class Resource {
     private final String name;
 
     /**
-     * Le sprite représentant cette ressource.
-     */
-    private final Sprite sprite;
-
-    /**
      * Le type d'outils nécessaire pour extraire cette ressource de la carte.
      */
     private final ToolType toolType;
@@ -59,26 +54,23 @@ public final class Resource {
     /**
      * L'état de cette ressource.
      */
-    private LocationState state;
+    private LocationState locationState;
 
     /**
      * Crée une nouvelle instance de Resource.
      *
      * @param name     Le nom unique identifiant le type de la ressource.
-     * @param sprite
      * @param toolType Le type d'outils nécessaire pour extraire la ressource de la carte.
      * @param hardness La dureté initiale de la ressource.
      * @throws IllegalArgumentException Si la valeur de {@code hardness} est négative.
      */
-    public Resource(String name, Sprite sprite, ToolType toolType, int hardness, LocationState state) {
-        this.sprite = sprite;
+    public Resource(String name, ToolType toolType, int hardness, LocationState locationState) {
         if (hardness < 0) {
             throw new IllegalArgumentException("Resource hardness should be non-negative!");
         }
-
         this.name = name;
         this.toolType = toolType;
-        this.state = state;
+        this.locationState = locationState;
         this.damageState = new UndamagedState(hardness);
     }
 
@@ -97,11 +89,7 @@ public final class Resource {
      * @return Le sprite représentant cette ressource.
      */
     public Sprite getSprite() {
-        return state.getSprite();
-    }
-
-    private void setSprite(Sprite sprite){
-        state.setSprite(sprite);
+        return locationState.getSprite();
     }
 
     /**
@@ -136,7 +124,7 @@ public final class Resource {
             throw new IllegalStateException("Cannot dig resource with 0 hardness!");
         }
         damageState = damageState.nextState();
-        return sprite.changeDurety(getHardness());
+        return getSprite().changeDurety(getHardness());
     }
 
     /**
@@ -146,7 +134,7 @@ public final class Resource {
      * @return La ressource obtenue après son extraction.
      */
     public Resource digBlock() {
-        state = state.nextState();
+        locationState = locationState.nextState();
         return this;
     }
 

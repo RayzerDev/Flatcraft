@@ -85,11 +85,11 @@ public final class RuleParser {
 
                 if (result.length == 1) {
 
-                    addRule(splitted[0], splitted[1], 1);
+                    addRule(splitted[0], result[0], 1);
 
                 } else {
 
-                    addRule(splitted[0], splitted[1], Integer.parseInt(result[1]));
+                    addRule(splitted[0], result[0], Integer.parseInt(result[1]));
 
                 }
 
@@ -108,6 +108,7 @@ public final class RuleParser {
      */
 
     private void addRule(String rule, String product, int quantity) {
+        builder.createRule();
         Rule rule1 = builder.getRule();
         rule1.setRule(rule);
         rule1.setProduct(product);

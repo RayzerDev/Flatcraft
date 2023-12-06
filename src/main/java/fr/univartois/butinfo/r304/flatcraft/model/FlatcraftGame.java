@@ -94,6 +94,8 @@ public final class FlatcraftGame {
      */
     private Player player;
 
+    private int quantityCraft;
+
     /**
      * La liste des objets mobiles du jeu.
      */
@@ -385,21 +387,26 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource craft(Resource[][] inputResources){
-        String inputRule = "";
+        StringBuilder inputRule = new StringBuilder();
         for(int i = 0;i<3;i++){
             for(int j = 0;j<3;j++){
                 if(inputResources[i][j] == null){
-                    inputRule += "empty";
+                    inputRule.append("empty");
                 }
                 else{
-                    inputRule += inputResources[i][j].toString();
+                    inputRule.append(inputResources[i][j].toString());
+                }
+                if(!(i==2 && j == 2)){
+                    inputRule.append("_");
                 }
             }
         }
-        System.out.println(inputRule);
         for (Rule rule: rules) {
-            if(inputRule.equals(rule.getRule())){
-                return new Resource(rule.getProduct(), spriteStore.getSprite(rule.getProduct()), ToolType.LOW_TYPE, 5, new InInventoryState(spriteStore.getSprite(rule.getProduct())));
+            if(inputRule.toString().equals(rule.getRule())){
+                quantityCraft = rule.getQuantity();
+                String nameResource = rule.getProduct();
+                return new Resource(nameResource, ToolType.LOW_TYPE, 5,
+                        new InInventoryState(spriteStore.getSprite(nameResource)));
             }
         }
         return null;
@@ -421,5 +428,9 @@ public final class FlatcraftGame {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getQuantityCraft() {
+        return quantityCraft;
     }
 }

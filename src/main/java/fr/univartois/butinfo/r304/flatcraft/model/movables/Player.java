@@ -60,12 +60,12 @@ public class Player extends AbstractMovable{
     /**
     Méthode qui ajoute une ressource.
      */
-    public void addInventory(Resource r){
+    public void addInventory(Resource r, int quantity){
         if(inventory.containsKey(r)){
-            inventory.replace(r,inventory.get(r)+1);
+            inventory.replace(r,inventory.get(r)+quantity);
         }
         else{
-            inventory.put(r,1);
+            inventory.put(r,quantity);
         }
     }
     /**
