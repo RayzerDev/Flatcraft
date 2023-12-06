@@ -16,14 +16,12 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
-import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
-import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * La classe {@link RuleParser} permet de lire un fichier de règles de craft.
@@ -39,8 +37,6 @@ public final class RuleParser {
      */
 
     private final String fileName;
-
-    ISpriteStore spriteStore = new SpriteStore();
 
     private static final RuleParser instanceCraft = new RuleParser("craftrules.txt");
 
@@ -72,7 +68,7 @@ public final class RuleParser {
 
         try (BufferedReader reader = new BufferedReader(
 
-                new InputStreamReader(getClass().getResourceAsStream(fileName)))) {
+                new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(fileName))))) {
 
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
 
