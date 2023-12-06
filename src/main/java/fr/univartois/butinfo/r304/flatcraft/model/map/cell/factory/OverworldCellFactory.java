@@ -134,7 +134,7 @@ public class OverworldCellFactory implements CellFactory {
         if (name.startsWith("mineral")){
             sprite = sprite.mergeSprite(spriteStore.getSprite("stone"));
         }
-        return new CellGrid(new Resource(name, sprite, tool, hardness, new OnMapState(sprite)));
+        return new CellGrid(new Resource(name, tool, hardness, new OnMapState(sprite)));
     }
     private Cell createResourceCell(String name, ToolType tool, String nextName, int hardness) {
         Sprite sprite = spriteStore.getSprite(name);
@@ -142,7 +142,7 @@ public class OverworldCellFactory implements CellFactory {
             sprite = sprite.mergeSprite(spriteStore.getSprite("stone"));
         }
         Sprite nextSprite = spriteStore.getSprite(nextName);
-        return new CellGrid(new Resource(name, sprite, tool, hardness, new OnMapState(sprite, nextSprite)));
+        return new CellGrid(new Resource(name, tool, hardness, new OnMapState(sprite, nextSprite)));
     }
 
     public static OverworldCellFactory getInstance() {

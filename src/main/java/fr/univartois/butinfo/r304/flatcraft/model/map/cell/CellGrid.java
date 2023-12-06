@@ -40,7 +40,7 @@ public class CellGrid extends AbstractCell {
         if (resource != null) {
             setSprite(resource.dig());
             if (resource.getHardness() == 0) {
-                player.addInventory(resource.digBlock());
+                player.addInventory(resource.digBlock(), 1);
                 return true;
             }
         }

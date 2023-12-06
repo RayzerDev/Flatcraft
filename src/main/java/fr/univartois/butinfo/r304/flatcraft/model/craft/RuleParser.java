@@ -16,6 +16,12 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
+import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
+import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,13 +43,15 @@ public final class RuleParser {
 
     private final String fileName;
 
+    ISpriteStore spriteStore = new SpriteStore();
+
     private static RuleParser instanceCraft = new RuleParser("craftrules.txt");
 
     private static RuleParser instanceFurnace = new RuleParser("furnacerules.txt");
 
     private static RuleBuilder builder = new RuleBuilder();
 
-    private List<Rule> rules = new ArrayList<>();
+    private static List<Rule> rules = new ArrayList<>();
 
     /**
      * Crée une nouvelle instance de RuleParser.
@@ -77,11 +85,11 @@ public final class RuleParser {
 
                 if (result.length == 1) {
 
-                    addRule(splitted[0], splitted[1], 1);
+                    addRule(splitted[0], result[0], 1);
 
                 } else {
 
-                    addRule(splitted[0], splitted[1], Integer.parseInt(result[1]));
+                    addRule(splitted[0], result[0], Integer.parseInt(result[1]));
 
                 }
 
@@ -100,6 +108,7 @@ public final class RuleParser {
      */
 
     private void addRule(String rule, String product, int quantity) {
+        builder.createRule();
         Rule rule1 = builder.getRule();
         rule1.setRule(rule);
         rule1.setProduct(product);
@@ -113,6 +122,10 @@ public final class RuleParser {
 
     public static RuleParser getInstanceFurnace() {
         return instanceFurnace;
+    }
+
+    public static List<Rule> getRules() {
+        return rules;
     }
 }
 
