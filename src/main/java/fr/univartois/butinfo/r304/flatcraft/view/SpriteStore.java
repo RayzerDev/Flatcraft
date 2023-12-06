@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +9,7 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2023 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -72,6 +72,7 @@ public final class SpriteStore implements ISpriteStore {
     private Image loadImage(String name) {
         try {
             URL urlImage = getClass().getResource("images/default_" + name + ".png");
+            assert urlImage != null;
             return new Image(urlImage.toExternalForm(), getSpriteSize(), getSpriteSize(), true, true);
 
         } catch (NullPointerException | IllegalArgumentException e) {
