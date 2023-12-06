@@ -16,9 +16,6 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 
@@ -110,7 +107,7 @@ public final class RuleParser {
     private void addRule(String rule, String product, int quantity) {
         builder.createRule();
         Rule rule1 = builder.getRule();
-        rule1.setRule(rule);
+        rule1.setStringRule(rule);
         rule1.setProduct(product);
         rule1.setQuantity(quantity);
         rules.add(rule1);

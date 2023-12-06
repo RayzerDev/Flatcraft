@@ -136,7 +136,7 @@ public final class FurnaceController {
         imageView.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
-            Optional<Resource> resource = null;
+            Optional<Resource> resource = Optional.empty();
 
 
             if (dragboard.hasString() && dragboard.hasImage()) {

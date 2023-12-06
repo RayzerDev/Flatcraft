@@ -161,6 +161,4 @@ public abstract class AbstractCell implements Cell {
         spriteProperty.set(cell.getSprite());
         resourceProperty.set(cell.getResource());
     }
-
-    public abstract boolean dig(Player player);
 }

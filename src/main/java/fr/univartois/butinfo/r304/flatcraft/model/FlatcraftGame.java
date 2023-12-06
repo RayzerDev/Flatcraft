@@ -400,7 +400,7 @@ public final class FlatcraftGame {
             }
         }
         for (Rule rule: rules) {
-            if(inputRule.toString().equals(rule.getRule())){
+            if(inputRule.toString().equals(rule.getStringRule())){
                 quantityCraft = rule.getQuantity();
                 String nameResource = rule.getProduct();
                 return new Resource(nameResource, ToolType.LOW_TYPE, 5,
