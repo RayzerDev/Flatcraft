@@ -7,7 +7,16 @@ plugins {
     id 'application'
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'eclipse'
 }
+
+//marque les dépendances du projet comme des modules
+eclipse.classpath.file.whenMerged {
+    entries.findAll { it.properties.kind.equals('lib') }.each {
+        it.entryAttributes['module'] = 'true'
+    }
+}
+
 
 // La version du langage Java utilisée dans le projet.
 sourceCompatibility = '17'
@@ -20,6 +29,7 @@ repositories {
 
 // Le nom de la classe contenant la méthode "main".
 application {
+    mainModule = 'fr.univartois.butinfo.r304.flatcraft'
     mainClass = 'fr.univartois.butinfo.r304.flatcraft.Flatcraft'
 }
 
