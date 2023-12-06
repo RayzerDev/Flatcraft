@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Player extends AbstractMovable{
-    private IntegerProperty health, xp;
+    private final IntegerProperty health;
+
+    private final IntegerProperty xp;
     private ObservableMap<Resource,Integer> inventory;
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -81,11 +83,11 @@ public class Player extends AbstractMovable{
         }
     }
 
-    public Optional getResourceInventory(String nameResource){
+    public Optional<Resource> getResourceInventory(String nameResource){
 
-        for (Map.Entry mapentry : inventory.entrySet()){
-            if(((Resource) mapentry.getKey()).getName().equals(nameResource)){
-                return Optional.of((Resource) mapentry.getKey());
+        for (Map.Entry<Resource, Integer> mapentry : inventory.entrySet()){
+            if((mapentry.getKey()).getName().equals(nameResource)){
+                return Optional.of(mapentry.getKey());
             }
         }
         return Optional.empty();
