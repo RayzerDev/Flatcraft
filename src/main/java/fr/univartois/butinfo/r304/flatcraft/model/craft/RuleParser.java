@@ -17,6 +17,10 @@
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
+import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
+import fr.univartois.butinfo.r304.flatcraft.view.SpriteStore;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +42,8 @@ public final class RuleParser {
      */
 
     private final String fileName;
+
+    ISpriteStore spriteStore = new SpriteStore();
 
     private static RuleParser instanceCraft = new RuleParser("craftrules.txt");
 
@@ -101,7 +107,7 @@ public final class RuleParser {
      * @param quantity La quantité obtenue pour la ressource produite.
      */
 
-    private void addRule(String rule, Resource product, int quantity) {
+    private void addRule(String rule, String product, int quantity) {
         Rule rule1 = builder.getRule();
         rule1.setRule(rule);
         rule1.setProduct(product);

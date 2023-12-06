@@ -33,6 +33,8 @@ import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IntelligentMobMovement;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.LinearMobMovement;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.RandomMobMovement;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -383,21 +385,21 @@ public final class FlatcraftGame {
      * @return La ressource produite.
      */
     public Resource craft(Resource[][] inputResources){
-        String inputRule = null;
+        String inputRule = "";
         for(int i = 0;i<3;i++){
             for(int j = 0;j<3;j++){
                 if(inputResources[i][j] == null){
-                    inputRule += "empty_";
+                    inputRule += "empty";
                 }
                 else{
-                    inputRule += inputResources[i][j].toString() + "_";
+                    inputRule += inputResources[i][j].toString();
                 }
             }
         }
         System.out.println(inputRule);
         for (Rule rule: rules) {
             if(inputRule.equals(rule.getRule())){
-                return rule.getProduct();
+                return new Resource(rule.getProduct(), spriteStore.getSprite(rule.getProduct()), ToolType.LOW_TYPE, 5, new InInventoryState(spriteStore.getSprite(rule.getProduct())));
             }
         }
         return null;
@@ -414,8 +416,6 @@ public final class FlatcraftGame {
      */
     public Resource cook(Resource fuel, Resource resource) {
 
-        player.getInventory().remove(fuel);
-        player.getInventory().remove(resource);
         return resource;
     }
 

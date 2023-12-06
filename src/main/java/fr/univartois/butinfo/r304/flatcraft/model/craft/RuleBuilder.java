@@ -24,7 +24,7 @@ public class RuleBuilder implements IBuilder{
     }
 
     @Override
-    public void buildProduct(Resource product) {
+    public void buildProduct(String product) {
         rule.setProduct(product);
     }
 

@@ -6,7 +6,7 @@ public interface IBuilder {
 
     void buildRule(String rule);
 
-    void buildProduct(Resource product);
+    void buildProduct(String product);
 
     void buildQuantite(int quantite);
 }
