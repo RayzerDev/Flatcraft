@@ -17,9 +17,11 @@
 package fr.univartois.butinfo.r304.flatcraft.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.flatcraft.model.craft.Rule;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleBuilder;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
@@ -103,6 +105,8 @@ public final class FlatcraftGame {
     private RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
 
     private RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
+
+    private List<Rule> rules = RuleParser.getRules();
     /**
      * Crée une nouvelle instance de FlatcraftGame.
      *
@@ -378,14 +382,25 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource craft(Resource[][] inputResources) {
-
-        int i = 0;
-        for (Resource[] resources : inputResources){
-            player.getInventory().remove(resources[i]);
-            i++;
+    public Resource craft(Resource[][] inputResources){
+        String inputRule = null;
+        for(int i = 0;i<3;i++){
+            for(int j = 0;j<3;j++){
+                if(inputResources[i][j] == null){
+                    inputRule += "empty_";
+                }
+                else{
+                    inputRule += inputResources[i][j].toString() + "_";
+                }
+            }
         }
-        return inputResources[0][0];
+        System.out.println(inputRule);
+        for (Rule rule: rules) {
+            if(inputRule.equals(rule.getRule())){
+                return rule.getProduct();
+            }
+        }
+        return null;
     }
 
     /**

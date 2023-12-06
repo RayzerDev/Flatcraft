@@ -16,6 +16,8 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model.craft;
 
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,7 +45,7 @@ public final class RuleParser {
 
     private static RuleBuilder builder = new RuleBuilder();
 
-    private List<Rule> rules = new ArrayList<>();
+    private static List<Rule> rules = new ArrayList<>();
 
     /**
      * Crée une nouvelle instance de RuleParser.
@@ -99,7 +101,7 @@ public final class RuleParser {
      * @param quantity La quantité obtenue pour la ressource produite.
      */
 
-    private void addRule(String rule, String product, int quantity) {
+    private void addRule(String rule, Resource product, int quantity) {
         Rule rule1 = builder.getRule();
         rule1.setRule(rule);
         rule1.setProduct(product);
@@ -113,6 +115,10 @@ public final class RuleParser {
 
     public static RuleParser getInstanceFurnace() {
         return instanceFurnace;
+    }
+
+    public static List<Rule> getRules() {
+        return rules;
     }
 }
 
