@@ -19,6 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 import fr.univartois.butinfo.r304.flatcraft.model.craft.Rule;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
@@ -47,6 +48,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public final class FlatcraftGame {
 
+    public static final String NC_FRONT = "nc_front";
     /**
      * La largeur de la carte du jeu affichée (en pixels).
      */
@@ -106,7 +108,7 @@ public final class FlatcraftGame {
 
     private final RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
 
-    private RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
+    private final RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
 
     private final List<Rule> rules = RuleParser.getRules();
     /**
@@ -125,7 +127,6 @@ public final class FlatcraftGame {
         this.cellFactory = factory;
         this.cellFactory.setSpriteStore(spriteStore);
         try{
-            RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
             ruleParserFurnace.parse();
             ruleParserCraft.parse();
         }catch(IOException e){
@@ -170,7 +171,6 @@ public final class FlatcraftGame {
         map = createMap();
         controller.prepare(map);
 
-        // TODO On crée le joueur, qui se trouve sur le sol à gauche de la carte.
         player = new Player(this, 0., (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),
                 spriteStore.getSprite("tool_steelpick"));
         controller.addMovable(player);
@@ -178,19 +178,19 @@ public final class FlatcraftGame {
 
         // On créé 3 mobs passifs
         PassiveMob mobLin = new PassiveMob(this, (double) map.getWidth() /2 * spriteStore.getSpriteSize(),
-                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite(NC_FRONT),
                 new LinearMobMovement());
         controller.addMovable(mobLin);
         movableObjects.add(mobLin);
 
         PassiveMob mobRan = new PassiveMob(this, (double) map.getWidth() /3 * spriteStore.getSpriteSize(),
-                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite(NC_FRONT),
                 new RandomMobMovement());
         controller.addMovable(mobRan);
         movableObjects.add(mobRan);
 
-        PassiveMob mobInt = new PassiveMob(this, map.getWidth()/4 * spriteStore.getSpriteSize(),
-                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite("nc_front"),
+        PassiveMob mobInt = new PassiveMob(this, (double) map.getWidth() /4 * spriteStore.getSpriteSize(),
+                (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite(NC_FRONT),
                 new IntelligentMobMovement(player));
         controller.addMovable(mobInt);
         movableObjects.add(mobInt);
@@ -205,7 +205,8 @@ public final class FlatcraftGame {
             ruleParserCraft.parse();
         }
         catch (IOException e){
-            System.err.println("Erreur lors du parsse du craft");
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.info("Erreur lors du parsse du craft");
         }
         // On démarre l'animation du jeu.
         animation.start();
