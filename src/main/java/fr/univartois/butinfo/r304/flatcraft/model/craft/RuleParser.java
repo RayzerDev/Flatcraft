@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * La classe {@link RuleParser} permet de lire un fichier de règles de craft.
@@ -37,13 +38,13 @@ public final class RuleParser {
 
     private final String fileName;
 
-    private static RuleParser instanceCraft = new RuleParser("craftrules.txt");
+    private static final RuleParser instanceCraft = new RuleParser("craftrules.txt");
 
-    private static RuleParser instanceFurnace = new RuleParser("furnacerules.txt");
+    private static final RuleParser instanceFurnace = new RuleParser("furnacerules.txt");
 
-    private static RuleBuilder builder = new RuleBuilder();
+    private static final RuleBuilder builder = new RuleBuilder();
 
-    private List<Rule> rules = new ArrayList<>();
+    private final List<Rule> rules = new ArrayList<>();
 
     /**
      * Crée une nouvelle instance de RuleParser.
@@ -67,7 +68,7 @@ public final class RuleParser {
 
         try (BufferedReader reader = new BufferedReader(
 
-                new InputStreamReader(getClass().getResourceAsStream(fileName)))) {
+                new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(fileName))))) {
 
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
 
