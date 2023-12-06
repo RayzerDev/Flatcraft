@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +9,7 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2023 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -46,7 +46,7 @@ public final class FurnaceController {
     /**
      * Le combustible et la ressource déposée dans le fourneau.
      */
-    private Resource[] resources = new Resource[2];
+    private final Resource[] resources = new Resource[2];
 
     /**
      * La grille représentant le fourneau dans lequel les ressources sont déposées.
@@ -140,7 +140,6 @@ public final class FurnaceController {
 
 
             if (dragboard.hasString() && dragboard.hasImage()) {
-                // TODO Remplacez cette affectation par la récupération de la ressource dans l'inventaire du joueur.
                  resource = game.getPlayer().getResourceInventory(dragboard.getString());
                 if (resource.isPresent()) {
                     resources[index] = resource.get();
@@ -197,7 +196,6 @@ public final class FurnaceController {
      */
     @FXML
     private void addToInventory() {
-        // TODO Récupérer le joueur ou définir une méthode pour pouvoir effectuer l'ajout.
         game.getPlayer().addInventory(product);
     }
 
@@ -206,7 +204,6 @@ public final class FurnaceController {
      */
     @FXML
     private void clear() {
-        // TODO Remettre les ressources non utilisée dans l'inventaire.
         if(resources[0]!=null)
             game.getPlayer().addInventory(resources[0]);
         if(resources[1]!=null)
