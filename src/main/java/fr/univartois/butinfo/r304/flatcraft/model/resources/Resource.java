@@ -37,7 +37,7 @@ public final class Resource {
     /**
      * Le nom unique identifiant le type de cette ressource.
      */
-    private final String name;
+    private String name;
 
     /**
      * Le type d'outils nécessaire pour extraire cette ressource de la carte.
@@ -80,7 +80,7 @@ public final class Resource {
      * @return Le nom de cette ressource.
      */
     public String getName() {
-        return name;
+        return getSprite().getName();
     }
 
     /**
@@ -99,6 +99,10 @@ public final class Resource {
      */
     public ToolType getToolType() {
         return toolType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

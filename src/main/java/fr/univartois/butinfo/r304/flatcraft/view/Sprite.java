@@ -39,13 +39,20 @@ public final class Sprite {
      */
     private final Image image;
 
+    private String name;
+
     /**
      * Crée une nouvelle instance de {@link Sprite}.
      *
      * @param image L'image associée à l'instance de {@link Sprite}.
      */
-    public Sprite(Image image) {
+    public Sprite(String name, Image image) {
+        this.name = name;
         this.image = image;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**
@@ -94,10 +101,10 @@ public final class Sprite {
                 }
             }
         }
-        return new Sprite(new ImageView(img).getImage());
+        return new Sprite(name, new ImageView(img).getImage());
     }
     /**
-     * Fusionne 2 sprites, considérant que other possède vient compléter le fond vide du sprite en instance.
+     * Fusionne 2 sprites, considérant que possède vient compléter le fond vide du sprite en instance.
      *
      * @return Un nouveau Sprite avec 2 images fusionnées
      */
@@ -113,6 +120,6 @@ public final class Sprite {
                 }
             }
         }
-        return new Sprite(new ImageView(img).getImage());
+        return new Sprite(name, new ImageView(img).getImage());
     }
 }
