@@ -200,7 +200,7 @@ public final class FurnaceController {
      */
     @FXML
     private void addToInventory() {
-        game.getPlayer().addInventory(product);
+        game.getPlayer().addInventory(product,1);
     }
 
     /**
@@ -208,7 +208,6 @@ public final class FurnaceController {
      */
     @FXML
     private void clear() {
-        // TODO Remettre les ressources non utilisée dans l'inventaire.
         if(resources[0]!=null)
             game.getPlayer().addInventory(resources[0],1);
         if(resources[1]!=null)
