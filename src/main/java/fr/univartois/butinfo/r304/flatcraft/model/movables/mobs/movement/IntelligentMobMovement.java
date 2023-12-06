@@ -8,7 +8,7 @@ import java.util.Random;
 public class IntelligentMobMovement implements IMobMovementStrategy{
     private static final Random random = new Random();
 
-    private Player player;
+    private final Player player;
 
     public IntelligentMobMovement(Player player) {
         this.player = player;

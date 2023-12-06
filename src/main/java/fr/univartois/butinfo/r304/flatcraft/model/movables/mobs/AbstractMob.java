@@ -6,7 +6,7 @@ import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.IMobMov
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 
 public abstract class AbstractMob extends AbstractMovable {
-    private IMobMovementStrategy movementStrategy;
+    private final IMobMovementStrategy movementStrategy;
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -23,5 +23,15 @@ public abstract class AbstractMob extends AbstractMovable {
     public boolean move(long delta){
         movementStrategy.move(this);
         return super.move(delta);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

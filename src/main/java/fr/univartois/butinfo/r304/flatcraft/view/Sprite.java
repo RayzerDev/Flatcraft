@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,20 +9,16 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2023 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
 
 package fr.univartois.butinfo.r304.flatcraft.view;
 
-import com.sun.javafx.fxml.builder.JavaFXImageBuilder;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 /**
@@ -41,7 +37,7 @@ public final class Sprite {
     /**
      * L'image associée à cette instance de {@link Sprite}.
      */
-    private Image image;
+    private final Image image;
 
     private String name;
 
@@ -92,6 +88,7 @@ public final class Sprite {
             return this;
         }
         URL urlImage = getClass().getResource("images/crack_anylength.png");
+        assert urlImage != null;
         Image imageDurety = new Image(urlImage.toExternalForm(), 16, 80, true, true);
         WritableImage img = new WritableImage(getWidth(), getHeight());
         for (int i=0;i < getWidth();i++) {
