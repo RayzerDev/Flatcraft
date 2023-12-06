@@ -16,7 +16,7 @@
 
 package fr.univartois.butinfo.r304.flatcraft.view;
 
-import com.sun.javafx.fxml.builder.JavaFXImageBuilder;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
