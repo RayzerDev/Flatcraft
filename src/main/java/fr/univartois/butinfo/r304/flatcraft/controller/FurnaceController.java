@@ -202,7 +202,7 @@ public final class FurnaceController {
     @FXML
     private void addToInventory() {
         game.getPlayer().addInventory(product, 1);
-        clear();
+        clearAfterCook();
         addButton.setDisable(true);
         cookButton.setDisable(false);
         furnaceGrid.setDisable(false);
@@ -214,15 +214,29 @@ public final class FurnaceController {
      */
     @FXML
     private void clear() {
+        if(resources[0] != null){
+            game.getPlayer().addInventory(resources[0], 1);
+        }
+        if(resources[1] != null){
+            game.getPlayer().addInventory(resources[1], 1);
+        }
         resources[0] = null;
         fuelView.setImage(null);
         resources[1] = null;
         resourceView.setImage(null);
-        productView.setImage(null);
+
 
         // On met à jour les actions disponibles.
         cookButton.setDisable(false);
         clearButton.setDisable(false);
+    }
+
+    public void clearAfterCook(){
+        resources[0] = null;
+        resources[1] = null;
+        fuelView.setImage(null);
+        resourceView.setImage(null);
+        productView.setImage(null);
     }
 
 }

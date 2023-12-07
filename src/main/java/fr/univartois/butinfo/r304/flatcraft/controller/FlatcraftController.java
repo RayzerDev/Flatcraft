@@ -178,7 +178,7 @@ public final class FlatcraftController implements IFlatcraftController {
     }
 
     /**
-     * Ajoute les écouteurs de saisie clavier à la fenêtre affichant le jeu.
+     * Ajoute les écouteurs de saisi clavier à la fenêtre affichant le jeu.
      */
     private void addKeyListeners() {
         // L'appui (bref) sur la barre espace déclenche un saut.
@@ -336,14 +336,15 @@ public final class FlatcraftController implements IFlatcraftController {
     @FXML
     private void showCraftTable() throws IOException {
         // On charge la vue et son contrôleur.
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/crafttable.fxml"));
+        System.out.println("coucou");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/flatcraft/view/crafttable.fxml"));
         Parent viewContent = fxmlLoader.load();
         CraftTableController controller = fxmlLoader.getController();
 
         // On initialise le contrôleur.
         controller.setGame(game);
 
-        // On affche la fenêtre.
+        // On affiche la fenêtre.
         Stage crafttableStage = new Stage();
         crafttableStage.initOwner(stage);
         crafttableStage.setScene(new Scene(viewContent));
@@ -358,14 +359,14 @@ public final class FlatcraftController implements IFlatcraftController {
     @FXML
     private void showFurnace() throws IOException {
         // On charge la vue et son contrôleur.
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/furnace.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/flatcraft/view/furnace.fxml"));
         Parent viewContent = fxmlLoader.load();
         FurnaceController controller = fxmlLoader.getController();
 
         // On initialise le contrôleur.
         controller.setGame(game);
 
-        // On affche la fenêtre.
+        // On affiche la fenêtre.
         Stage furnaceStage = new Stage();
         furnaceStage.initOwner(stage);
         furnaceStage.setScene(new Scene(viewContent));

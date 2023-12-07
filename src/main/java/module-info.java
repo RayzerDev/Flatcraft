@@ -12,4 +12,5 @@ module fr.univartois.butinfo.r304.flatcraft {
     requires javafx.graphics;
     requires transitive javafx.controls;
     requires java.desktop;
+    requires java.logging;
 }
