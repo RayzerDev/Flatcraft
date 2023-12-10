@@ -45,6 +45,13 @@ public interface IFlatcraftController {
     void prepare(GameMap map);
 
     /**
+     * Lie la position à gauche de la carte à son affichage dans la vue.
+     *
+     * @param leftAnchor La propriété stockant la position à gauche de la carte.
+     */
+    void bindLeftAnchor(IntegerProperty leftAnchor);
+
+    /**
      * Lie le temps écoulé depuis le début de la partie à son affichage dans la vue.
      *
      * @param timeProperty La propriété stockant le temps écoulé.

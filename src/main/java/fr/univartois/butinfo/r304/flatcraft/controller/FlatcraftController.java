@@ -209,6 +209,19 @@ public final class FlatcraftController implements IFlatcraftController {
     /*
      * (non-Javadoc)
      *
+     * @see
+     * fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController#bindLeftAnchor(
+     * javafx.beans.property.IntegerProperty)
+     */
+    @Override
+    public void bindLeftAnchor(IntegerProperty screenAnchor) {
+        background.translateXProperty().bind(screenAnchor);
+        mainPane.translateXProperty().bind(screenAnchor);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see fr.univartois.butinfo.r304.flatcraft.controller.IFlatcraftController#bindTime(
      * javafx.beans.property.IntegerProperty)
      */
@@ -270,7 +283,8 @@ public final class FlatcraftController implements IFlatcraftController {
                 dragResource(resource);
                 inventory.getChildren().add(resource.getNode());
 
-            } else if (change.wasRemoved() && (!change.wasAdded()) && (change.getValueRemoved() == 1)) {
+            } else if (change.wasRemoved() && (!change.wasAdded())
+                    && (change.getValueRemoved() == 1)) {
                 // La ressource doit être retirée de l'affichage.
                 ResourceInInventory resource = resourcesInInventory.remove(change.getKey());
                 inventory.getChildren().remove(resource.getNode());
