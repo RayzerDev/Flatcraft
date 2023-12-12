@@ -104,12 +104,13 @@ public final class Resource implements Inventoriable {
         return toolType;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Donne la dureté de cet élément.
+     * Il s'agit du nombre de coups devant être appliqués avec un outil pour extraire
+     * cet élément depuis la carte.
      *
-     * @see fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable#getHardness()
+     * @return La dureté de cet élément.
      */
-    @Override
     public int getHardness() {
         return hardness;
     }

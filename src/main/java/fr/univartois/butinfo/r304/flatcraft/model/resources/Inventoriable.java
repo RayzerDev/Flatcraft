@@ -50,13 +50,4 @@ public interface Inventoriable {
      */
     ToolType getToolType();
 
-    /**
-     * Donne la dureté de cet élément.
-     * Il s'agit du nombre de coups devant être appliqués avec un outil pour extraire
-     * cet élément depuis la carte.
-     *
-     * @return La dureté de cet élément.
-     */
-    int getHardness();
-
 }
