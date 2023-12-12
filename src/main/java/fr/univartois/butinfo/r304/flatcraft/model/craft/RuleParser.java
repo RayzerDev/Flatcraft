@@ -55,9 +55,9 @@ public final class RuleParser {
                 String[] splitted = line.split("=");
                 String[] result = splitted[1].split(" ");
                 if (result.length == 1) {
-                    addRule(splitted[0], splitted[1], 1);
+                    addRule(splitted[0], result[0], 1);
                 } else {
-                    addRule(splitted[0], splitted[1], Integer.parseInt(result[1]));
+                    addRule(splitted[0], result[0], Integer.parseInt(result[1]));
                 }
             }
         }
