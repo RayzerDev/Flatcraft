@@ -19,7 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -309,7 +309,7 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource craft(Resource[][] inputResources) {
+    public Inventoriable craft(Inventoriable[][] inputResources) {
         // TODO Vous devez compléter cette méthode.
         throw new UnsupportedOperationException("Pas encore implémentée !");
     }
@@ -323,7 +323,7 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource cook(Resource fuel, Resource resource) {
+    public Inventoriable cook(Inventoriable fuel, Inventoriable resource) {
         // TODO Vous devez compléter cette méthode.
         throw new UnsupportedOperationException("Pas encore implémentée !");
     }

@@ -19,6 +19,7 @@ package fr.univartois.butinfo.r304.flatcraft.controller;
 import java.util.Optional;
 
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,7 +47,7 @@ public final class FurnaceController {
     /**
      * Le combustible et la ressource déposée dans le fourneau.
      */
-    private Resource[] resources = new Resource[2];
+    private Inventoriable[] resources = new Inventoriable[2];
 
     /**
      * La grille représentant le fourneau dans lequel les ressources sont déposées.
@@ -69,7 +70,7 @@ public final class FurnaceController {
     /**
      * Le produit obtenu à l'issue de la cuisson.
      */
-    private Resource product;
+    private Inventoriable product;
 
     /**
      * La vue représentant la ressource produite à l'issue de la cuisson.

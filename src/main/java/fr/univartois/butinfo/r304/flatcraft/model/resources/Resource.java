@@ -29,7 +29,7 @@ import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
  *
  * @version 0.1.0
  */
-public final class Resource {
+public final class Resource implements Inventoriable {
 
     /**
      * Le nom unique identifiant le type de cette ressource.
@@ -74,40 +74,42 @@ public final class Resource {
         this.hardness = hardness;
     }
 
-    /**
-     * Donne le nom unique identifiant le type de cette ressource.
+    /*
+     * (non-Javadoc)
      *
-     * @return Le nom de cette ressource.
+     * @see fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable#getName()
      */
+    @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * Donne le sprite représentant cette ressource.
+    /*
+     * (non-Javadoc)
      *
-     * @return Le sprite représentant cette ressource.
+     * @see fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable#getSprite()
      */
+    @Override
     public Sprite getSprite() {
         return sprite;
     }
 
-    /**
-     * Donne le type d'outils nécessaire pour extraire cette ressource de la carte.
+    /*
+     * (non-Javadoc)
      *
-     * @return Le type d'outils à utiliser.
+     * @see fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable#getToolType()
      */
+    @Override
     public ToolType getToolType() {
         return toolType;
     }
 
-    /**
-     * Donne la dureté de cette ressource.
-     * Il s'agit du nombre de coups devant être appliqués avec un outil pour extraire
-     * cette ressource depuis la map.
+    /*
+     * (non-Javadoc)
      *
-     * @return La dureté de cette ressource.
+     * @see fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable#getHardness()
      */
+    @Override
     public int getHardness() {
         return hardness;
     }
