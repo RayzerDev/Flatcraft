@@ -25,7 +25,7 @@ import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
 import fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.view.ResourceInInventory;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -114,7 +114,7 @@ public final class FlatcraftController implements IFlatcraftController {
     /**
      * Les composants affichant les ressources actuellement dans l'inventaire du joueur.
      */
-    private Map<Resource, ResourceInInventory> resourcesInInventory = new HashMap<>();
+    private Map<Inventoriable, ResourceInInventory> resourcesInInventory = new HashMap<>();
 
     /**
      * Associe à ce contrôleur la fenêtre dans laquelle se déroule le jeu.
@@ -273,8 +273,8 @@ public final class FlatcraftController implements IFlatcraftController {
      * javafx.collections.ObservableMap)
      */
     @Override
-    public void bindInventory(ObservableMap<Resource, Integer> playerInventory) {
-        playerInventory.addListener((MapChangeListener<Resource, Integer>) change -> {
+    public void bindInventory(ObservableMap<Inventoriable, Integer> playerInventory) {
+        playerInventory.addListener((MapChangeListener<Inventoriable, Integer>) change -> {
             if (change.wasAdded() && !resourcesInInventory.containsKey(change.getKey())) {
                 // Il faut ajouter la ressource à l'affichage.
                 ResourceInInventory resource = new ResourceInInventory(change.getKey());

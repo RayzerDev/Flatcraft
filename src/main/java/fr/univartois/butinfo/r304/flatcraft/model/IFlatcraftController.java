@@ -16,7 +16,7 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableMap;
 
@@ -84,7 +84,7 @@ public interface IFlatcraftController {
      *
      * @param playerInventory L'inventaire du joueur.
      */
-    void bindInventory(ObservableMap<Resource, Integer> playerInventory);
+    void bindInventory(ObservableMap<Inventoriable, Integer> playerInventory);
 
     /**
      * Ajoute un objet mobile à l'affichage du jeu.
