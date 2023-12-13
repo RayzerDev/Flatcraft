@@ -47,7 +47,7 @@ public final class FurnaceController {
     /**
      * Le combustible et la ressource déposée dans le fourneau.
      */
-    private final Inventoriable[] resources = new Inventoriable[2];
+    private Inventoriable[] resources = new Inventoriable[2];
 
     /**
      * La grille représentant le fourneau dans lequel les ressources sont déposées.
@@ -137,7 +137,7 @@ public final class FurnaceController {
         imageView.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
-            Optional<Resource> resource = Optional.empty();
+            Optional<Inventoriable> resource = Optional.empty();
 
 
             if (dragboard.hasString() && dragboard.hasImage()) {
@@ -182,7 +182,7 @@ public final class FurnaceController {
     @FXML
     private void cook() {
         // On crée la nouvelle ressource.
-        product = game.cook((Resource) resources[0], (Resource) resources[1]);
+        product = game.cook(resources[0], resources[1]);
 
         if (product != null) {
             // On affiche le produit obtenu.
@@ -202,8 +202,8 @@ public final class FurnaceController {
      */
     @FXML
     private void addToInventory() {
-        game.getPlayer().addInventory((Resource) product, 1);
-        clear();
+        game.getPlayer().addInventory(product, 1);
+        clearAfterCook();
         addButton.setDisable(true);
         cookButton.setDisable(false);
         furnaceGrid.setDisable(false);
@@ -215,15 +215,29 @@ public final class FurnaceController {
      */
     @FXML
     private void clear() {
+        if(resources[0] != null){
+            game.getPlayer().addInventory(resources[0], 1);
+        }
+        if(resources[1] != null){
+            game.getPlayer().addInventory(resources[1], 1);
+        }
         resources[0] = null;
         fuelView.setImage(null);
         resources[1] = null;
         resourceView.setImage(null);
-        productView.setImage(null);
+
 
         // On met à jour les actions disponibles.
         cookButton.setDisable(false);
         clearButton.setDisable(false);
+    }
+
+    public void clearAfterCook(){
+        resources[0] = null;
+        resources[1] = null;
+        fuelView.setImage(null);
+        resourceView.setImage(null);
+        productView.setImage(null);
     }
 
 }

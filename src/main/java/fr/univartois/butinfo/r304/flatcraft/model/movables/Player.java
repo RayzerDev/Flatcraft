@@ -1,6 +1,7 @@
 package fr.univartois.butinfo.r304.flatcraft.model.movables;
 
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -15,7 +16,7 @@ public class Player extends AbstractMovable{
     private final IntegerProperty health;
 
     private final IntegerProperty xp;
-    private ObservableMap<Resource,Integer> inventory;
+    private ObservableMap<Inventoriable,Integer> inventory;
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -44,7 +45,7 @@ public class Player extends AbstractMovable{
         return xp;
     }
 
-    public ObservableMap<Resource, Integer> getInventory() {
+    public ObservableMap<Inventoriable, Integer> getInventory() {
         return inventory;
     }
 
@@ -56,13 +57,13 @@ public class Player extends AbstractMovable{
         this.xp.set(xp);
     }
 
-    public void setInventory(ObservableMap<Resource, Integer> inventory) {
+    public void setInventory(ObservableMap<Inventoriable, Integer> inventory) {
         this.inventory = inventory;
     }
     /**
     Méthode qui ajoute une ressource.
      */
-    public void addInventory(Resource r, int quantity){
+    public void addInventory(Inventoriable r, int quantity){
         if(inventory.containsKey(r)){
             inventory.replace(r,inventory.get(r)+quantity);
         }
@@ -73,7 +74,7 @@ public class Player extends AbstractMovable{
     /**
      Méthode qui supprime une ressource.
      */
-    public void delInventory(Resource r){
+    public void delInventory(Inventoriable r){
         if(inventory.containsKey(r)) {
             if((inventory.get(r))==1){
                 inventory.remove(r);
@@ -83,9 +84,9 @@ public class Player extends AbstractMovable{
         }
     }
 
-    public Optional<Resource> getResourceInventory(String nameResource){
+    public Optional<Inventoriable> getResourceInventory(String nameResource){
 
-        for (Map.Entry<Resource, Integer> mapentry : inventory.entrySet()){
+        for (Map.Entry<Inventoriable, Integer> mapentry : inventory.entrySet()){
             if((mapentry.getKey()).getName().equals(nameResource)){
                 return Optional.of(mapentry.getKey());
             }

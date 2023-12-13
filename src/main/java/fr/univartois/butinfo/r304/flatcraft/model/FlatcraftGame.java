@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 
 import fr.univartois.butinfo.r304.flatcraft.model.craft.Rule;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
 import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
@@ -35,11 +34,11 @@ import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.LinearM
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.RandomMobMovement;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableMap;
 
 /**
  * La classe {@link FlatcraftGame} permet de gérer une partie du jeu Flatcraft.
@@ -64,7 +63,7 @@ public final class FlatcraftGame {
     /**
      * Le nombre de fois que la carte se "répète" horizontalement.
      */
-    private int mapRepeat = 0;
+    private final int mapRepeat;
 
     /**
      * Le contrôleur de l'application.
@@ -90,7 +89,7 @@ public final class FlatcraftGame {
      * La position à gauche de la carte dans la fenêtre.
      * Celle-ci change lorsque l'utilisateur se déplace horizontalement.
      */
-    private final IntegerProperty leftAnchor = new SimpleIntegerProperty(0);
+    private IntegerProperty leftAnchor = new SimpleIntegerProperty(0);
 
     /**
      * Le temps écoulé depuis le début de la partie.
@@ -127,13 +126,14 @@ public final class FlatcraftGame {
     /**
      * Crée une nouvelle instance de FlatcraftGame.
      *
-     * @param width       La largeur de la carte du jeu (en pixels).
-     * @param height      La hauteur de la carte du jeu (en pixels).
+     * @param width La largeur de la carte du jeu (en pixels).
+     * @param height La hauteur de la carte du jeu (en pixels).
+     * @param mapRepeat Le nombre de fois que la carte se "répète" horizontalement.
      * @param spriteStore L'instance de {@link ISpriteStore} permettant de créer les
-     *                    {@link Sprite} du jeu.
-     * @param factory     La fabrique permettant de créer les cellules du jeux.
+     *        {@link Sprite} du jeu.
+     * @param factory La fabrique permettant de créer les cellules du jeux.
      */
-    public FlatcraftGame(int width, int height, ISpriteStore spriteStore, CellFactory factory) {
+    public FlatcraftGame(int width, int height, int mapRepeat, ISpriteStore spriteStore, CellFactory factory) {
         this.width = width;
         this.height = height;
         this.mapRepeat = mapRepeat;
@@ -213,7 +213,7 @@ public final class FlatcraftGame {
         controller.bindLevel(level);
         controller.bindXP( player.getXpProperty());
         controller.bindHealth( player.getHealthProperty());
-        controller.bindInventory((ObservableMap<Inventoriable, Integer>) player.getInventory());
+        controller.bindInventory(player.getInventory());
 
         try {
             ruleParserCraft.parse();
@@ -405,7 +405,7 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource craft(Resource[][] inputResources){
+    public Inventoriable craft(Inventoriable[][] inputResources){
         StringBuilder inputRule = new StringBuilder();
         for(int i = 0;i<3;i++){
             for(int j = 0;j<3;j++){
@@ -440,7 +440,7 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource cook(Resource fuel, Resource resource) {
+    public Inventoriable cook(Inventoriable fuel, Inventoriable resource) {
         String inputRule = resource.getName();
         String nameFuel = fuel.getName();
         if("tree".equals(nameFuel) || "coal_lump".equals(nameFuel)){

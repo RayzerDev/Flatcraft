@@ -115,7 +115,7 @@ public final class FlatcraftController implements IFlatcraftController {
     /**
      * Les composants affichant les ressources actuellement dans l'inventaire du joueur.
      */
-    private Map<Inventoriable, ResourceInInventory> resourcesInInventory = new HashMap<>();
+    private final Map<Inventoriable, ResourceInInventory> resourcesInInventory = new HashMap<>();
 
     /**
      * Associe à ce contrôleur la fenêtre dans laquelle se déroule le jeu.
@@ -178,7 +178,7 @@ public final class FlatcraftController implements IFlatcraftController {
     }
 
     /**
-     * Ajoute les écouteurs de saisie clavier à la fenêtre affichant le jeu.
+     * Ajoute les écouteurs de saisi clavier à la fenêtre affichant le jeu.
      */
     private void addKeyListeners() {
         // L'appui (bref) sur la barre espace déclenche un saut.
@@ -323,6 +323,7 @@ public final class FlatcraftController implements IFlatcraftController {
             case DOWN -> game.moveDown();
             case LEFT -> game.moveLeft();
             case RIGHT -> game.moveRight();
+            default -> throw new UnsupportedOperationException();
         }
     }
 
@@ -331,13 +332,13 @@ public final class FlatcraftController implements IFlatcraftController {
      *
      * @param code Le code de la touche sur laquelle le joueur a appuyé.
      */
-    @SuppressWarnings("incomplete-switch")
     private void dig(KeyCode code) {
         switch (code) {
             case UP -> game.digUp();
             case DOWN -> game.digDown();
             case LEFT -> game.digLeft();
             case RIGHT -> game.digRight();
+            default -> throw new UnsupportedOperationException();
         }
     }
 
@@ -349,14 +350,15 @@ public final class FlatcraftController implements IFlatcraftController {
     @FXML
     private void showCraftTable() throws IOException {
         // On charge la vue et son contrôleur.
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/crafttable.fxml"));
+        System.out.println("coucou");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/flatcraft/view/crafttable.fxml"));
         Parent viewContent = fxmlLoader.load();
         CraftTableController controller = fxmlLoader.getController();
 
         // On initialise le contrôleur.
         controller.setGame(game);
 
-        // On affche la fenêtre.
+        // On affiche la fenêtre.
         Stage crafttableStage = new Stage();
         crafttableStage.initOwner(stage);
         crafttableStage.setScene(new Scene(viewContent));
@@ -371,14 +373,14 @@ public final class FlatcraftController implements IFlatcraftController {
     @FXML
     private void showFurnace() throws IOException {
         // On charge la vue et son contrôleur.
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/furnace.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/flatcraft/view/furnace.fxml"));
         Parent viewContent = fxmlLoader.load();
         FurnaceController controller = fxmlLoader.getController();
 
         // On initialise le contrôleur.
         controller.setGame(game);
 
-        // On affche la fenêtre.
+        // On affiche la fenêtre.
         Stage furnaceStage = new Stage();
         furnaceStage.initOwner(stage);
         furnaceStage.setScene(new Scene(viewContent));
@@ -401,9 +403,9 @@ public final class FlatcraftController implements IFlatcraftController {
         });
 
         // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
+        resource.getNode().setOnDragDone(Event::consume);
         resource.getNode().setOnDragDone(event -> {
             if (event.getAcceptingObject() != null) {
-                // TODO Retirer de l'inventaire du joueur la ressource qui a été déposée.
                 event.consume();
             }
         });
