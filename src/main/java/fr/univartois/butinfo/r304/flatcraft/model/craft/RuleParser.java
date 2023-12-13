@@ -77,13 +77,9 @@ public final class RuleParser {
                 String[] result = splitted[1].split(" ");
 
                 if (result.length == 1) {
-
                     addRule(splitted[0], result[0], 1);
-
                 } else {
-
                     addRule(splitted[0], result[0], Integer.parseInt(result[1]));
-
                 }
 
             }

@@ -25,7 +25,7 @@ import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
 import fr.univartois.butinfo.r304.flatcraft.model.GameMap;
 import fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController;
 import fr.univartois.butinfo.r304.flatcraft.model.IMovable;
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.view.ResourceInInventory;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -115,7 +115,7 @@ public final class FlatcraftController implements IFlatcraftController {
     /**
      * Les composants affichant les ressources actuellement dans l'inventaire du joueur.
      */
-    private final Map<Resource, ResourceInInventory> resourcesInInventory = new HashMap<>();
+    private Map<Inventoriable, ResourceInInventory> resourcesInInventory = new HashMap<>();
 
     /**
      * Associe à ce contrôleur la fenêtre dans laquelle se déroule le jeu.
@@ -210,6 +210,19 @@ public final class FlatcraftController implements IFlatcraftController {
     /*
      * (non-Javadoc)
      *
+     * @see
+     * fr.univartois.butinfo.r304.flatcraft.model.IFlatcraftController#bindLeftAnchor(
+     * javafx.beans.property.IntegerProperty)
+     */
+    @Override
+    public void bindLeftAnchor(IntegerProperty screenAnchor) {
+        background.translateXProperty().bind(screenAnchor);
+        mainPane.translateXProperty().bind(screenAnchor);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see fr.univartois.butinfo.r304.flatcraft.controller.IFlatcraftController#bindTime(
      * javafx.beans.property.IntegerProperty)
      */
@@ -261,8 +274,8 @@ public final class FlatcraftController implements IFlatcraftController {
      * javafx.collections.ObservableMap)
      */
     @Override
-    public void bindInventory(ObservableMap<Resource, Integer> playerInventory) {
-        playerInventory.addListener((MapChangeListener<Resource, Integer>) change -> {
+    public void bindInventory(ObservableMap<Inventoriable, Integer> playerInventory) {
+        playerInventory.addListener((MapChangeListener<Inventoriable, Integer>) change -> {
             if (change.wasAdded() && !resourcesInInventory.containsKey(change.getKey())) {
                 // Il faut ajouter la ressource à l'affichage.
                 ResourceInInventory resource = new ResourceInInventory(change.getKey());
@@ -271,7 +284,8 @@ public final class FlatcraftController implements IFlatcraftController {
                 dragResource(resource);
                 inventory.getChildren().add(resource.getNode());
 
-            } else if (change.wasRemoved() && (!change.wasAdded()) && (change.getValueRemoved() == 1)) {
+            } else if (change.wasRemoved() && (!change.wasAdded())
+                    && (change.getValueRemoved() == 1)) {
                 // La ressource doit être retirée de l'affichage.
                 ResourceInInventory resource = resourcesInInventory.remove(change.getKey());
                 inventory.getChildren().remove(resource.getNode());
@@ -309,7 +323,6 @@ public final class FlatcraftController implements IFlatcraftController {
             case DOWN -> game.moveDown();
             case LEFT -> game.moveLeft();
             case RIGHT -> game.moveRight();
-            default -> throw new UnsupportedOperationException();
         }
     }
 
@@ -318,13 +331,13 @@ public final class FlatcraftController implements IFlatcraftController {
      *
      * @param code Le code de la touche sur laquelle le joueur a appuyé.
      */
+    @SuppressWarnings("incomplete-switch")
     private void dig(KeyCode code) {
         switch (code) {
             case UP -> game.digUp();
             case DOWN -> game.digDown();
             case LEFT -> game.digLeft();
             case RIGHT -> game.digRight();
-            default -> throw new UnsupportedOperationException();
         }
     }
 
@@ -388,9 +401,9 @@ public final class FlatcraftController implements IFlatcraftController {
         });
 
         // Lorsque la ressource est déposée, elle est retirée de l'inventaire du joueur.
-        resource.getNode().setOnDragDone(Event::consume);
         resource.getNode().setOnDragDone(event -> {
             if (event.getAcceptingObject() != null) {
+                // TODO Retirer de l'inventaire du joueur la ressource qui a été déposée.
                 event.consume();
             }
         });
