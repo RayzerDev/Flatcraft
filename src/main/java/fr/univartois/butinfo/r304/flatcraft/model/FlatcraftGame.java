@@ -34,6 +34,7 @@ import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.LinearM
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.movement.RandomMobMovement;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.ToolType;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.location.InInventoryState;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 import fr.univartois.butinfo.r304.flatcraft.view.Sprite;
 import javafx.beans.property.IntegerProperty;
@@ -60,6 +61,11 @@ public final class FlatcraftGame {
     private final int height;
 
     /**
+     * Le nombre de fois que la carte se "répète" horizontalement.
+     */
+    private final int mapRepeat;
+
+    /**
      * Le contrôleur de l'application.
      */
     private IFlatcraftController controller;
@@ -78,6 +84,12 @@ public final class FlatcraftGame {
      * La carte du jeu, sur laquelle le joueur évolue.
      */
     private GameMap map;
+
+    /**
+     * La position à gauche de la carte dans la fenêtre.
+     * Celle-ci change lorsque l'utilisateur se déplace horizontalement.
+     */
+    private IntegerProperty leftAnchor = new SimpleIntegerProperty(0);
 
     /**
      * Le temps écoulé depuis le début de la partie.
@@ -116,13 +128,15 @@ public final class FlatcraftGame {
      *
      * @param width La largeur de la carte du jeu (en pixels).
      * @param height La hauteur de la carte du jeu (en pixels).
+     * @param mapRepeat Le nombre de fois que la carte se "répète" horizontalement.
      * @param spriteStore L'instance de {@link ISpriteStore} permettant de créer les
      *        {@link Sprite} du jeu.
      * @param factory La fabrique permettant de créer les cellules du jeux.
      */
-    public FlatcraftGame(int width, int height, ISpriteStore spriteStore, CellFactory factory) {
+    public FlatcraftGame(int width, int height, int mapRepeat, ISpriteStore spriteStore, CellFactory factory) {
         this.width = width;
         this.height = height;
+        this.mapRepeat = mapRepeat;
         this.spriteStore = spriteStore;
         this.cellFactory = factory;
         this.cellFactory.setSpriteStore(spriteStore);
@@ -142,7 +156,7 @@ public final class FlatcraftGame {
      * @return La largeur de la carte du jeu affichée (en pixels).
      */
     public int getWidth() {
-        return width;
+        return width * mapRepeat;
     }
 
     /**
@@ -279,6 +293,7 @@ public final class FlatcraftGame {
      * @param movable L'objet à déplacer.
      */
     private void move(IMovable movable) {
+        // On applique la gravité.
         Cell currentCell = getCellOf(movable);
         for (int row = currentCell.getRow() + 1; row < map.getHeight(); row++) {
             Cell below = map.getAt(row, currentCell.getColumn());
@@ -286,6 +301,11 @@ public final class FlatcraftGame {
                 break;
             }
         }
+
+        // On positionne la carte pour afficher la section où se trouve le joueur.
+        int middlePosition = player.getX() + player.getWidth() / 2;
+        int mapSection = middlePosition / width;
+        leftAnchor.set(-mapSection * width);
     }
 
     /**
@@ -385,7 +405,7 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource craft(Resource[][] inputResources){
+    public Inventoriable craft(Inventoriable[][] inputResources){
         StringBuilder inputRule = new StringBuilder();
         for(int i = 0;i<3;i++){
             for(int j = 0;j<3;j++){
@@ -420,7 +440,7 @@ public final class FlatcraftGame {
      *
      * @return La ressource produite.
      */
-    public Resource cook(Resource fuel, Resource resource) {
+    public Inventoriable cook(Inventoriable fuel, Inventoriable resource) {
         String inputRule = resource.getName();
         String nameFuel = fuel.getName();
         if("tree".equals(nameFuel) || "coal_lump".equals(nameFuel)){

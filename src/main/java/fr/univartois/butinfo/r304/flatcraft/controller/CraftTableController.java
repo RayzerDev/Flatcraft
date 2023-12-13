@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import fr.univartois.butinfo.r304.flatcraft.model.FlatcraftGame;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -49,7 +50,7 @@ public final class CraftTableController {
     /**
      * Les ressources déposées sur la table de craft.
      */
-    private Resource[][] resources;
+    private Inventoriable[][] resources;
 
     /**
      * La grille représentant la table sur laquelle les ressources sont déposées.
@@ -65,7 +66,7 @@ public final class CraftTableController {
     /**
      * Le produit obtenu à l'issue du craft.
      */
-    private Resource product;
+    private Inventoriable product;
 
     private int quantity;
     /**
@@ -98,7 +99,7 @@ public final class CraftTableController {
     @FXML
     private void initialize() {
         // On initialise le tableau des ressources, qui est initialement vide.
-        this.resources = new Resource[craftGrid.getRowCount()][craftGrid.getColumnCount()];
+        this.resources = new Inventoriable[craftGrid.getRowCount()][craftGrid.getColumnCount()];
 
         // On initialise ensuite les vues pour ces ressources.
         this.resourceViews = new ImageView[craftGrid.getRowCount()][craftGrid.getColumnCount()];
@@ -115,7 +116,7 @@ public final class CraftTableController {
                 GridPane.setValignment(resourceViews[i][j], VPos.CENTER);
                 resourceViews[i][j].setPickOnBounds(true);
 
-                // On ajoute la possibilité de déposer des ressource sur la grille.
+                // On ajoute la possibilité de déposer des ressources sur la grille.
                 dropResource(resourceViews[i][j], i, j);
 
                 // On ajoute la vue à la grille.
@@ -155,7 +156,7 @@ public final class CraftTableController {
         imageView.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
-            Optional<Resource> resource = Optional.empty();
+            Optional<Inventoriable> resource = Optional.empty();
 
             if (dragboard.hasString() && dragboard.hasImage()) {
                 resource = game.getPlayer().getResourceInventory(dragboard.getString());
@@ -201,7 +202,9 @@ public final class CraftTableController {
     private void craft() {
         // On crée la nouvelle ressource.
         product = game.craft(resources);
-        productView.setImage(product.getSprite().getImage());
+        if(product != null){
+            productView.setImage(product.getSprite().getImage());
+        }
         quantity = game.getQuantityCraft();
 
             // On met à jour les actions disponibles.
@@ -217,9 +220,8 @@ public final class CraftTableController {
      */
     @FXML
     private void addToInventory() {
-        game.getPlayer().addInventory(product,1);
         game.getPlayer().addInventory(product, quantity);
-        clear();
+        clearAfterCraft();
         addButton.setDisable(true);
         craftGrid.setDisable(false);
         craftButton.setDisable(false);
@@ -240,11 +242,20 @@ public final class CraftTableController {
                 resourceViews[i][j].setImage(null);
             }
         }
-        productView.setImage(null);
 
         // On met à jour les actions disponibles.
         craftButton.setDisable(false);
         clearButton.setDisable(false);
+    }
+
+    public void clearAfterCraft(){
+        for (int i = 0; i < resources.length; i++) {
+            for (int j = 0; j < resources[i].length; j++) {
+                resources[i][j] = null;
+                resourceViews[i][j].setImage(null);
+            }
+        }
+        productView.setImage(null);
     }
 
 }
