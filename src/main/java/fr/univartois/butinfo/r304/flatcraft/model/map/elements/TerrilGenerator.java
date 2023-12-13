@@ -16,15 +16,17 @@ public class TerrilGenerator {
         this.factory = factory;
     }
 
-    public void generateTerril(GameMap map, int maxTerrilSize) {
+    public void generateTerril(GameMap map,int numberOfTerril, int maxTerrilSize) {
     	int soilHeight = map.getSoilHeight();
-        int startX = random.nextInt(maxTerrilSize/2, map.getWidth());
-        for (int i = maxTerrilSize; i > 0; i--) {
-            for (int j = 0; j < i * 2 - 1; j++) {
-                Cell cell = factory.createFirstSubSoil();
-                int x = startX + j - i + 1;
-                int y = soilHeight - maxTerrilSize + i;
-                map.setAt(y, x, cell);
+        for(int k = 0;k<numberOfTerril;k++){
+            int startX = random.nextInt(maxTerrilSize/2, map.getWidth());
+            for (int i = maxTerrilSize; i > 0; i--) {
+                for (int j = 0; j < i * 2 - 1; j++) {
+                    Cell cell = factory.createFirstSubSoil();
+                    int x = startX + j - i + 1;
+                    int y = soilHeight - maxTerrilSize + i;
+                    map.setAt(y, x, cell);
+                }
             }
         }
     }
