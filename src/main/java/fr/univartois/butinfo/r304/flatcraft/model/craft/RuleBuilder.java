@@ -9,7 +9,7 @@ public class RuleBuilder implements IBuilder{
     }
 
     public void createRule() {
-        rule = new Rule();
+        this.rule = new Rule();
     }
 
     public Rule getRule() {

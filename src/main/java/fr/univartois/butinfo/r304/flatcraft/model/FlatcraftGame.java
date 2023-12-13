@@ -214,6 +214,7 @@ public final class FlatcraftGame {
         controller.bindXP( player.getXpProperty());
         controller.bindHealth( player.getHealthProperty());
         controller.bindInventory(player.getInventory());
+        controller.bindLeftAnchor(leftAnchor);
 
         try {
             ruleParserCraft.parse();
