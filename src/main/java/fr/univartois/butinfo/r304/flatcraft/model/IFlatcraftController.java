@@ -16,7 +16,7 @@
 
 package fr.univartois.butinfo.r304.flatcraft.model;
 
-import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
+import fr.univartois.butinfo.r304.flatcraft.model.resources.Inventoriable;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableMap;
 
@@ -43,6 +43,13 @@ public interface IFlatcraftController {
      * @param map La carte du jeu.
      */
     void prepare(GameMap map);
+
+    /**
+     * Lie la position à gauche de la carte à son affichage dans la vue.
+     *
+     * @param leftAnchor La propriété stockant la position à gauche de la carte.
+     */
+    void bindLeftAnchor(IntegerProperty leftAnchor);
 
     /**
      * Lie le temps écoulé depuis le début de la partie à son affichage dans la vue.
@@ -77,7 +84,7 @@ public interface IFlatcraftController {
      *
      * @param playerInventory L'inventaire du joueur.
      */
-    void bindInventory(ObservableMap<Resource, Integer> playerInventory);
+    void bindInventory(ObservableMap<Inventoriable, Integer> playerInventory);
 
     /**
      * Ajoute un objet mobile à l'affichage du jeu.
