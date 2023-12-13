@@ -8,17 +8,20 @@ import fr.univartois.butinfo.r304.flatcraft.model.map.elements.TreeGenerator;
 import fr.univartois.butinfo.r304.flatcraft.view.ISpriteStore;
 
 
-public class MyGenarateMap implements IFabricMap{
-    private int heigth;
-    private int width;
+public class MyGenerateMap implements IFabricMap{
+    private final int height;
+    private final int width;
+
+    private final int mapRepeat;
 
     private CellFactory cellFactory;
 
 
-    public MyGenarateMap(int heigth, int width, CellFactory factory) {
-        this.heigth = heigth;
+    public MyGenerateMap(int height, int width, CellFactory factory , int mapRepeat) {
+        this.height = height;
         this.width = width;
         this.cellFactory = factory;
+        this.mapRepeat = mapRepeat;
     }
 
     public void setSpriteStore(ISpriteStore spriteStore) {
@@ -30,17 +33,17 @@ public class MyGenarateMap implements IFabricMap{
     }
 
     private SimpleGameMap createSimpleMap() {
-        int soilHeigth = heigth/2;
-        SimpleGameMap map = new SimpleGameMap(heigth, width, soilHeigth);
-        for (int i = 0; i < heigth; i++) {
+        int soilHeight = height/2;
+        SimpleGameMap map = new SimpleGameMap(height, width, soilHeight);
+        for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if (i < soilHeigth) {
+                if (i < soilHeight) {
                     Cell cell = cellFactory.createSky();
                     map.setAt(i, j, cell);
-                } else if (i == soilHeigth) {
+                } else if (i == soilHeight) {
                     Cell cell = cellFactory.createSoilSurface();
                     map.setAt(i, j, cell);
-                } else if (i < soilHeigth + 7) {
+                } else if (i < soilHeight + 7) {
                     Cell cell = cellFactory.createFirstSubSoil();
                     map.setAt(i, j, cell);
                 }
@@ -55,10 +58,10 @@ public class MyGenarateMap implements IFabricMap{
     public GameMap createMapA() {
         SimpleGameMap map = createSimpleMap();
         TerrilGenerator terrilGenerator = new TerrilGenerator(cellFactory);
-        terrilGenerator.generateTerril(map, 3);
+        terrilGenerator.generateTerril(map,3, 8);
 
         TreeGenerator treeGenerator = new TreeGenerator(cellFactory);
-        treeGenerator.generateTrees(map, 5, 4);
+        treeGenerator.generateTrees(map, mapRepeat*8, 4);
         return map;
     }
     @Override
@@ -66,7 +69,7 @@ public class MyGenarateMap implements IFabricMap{
         SimpleGameMap map = createSimpleMap();
 
         TerrilGenerator terrilGenerator = new TerrilGenerator(cellFactory);
-        terrilGenerator.generateTerril(map, 3);
+        terrilGenerator.generateTerril(map, 2,3);
 
         return map;
     }

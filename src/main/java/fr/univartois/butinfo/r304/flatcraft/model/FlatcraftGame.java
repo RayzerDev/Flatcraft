@@ -23,9 +23,9 @@ import java.util.logging.Logger;
 
 import fr.univartois.butinfo.r304.flatcraft.model.craft.Rule;
 import fr.univartois.butinfo.r304.flatcraft.model.craft.RuleParser;
+import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenerateMap;
 import fr.univartois.butinfo.r304.flatcraft.model.resources.Resource;
 import fr.univartois.butinfo.r304.flatcraft.model.map.IFabricMap;
-import fr.univartois.butinfo.r304.flatcraft.model.map.MyGenarateMap;
 import fr.univartois.butinfo.r304.flatcraft.model.map.cell.factory.CellFactory;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.Player;
 import fr.univartois.butinfo.r304.flatcraft.model.movables.mobs.PassiveMob;
@@ -89,7 +89,7 @@ public final class FlatcraftGame {
      * La position à gauche de la carte dans la fenêtre.
      * Celle-ci change lorsque l'utilisateur se déplace horizontalement.
      */
-    private IntegerProperty leftAnchor = new SimpleIntegerProperty(0);
+    private final IntegerProperty leftAnchor = new SimpleIntegerProperty(0);
 
     /**
      * Le temps écoulé depuis le début de la partie.
@@ -120,8 +120,6 @@ public final class FlatcraftGame {
 
     private final RuleParser ruleParserCraft = RuleParser.getInstanceCraft();
 
-    private final RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
-
     private final List<Rule> rules = RuleParser.getRules();
     /**
      * Crée une nouvelle instance de FlatcraftGame.
@@ -131,7 +129,7 @@ public final class FlatcraftGame {
      * @param mapRepeat Le nombre de fois que la carte se "répète" horizontalement.
      * @param spriteStore L'instance de {@link ISpriteStore} permettant de créer les
      *        {@link Sprite} du jeu.
-     * @param factory La fabrique permettant de créer les cellules du jeux.
+     * @param factory La fabrique permettant de créer les cellules du jeu.
      */
     public FlatcraftGame(int width, int height, int mapRepeat, ISpriteStore spriteStore, CellFactory factory) {
         this.width = width;
@@ -141,6 +139,7 @@ public final class FlatcraftGame {
         this.cellFactory = factory;
         this.cellFactory.setSpriteStore(spriteStore);
         try{
+            RuleParser ruleParserFurnace = RuleParser.getInstanceFurnace();
             ruleParserFurnace.parse();
             ruleParserCraft.parse();
         }catch(IOException e){
@@ -190,7 +189,7 @@ public final class FlatcraftGame {
         controller.addMovable(player);
         movableObjects.add(player);
 
-        // On créé 3 mobs passifs
+        // On créait 3 mobs passives
         PassiveMob mobLin = new PassiveMob(this, (double) map.getWidth() /2 * spriteStore.getSpriteSize(),
                 (map.getSoilHeight() - 1.) * spriteStore.getSpriteSize(),spriteStore.getSprite(NC_FRONT),
                 new LinearMobMovement());
@@ -214,13 +213,14 @@ public final class FlatcraftGame {
         controller.bindXP( player.getXpProperty());
         controller.bindHealth( player.getHealthProperty());
         controller.bindInventory(player.getInventory());
+        controller.bindLeftAnchor(leftAnchor);
 
         try {
             ruleParserCraft.parse();
         }
         catch (IOException e){
             Logger logger = Logger.getLogger(getClass().getName());
-            logger.info("Erreur lors du parsse du craft");
+            logger.info("Erreur lors du parse du craft");
         }
         // On démarre l'animation du jeu.
         animation.start();
@@ -233,9 +233,9 @@ public final class FlatcraftGame {
      */
     private GameMap createMap() {
         int spriteSize = spriteStore.getSpriteSize();
-        int cellHeigth = height/spriteSize;
-        int cellWidth = width/spriteSize;
-        IFabricMap fabricMap = new MyGenarateMap(cellHeigth, cellWidth, cellFactory);
+        int cellHeight = height/spriteSize;
+        int cellWidth = getWidth()/spriteSize;
+        IFabricMap fabricMap = new MyGenerateMap(cellHeight, cellWidth, cellFactory, mapRepeat);
         fabricMap.setSpriteStore(spriteStore);
         map = fabricMap.createMapA();
         return map;
@@ -290,7 +290,7 @@ public final class FlatcraftGame {
     /**
      * Déplace un objet mobile en tenant compte de la gravité.
      *
-     * @param movable L'objet à déplacer.
+     * @param movable L'objet a déplacé.
      */
     private void move(IMovable movable) {
         // On applique la gravité.
@@ -377,7 +377,7 @@ public final class FlatcraftGame {
     }
 
     /**
-     * Récupére la cellule correspondant à la position d'un objet mobile.
+     * Récupère la cellule correspondant à la position d'un objet mobile.
      * Il s'agit de la cellule sur laquelle l'objet en question occupe le plus de place.
      *
      * @param movable L'objet mobile dont la cellule doit être récupérée.
