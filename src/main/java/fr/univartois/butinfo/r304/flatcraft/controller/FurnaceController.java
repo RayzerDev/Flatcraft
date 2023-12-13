@@ -182,7 +182,7 @@ public final class FurnaceController {
     @FXML
     private void cook() {
         // On crée la nouvelle ressource.
-        product = game.cook(resources[0], resources[1]);
+        product = game.cook((Resource) resources[0], (Resource) resources[1]);
 
         if (product != null) {
             // On affiche le produit obtenu.
@@ -202,7 +202,7 @@ public final class FurnaceController {
      */
     @FXML
     private void addToInventory() {
-        game.getPlayer().addInventory(product, 1);
+        game.getPlayer().addInventory((Resource) product, 1);
         clear();
         addButton.setDisable(true);
         cookButton.setDisable(false);

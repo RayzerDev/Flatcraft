@@ -201,7 +201,7 @@ public final class CraftTableController {
     @FXML
     private void craft() {
         // On crée la nouvelle ressource.
-        product = game.craft(resources);
+        product = game.craft((Resource[][]) resources);
         productView.setImage(product.getSprite().getImage());
         quantity = game.getQuantityCraft();
 
@@ -218,8 +218,8 @@ public final class CraftTableController {
      */
     @FXML
     private void addToInventory() {
-        game.getPlayer().addInventory(product,1);
-        game.getPlayer().addInventory(product, quantity);
+        game.getPlayer().addInventory((Resource) product,1);
+        game.getPlayer().addInventory((Resource) product, quantity);
         clear();
         addButton.setDisable(true);
         craftGrid.setDisable(false);
@@ -236,7 +236,7 @@ public final class CraftTableController {
         for (int i = 0; i < resources.length; i++) {
             for (int j = 0; j < resources[i].length; j++) {
                 if(resources[i][j] != null)
-                    game.getPlayer().addInventory(resources[i][j], 1);
+                    game.getPlayer().addInventory((Resource) resources[i][j], 1);
                 resources[i][j] = null;
                 resourceViews[i][j].setImage(null);
             }
